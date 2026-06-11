@@ -204,17 +204,10 @@ section{
 
 <script>
 function mostrar(event, id){
-
-    document.querySelectorAll('.pagina').forEach(p => {
-        p.classList.remove('ativa');
-    });
+    document.querySelectorAll('.pagina').forEach(p => p.classList.remove('ativa'));
+    document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('ativo'));
 
     document.getElementById(id).classList.add('ativa');
-
-    document.querySelectorAll('.tabs button').forEach(btn => {
-        btn.classList.remove('ativo');
-    });
-
     event.currentTarget.classList.add('ativo');
 }
 
