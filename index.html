@@ -20,7 +20,6 @@ body{
     background-position:center;
     background-repeat:no-repeat;
     background-attachment:fixed;
-
     color:white;
     min-height:100vh;
     display:flex;
@@ -69,6 +68,7 @@ body::before{
     background:#00ffff;
     color:black;
     box-shadow:0 0 10px #00ffff, 0 0 20px #00ffff;
+    transform:scale(1.05);
 }
 
 .tabs button.ativo{
@@ -122,14 +122,22 @@ body::before{
     margin-bottom:10px;
 }
 
+/* BOTÃO DOWNLOAD MELHORADO */
 .card a{
     display:inline-block;
-    padding:8px 12px;
-    background:#00ffff;
+    padding:10px 14px;
+    background:linear-gradient(90deg,#00ffff,#0088ff);
     color:black;
     border-radius:8px;
     text-decoration:none;
     font-weight:bold;
+    box-shadow:0 0 10px #00ffff;
+    transition:0.3s;
+}
+
+.card a:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px #00ffff;
 }
 
 /* FEEDBACK */
@@ -157,6 +165,7 @@ body::before{
     cursor:pointer;
     background:#00ffff;
     font-weight:bold;
+    box-shadow:0 0 10px #00ffff;
 }
 
 .hero{
@@ -185,7 +194,7 @@ body::before{
     <!-- INICIO -->
     <section id="inicio" class="pagina ativa">
         <div class="hero">
-            <h1>⚡Portal Nebuloso ⚡</h1>
+            <h1>⚡ Nebula Mods Store ⚡</h1>
             <p>Os melhores mods reunidos em um só lugar</p>
         </div>
     </section>
@@ -245,7 +254,7 @@ function mostrar(event, id){
     event.currentTarget.classList.add('ativo');
 }
 
-// ENVIO PARA DISCORD
+/* FEEDBACK DISCORD */
 function enviarFeedback(){
 
     const msg = document.getElementById("msg").value;
@@ -255,17 +264,17 @@ function enviarFeedback(){
         return;
     }
 
-    fetch("https://discord.com/api/webhooks/1514650773303066704/UytEJ8u-3P1YtaZiJf0UTh5nN4nuSMWOeA8Kui5jHrhzNpF0foNXGHpptFWkLnaSt9l6", {
+    fetch("https://discord.com/api/webhooks/SEU_WEBHOOK_AQUI", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            content: "💬 **Novo Feedback Nebula Mods:**\n" + msg
+            content: "💬 **Feedback Nebula Mods:**\n" + msg
         })
     });
 
-    alert("Feedback enviado pro Discord!");
+    alert("Feedback enviado!");
     document.getElementById("msg").value = "";
 }
 </script>
