@@ -28,7 +28,7 @@ body{
     align-items:center;
 }
 
-/* overlay pra destacar UI */
+/* overlay */
 body::before{
     content:"";
     position:fixed;
@@ -65,15 +65,12 @@ body::before{
     box-shadow:0 0 5px rgba(0,255,255,0.1);
 }
 
-/* hover neon */
 .tabs button:hover{
     background:#00ffff;
     color:black;
     box-shadow:0 0 10px #00ffff, 0 0 20px #00ffff;
-    transform:scale(1.05);
 }
 
-/* ativo neon forte */
 .tabs button.ativo{
     background:#00ffff;
     color:black;
@@ -82,7 +79,6 @@ body::before{
         0 0 25px #00ffff,
         0 0 50px #00ffff,
         0 0 80px #00ffff;
-    transform:scale(1.08);
 }
 
 /* PAGINAS */
@@ -116,8 +112,8 @@ body::before{
 }
 
 .card h3{
-    margin:10px 0;
     color:#00ffff;
+    margin:10px 0;
 }
 
 .card p{
@@ -136,7 +132,33 @@ body::before{
     font-weight:bold;
 }
 
-/* HERO */
+/* FEEDBACK */
+.feedback-box{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-width:500px;
+    margin:auto;
+}
+
+.feedback-box textarea{
+    height:120px;
+    resize:none;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    outline:none;
+}
+
+.feedback-box button{
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#00ffff;
+    font-weight:bold;
+}
+
 .hero{
     text-align:center;
     margin-bottom:20px;
@@ -157,6 +179,7 @@ body::before{
         <button onclick="mostrar(event,'inicio')">🏠 Início</button>
         <button onclick="mostrar(event,'mods')">🛒 Mods</button>
         <button onclick="mostrar(event,'discord')">🎮 Discord</button>
+        <button onclick="mostrar(event,'feedback')">💬 Feedback</button>
     </div>
 
     <!-- INICIO -->
@@ -179,14 +202,8 @@ body::before{
 
             <div class="card">
                 <h3>Starlight Pack</h3>
-                <p>Skins exclusivas e efeitos</p>
+                <p>Skins exclusivas</p>
                 <a href="https://play.google.com/store/search?q=starlight+among+us&c=apps">Baixar</a>
-            </div>
-
-            <div class="card">
-                <h3>FPS Boost</h3>
-                <p>Melhora desempenho do jogo</p>
-                <a href="#">Baixar</a>
             </div>
 
         </div>
@@ -195,8 +212,20 @@ body::before{
     <!-- DISCORD -->
     <section id="discord" class="pagina">
         <div class="hero">
-            <h1>Discord da Comunidade</h1>
+            <h1>Discord</h1>
             <a href="https://discord.gg/S9ggHtngD6" style="color:#00ffff;">Entrar</a>
+        </div>
+    </section>
+
+    <!-- FEEDBACK -->
+    <section id="feedback" class="pagina">
+        <div class="hero">
+            <h1>Deixe seu feedback 💬</h1>
+        </div>
+
+        <div class="feedback-box">
+            <textarea id="msg" placeholder="Escreva sua opinião..."></textarea>
+            <button onclick="enviarFeedback()">Enviar</button>
         </div>
     </section>
 
@@ -214,6 +243,30 @@ function mostrar(event, id){
 
     document.getElementById(id).classList.add('ativa');
     event.currentTarget.classList.add('ativo');
+}
+
+// ENVIO PARA DISCORD
+function enviarFeedback(){
+
+    const msg = document.getElementById("msg").value;
+
+    if(!msg){
+        alert("Escreva algo antes de enviar!");
+        return;
+    }
+
+    fetch("COLE_AQUI_SEU_WEBHOOK", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            content: "💬 **Novo Feedback Nebula Mods:**\n" + msg
+        })
+    });
+
+    alert("Feedback enviado pro Discord!");
+    document.getElementById("msg").value = "";
 }
 </script>
 
