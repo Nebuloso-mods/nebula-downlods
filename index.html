@@ -220,13 +220,19 @@ section{
 </div>
 
 <script>
-function mostrar(id){
+function mostrar(event, id){
 
     document.querySelectorAll('.pagina').forEach(function(pagina){
         pagina.style.display = 'none';
     });
 
     document.getElementById(id).style.display = 'block';
+
+    document.querySelectorAll('.tabs button').forEach(function(btn){
+        btn.classList.remove('ativo');
+    });
+
+    event.target.classList.add('ativo');
 }
 
 if ("serviceWorker" in navigator) {
