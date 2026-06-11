@@ -101,6 +101,21 @@ p{
     background:#00ffff;
     color:black;
 }
+    .tabs button{
+    color:white;
+    background:rgba(255,255,255,0.1);
+    padding:12px 18px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.tabs button:hover{
+    background:#00ffff;
+    color:black;
+}
 
 section{
     margin-top:20px;
@@ -148,14 +163,14 @@ section{
 
 <div class="container">
 
-    <div class="tabs">
-        <a href="#inicio">🏠 Início</a>
-        <a href="#downloads">📥 Downloads</a>
-        <a href="#discord">🎮 Discord</a>
-        <a href="#sobre">⚙️ Sobre</a>
-    </div>
+   <div class="tabs">
+    <button onclick="mostrar('inicio')">🏠 Início</button>
+    <button onclick="mostrar('downloads')">📥 Downloads</button>
+    <button onclick="mostrar('discord')">🎮 Discord</button>
+    <button onclick="mostrar('sobre')">⚙️ Sobre</button>
+</div>
 
-    <section id="inicio">
+   <section id="inicio" class="pagina">
         <h1>⚡ Portal Nebuloso ⚡</h1>
 
         <p>
@@ -164,7 +179,7 @@ section{
         </p>
     </section>
 
-    <section id="downloads">
+    <section id="downloads" class="pagina" style="display:none;">
         <a href="https://www.mediafire.com/file/a5drvko5ofwkgbf/among-us-mod-Nebuloso.com.apk/file" class="btn download">
         📥 Download
         </a>
@@ -174,13 +189,13 @@ section{
         </a>
     </section>
 
-    <section id="discord">
+   <section id="discord" class="pagina" style="display:none;">
         <a href="https://discord.gg/S9ggHtngD6" class="btn discord">
         🎮 Discord
         </a>
     </section>
 
-    <section id="sobre">
+    <section id="sobre" class="pagina" style="display:none;">
         <p>
         🚀 Portal Nebuloso v1.0<br>
         Desenvolvido por Nebuloso.
@@ -188,6 +203,17 @@ section{
     </section>
 
 </div>
+
+<script>
+function mostrar(id){
+
+    document.querySelectorAll('.pagina').forEach(function(pagina){
+        pagina.style.display = 'none';
+    });
+
+    document.getElementById(id).style.display = 'block';
+}
+</script>
 
 </body>
 </html>
