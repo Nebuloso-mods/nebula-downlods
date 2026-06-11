@@ -15,12 +15,12 @@
 }
 
 body{
-    background-image: url('NEbuloso.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-image:url('NEbuloso.png');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
     color:white;
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -29,12 +29,13 @@ body{
 
 .container{
     background:rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
+    backdrop-filter:blur(10px);
     padding:40px;
     border-radius:20px;
     width:90%;
     max-width:800px;
     box-shadow:0 0 30px rgba(0,255,255,0.3);
+    animation:fadeIn 1s ease;
 }
 
 h1{
@@ -76,6 +77,58 @@ p{
 
 .btn:hover{
     transform:scale(1.05);
+}
+
+/* Abas */
+.tabs{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.tabs a{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.1);
+    padding:12px 18px;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.tabs a:hover{
+    background:#00ffff;
+    color:black;
+}
+
+section{
+    margin-top:20px;
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:25px;
+    }
+
+    h1{
+        font-size:2rem;
+    }
+
+    .btn{
+        display:block;
+        width:100%;
+        margin:10px 0;
+    }
+
+    .tabs{
+        flex-direction:column;
+    }
+
+    .tabs a{
+        width:100%;
+    }
 }
 
 @keyframes fadeIn{
