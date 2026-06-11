@@ -105,7 +105,7 @@ p{
     background:#00ffff;
     color:black;
 }
-    .tabs button{
+   .tabs button{
     color:white;
     background:rgba(255,255,255,0.1);
     padding:12px 18px;
@@ -114,6 +114,17 @@ p{
     cursor:pointer;
     transition:0.3s;
     font-size:15px;
+}
+
+.tabs button.ativo{
+    background:#00ffff;
+    color:#000;
+    box-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #00ffff,
+        0 0 80px #00ffff;
+    transform: scale(1.05);
 }
 
 .tabs button:hover{
