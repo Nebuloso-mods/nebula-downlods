@@ -6,65 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nebula Mods Store</title>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-/* 🔥 SEU FIREBASE CONFIG (CORRIGIDO) */
-const firebaseConfig = {
-  apiKey: "AIzaSyCQ_YWZZmYz9IassS6qVI-JKdvI9diHckE",
-  authDomain: "nebula-mods.firebaseapp.com",
-  projectId: "nebula-mods",
-  storageBucket: "nebula-mods.firebasestorage.app",
-  messagingSenderId: "793692349598",
-  appId: "1:793692349598:web:40767b48a9e1201312478f"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* 🔥 CARREGAR MODS DO FIRESTORE */
-async function carregarMods() {
-    const grid = document.getElementById("modsGrid");
-
-    grid.innerHTML = "<p>🔥 Carregando mods...</p>";
-
-    try {
-        const snapshot = await getDocs(collection(db, "mods"));
-
-        console.log("Mods encontrados:", snapshot.size);
-
-        grid.innerHTML = "";
-
-        if (snapshot.empty) {
-            grid.innerHTML = "<p>❌ Nenhum mod encontrado no Firebase</p>";
-            return;
-        }
-
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-
-            const card = document.createElement("div");
-            card.className = "card";
-
-            card.innerHTML = `
-                <h3>${data.nome || "Sem nome"}</h3>
-                <p>${data.descricao || "Sem descrição"}</p>
-                <a href="${data.link || "#"}" target="_blank">⬇ Baixar</a>
-            `;
-
-            grid.appendChild(card);
-        });
-
-    } catch (err) {
-        console.log("Erro Firebase:", err);
-        grid.innerHTML = "<p>❌ Erro ao carregar mods</p>";
-    }
-}
-
-window.addEventListener("DOMContentLoaded", carregarMods);
-</script>
-
 <style>
 *{
     margin:0;
@@ -91,7 +32,7 @@ body::before{
     content:"";
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.6);
+    background:rgba(0,0,0,0.55);
     z-index:0;
 }
 
@@ -120,21 +61,27 @@ body::before{
     background:#1c2333;
     color:white;
     transition:0.3s;
+    box-shadow:0 0 5px rgba(0,255,255,0.1);
 }
 
 .tabs button:hover{
     background:#00ffff;
     color:black;
-    box-shadow:0 0 15px #00ffff;
+    box-shadow:0 0 10px #00ffff, 0 0 20px #00ffff;
+    transform:scale(1.05);
 }
 
 .tabs button.ativo{
     background:#00ffff;
     color:black;
-    box-shadow:0 0 25px #00ffff;
+    box-shadow:
+        0 0 10px #00ffff,
+        0 0 25px #00ffff,
+        0 0 50px #00ffff,
+        0 0 80px #00ffff;
 }
 
-/* PÁGINAS */
+/* PAGINAS */
 .pagina{
     display:none;
 }
@@ -143,40 +90,81 @@ body::before{
     display:block;
 }
 
-/* GRID */
+/* CARDS */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
     gap:15px;
 }
 
-/* CARD */
 .card{
     background:#151c2b;
     padding:15px;
     border-radius:15px;
     text-align:center;
-    box-shadow:0 0 15px rgba(0,255,255,0.15);
+    box-shadow:0 0 15px rgba(0,255,255,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(0,255,255,0.35);
 }
 
 .card h3{
     color:#00ffff;
+    margin:10px 0;
 }
 
 .card p{
-    color:#ccc;
     font-size:13px;
-    margin:10px 0;
+    color:#ccc;
+    margin-bottom:10px;
 }
 
 .card a{
     display:inline-block;
-    padding:10px;
-    background:#00ffff;
+    padding:10px 14px;
+    background:linear-gradient(90deg,#00ffff,#0088ff);
     color:black;
     border-radius:8px;
     text-decoration:none;
     font-weight:bold;
+    box-shadow:0 0 10px #00ffff;
+    transition:0.3s;
+}
+
+.card a:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px #00ffff;
+}
+
+/* FEEDBACK */
+.feedback-box{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-width:500px;
+    margin:auto;
+}
+
+.feedback-box textarea{
+    height:120px;
+    resize:none;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    outline:none;
+}
+
+.feedback-box button{
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#00ffff;
+    font-weight:bold;
+    box-shadow:0 0 10px #00ffff;
 }
 
 .hero{
@@ -198,25 +186,104 @@ body::before{
     <div class="tabs">
         <button onclick="mostrar(event,'inicio')">🏠 Início</button>
         <button onclick="mostrar(event,'mods')">🛒 Mods</button>
+        <button onclick="mostrar(event,'discord')">🎮 Discord</button>
+        <button onclick="mostrar(event,'feedback')">💬 Feedback</button>
     </div>
 
+    <!-- INICIO -->
     <section id="inicio" class="pagina ativa">
         <div class="hero">
             <h1>⚡ Nebula Mods Store ⚡</h1>
-            <p>Mods carregados automaticamente do Firebase</p>
+            <p>Os melhores mods reunidos em um só lugar</p>
         </div>
     </section>
 
+    <!-- MODS -->
     <section id="mods" class="pagina">
-        <div class="grid" id="modsGrid"></div>
+        <div class="grid">
+
+            <div class="card">
+                <h3>Among Us Mod</h3>
+                <p>Unlock skins + extras</p>
+                <a href="https://www.mediafire.com/file/a5drvko5ofwkgbf/among-us-mod-Nebuloso.com.apk/file">Baixar</a>
+            </div>
+
+            <div class="card">
+                <h3>Starlight Pack</h3>
+                <p>Skins exclusivas</p>
+                <a href="https://play.google.com/store/search?q=starlight+among+us&c=apps">Baixar</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DISCORD -->
+    <section id="discord" class="pagina">
+        <div class="hero">
+            <h1>Discord</h1>
+            <a href="https://discord.gg/S9ggHtngD6" style="color:#00ffff;">Entrar</a>
+        </div>
+    </section>
+
+    <!-- FEEDBACK -->
+    <section id="feedback" class="pagina">
+        <div class="hero">
+            <h1>Deixe seu feedback 💬</h1>
+        </div>
+
+        <div class="feedback-box">
+            <textarea id="msg" placeholder="Escreva sua opinião..."></textarea>
+            <button onclick="enviarFeedback()">Enviar</button>
+        </div>
     </section>
 
 </div>
 
 <script>
 function mostrar(event, id){
-    document.querySelectorAll('.pagina').forEach(p=>p.classList.remove('ativa'));
+    document.querySelectorAll('.pagina').forEach(p=>{
+        p.classList.remove('ativa');
+    });
+
+    document.querySelectorAll('.tabs button').forEach(b=>{
+        b.classList.remove('ativo');
+    });
+
     document.getElementById(id).classList.add('ativa');
+    event.currentTarget.classList.add('ativo');
+}
+
+/* FEEDBACK FUNCIONANDO */
+function enviarFeedback(){
+
+    const msg = document.getElementById("msg").value.trim();
+
+    if(!msg){
+        alert("Escreva algo antes de enviar!");
+        return;
+    }
+
+    fetch("https://discord.com/api/webhooks/1514650773303066704/UytEJ8u-3P1YtaZiJf0UTh5nN4nuSMWOeA8Kui5jHrhzNpF0foNXGHpptFWkLnaSt9l6", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            content: `💬 **Feedback Nebula Mods:**\n${msg}`
+        })
+    })
+    .then(res=>{
+        if(res.ok){
+            alert("Feedback enviado!");
+            document.getElementById("msg").value = "";
+        } else {
+            alert("Erro ao enviar feedback.");
+        }
+    })
+    .catch(err=>{
+        alert("Erro de conexão com Discord.");
+        console.log(err);
+    });
 }
 </script>
 
