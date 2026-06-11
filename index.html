@@ -220,7 +220,16 @@ function mostrar(event, id){
 
 // inicia na aba início
 document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll(".pagina").forEach(p => {
+        p.classList.remove("ativa");
+    });
+
     document.getElementById("inicio").classList.add("ativa");
+
+    document.querySelectorAll(".tabs button").forEach(btn => {
+        btn.classList.remove("ativo");
+    });
+
     document.querySelector(".tabs button").classList.add("ativo");
 });
 </script>
