@@ -137,6 +137,37 @@ body::before{
     border-radius:10px;
     margin:15px 0;
     font-size:16px;
+}
+.novo{
+    display:inline-block;
+    background:#00ff88;
+    color:black;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.popular{
+    display:inline-block;
+    background:#ff8800;
+    color:white;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.rating{
+    color:gold !important;
+    font-weight:bold;
+}
+
+.downloads{
+    color:#00ffff !important;
+    font-weight:bold;
 }    
 </style>
 </head>
@@ -249,6 +280,32 @@ const total=document.querySelectorAll('#mods .card').length;
 document.getElementById('contadorMods').innerText='Mods disponíveis: '+total;
 }
 
+function pesquisarMods(){
+
+const texto =
+document.getElementById("pesquisa")
+.value.toLowerCase();
+
+const cards =
+document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+
+const nome =
+card.querySelector("h3")
+.innerText
+.toLowerCase();
+
+if(nome.includes(texto)){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+
+});
+
+}    
+    
 function enviarFeedback(){
 const msg=document.getElementById("msg").value.trim();
 if(!msg){alert("Escreva algo antes de enviar!");return;}
