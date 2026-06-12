@@ -224,7 +224,40 @@ body::before{
 </style>
 </head>
 <body>
+<div id="login" style="
+position:fixed;
+inset:0;
+background:#0b0f1a;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:10px;
+z-index:9999;
+color:white;
+">
 
+<h2>⚡ Portal Nebuloso</h2>
+<p>Digite a senha para entrar</p>
+
+<input id="senha" type="password" placeholder="Senha"
+style="padding:10px;border-radius:8px;border:none;">
+
+<button onclick="login()" style="
+padding:10px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#00ffff;
+font-weight:bold;
+">
+Entrar
+</button>
+
+<p id="erro" style="color:red;display:none;">Senha incorreta</p>
+
+</div>
+    
 <div class="container">
 
 <div class="tabs">
@@ -341,22 +374,12 @@ document.getElementById('contadorMods').innerText='Mods disponíveis: '+total;
 }
 
 function pesquisarMods(){
-
-const texto =
-document.getElementById("pesquisa")
-.value.toLowerCase();
-
-const cards =
-document.querySelectorAll("#mods .card");
-
+const texto = document.getElementById("pesquisa").value.toLowerCase();
+const cards = document.querySelectorAll("#mods .card");
 let encontrados = 0;
 
 cards.forEach(card=>{
-
-const nome =
-card.querySelector("h3")
-.innerText
-.toLowerCase();
+const nome = card.querySelector("h3").innerText.toLowerCase();
 
 if(nome.includes(texto)){
 card.style.display="block";
@@ -364,24 +387,17 @@ encontrados++;
 }else{
 card.style.display="none";
 }
-
 });
 
-const semResultado =
-document.getElementById("semResultado");
-
-if(encontrados === 0){
-semResultado.style.display = "block";
-}else{
-semResultado.style.display = "none";
+document.getElementById("semResultado").style.display =
+encontrados === 0 ? "block" : "none";
 }
 
-}    
 function enviarFeedback(){
 const msg=document.getElementById("msg").value.trim();
 if(!msg){alert("Escreva algo antes de enviar!");return;}
 
-fetch("https://discord.com/api/webhooks/1514650773303066704/UytEJ8u-3P1YtaZiJf0UTh5nN4nuSMWOeA8Kui5jHrhzNpF0foNXGHpptFWkLnaSt9l6",{
+fetch("https://discord.com/api/webhooks/1514650773303066704/UytEJ6XXXXXXXX",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({
@@ -398,7 +414,19 @@ alert("Erro ao enviar feedback.");
 })
 .catch(()=>alert("Erro de conexão com Discord."));
 }
-</script>
 
+function login(){
+const senha = document.getElementById("senha").value;
+const senhaCerta = "nebuloso123";
+
+if(senha === senhaCerta){
+document.getElementById("login").style.display = "none";
+document.getElementById("erro").style.display = "none";
+}else{
+document.getElementById("erro").style.display = "block";
+}
+}
+}
+</script>
 </body>
 </html>
