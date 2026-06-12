@@ -199,7 +199,14 @@ body::before{
         0 0 20px #00ffff;
     animation: brilho 2s infinite alternate;
 }
-
+#semResultado{
+    display:none;
+    text-align:center;
+    color:#00ffff;
+    font-size:20px;
+    margin-top:20px;
+    text-shadow:0 0 10px #00ffff;
+}
 @keyframes brilho{
     from{
         opacity:0.8;
@@ -294,8 +301,8 @@ onkeyup="pesquisarMods()">
 
 </div>
 
-<p id="semResultado" style="display:none;text-align:center;color:#00ffff;font-size:18px;margin-top:20px;">
-❌ Nenhum mod encontrado
+<p id="semResultado">
+🌌 Nenhum mod encontrado no universo Nebuloso
 </p>
 
 </section>
@@ -340,7 +347,9 @@ document.getElementById("pesquisa")
 .value.toLowerCase();
 
 const cards =
-document.querySelectorAll(".card");
+document.querySelectorAll("#mods .card");
+
+let encontrados = 0;
 
 cards.forEach(card=>{
 
@@ -351,14 +360,23 @@ card.querySelector("h3")
 
 if(nome.includes(texto)){
 card.style.display="block";
+encontrados++;
 }else{
 card.style.display="none";
 }
 
 });
 
+const semResultado =
+document.getElementById("semResultado");
+
+if(encontrados === 0){
+semResultado.style.display = "block";
+}else{
+semResultado.style.display = "none";
+}
+
 }    
-    
 function enviarFeedback(){
 const msg=document.getElementById("msg").value.trim();
 if(!msg){alert("Escreva algo antes de enviar!");return;}
