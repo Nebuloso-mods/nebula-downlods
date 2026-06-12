@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nebula Mods Store</title>
+<title>⚡ Portal Nebuloso ⚡</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 body{
     background-image:url('Correto.png');
     background-size:cover;
@@ -26,8 +19,6 @@ body{
     justify-content:center;
     align-items:center;
 }
-
-/* overlay */
 body::before{
     content:"";
     position:fixed;
@@ -35,7 +26,6 @@ body::before{
     background:rgba(0,0,0,0.55);
     z-index:0;
 }
-
 .container{
     position:relative;
     z-index:1;
@@ -43,8 +33,6 @@ body::before{
     max-width:900px;
     padding:20px;
 }
-
-/* TABS */
 .tabs{
     display:flex;
     justify-content:center;
@@ -52,7 +40,6 @@ body::before{
     margin-bottom:20px;
     flex-wrap:wrap;
 }
-
 .tabs button{
     padding:10px 15px;
     border:none;
@@ -60,40 +47,27 @@ body::before{
     cursor:pointer;
     background:#1c2333;
     color:white;
-    transition:0.3s;
-    box-shadow:0 0 5px rgba(0,255,255,0.1);
+    transition:.3s;
 }
-
 .tabs button:hover{
     background:#00ffff;
     color:black;
-    box-shadow:0 0 10px #00ffff, 0 0 20px #00ffff;
     transform:scale(1.05);
 }
-
 .tabs button.ativo{
     background:#00ffff;
     color:black;
-    box-shadow:
-        0 0 10px #00ffff,
-        0 0 25px #00ffff,
-        0 0 50px #00ffff,
-        0 0 80px #00ffff;
+    box-shadow:0 0 25px #00ffff;
 }
+.pagina{display:none;}
+.pagina.ativa{display:block;}
 
-/* PAGINAS */
-.pagina{
-    display:none;
-}
+.hero{text-align:center;margin-bottom:20px;}
+.hero h1{color:#00ffff;}
 
-.pagina.ativa{
-    display:block;
-}
-
-/* CARDS */
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:15px;
 }
 
@@ -102,26 +76,22 @@ body::before{
     padding:15px;
     border-radius:15px;
     text-align:center;
-    box-shadow:0 0 15px rgba(0,255,255,0.1);
-    transition:0.3s;
+    transition:.3s;
+    box-shadow:0 0 15px rgba(0,255,255,.1);
 }
-
 .card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 25px rgba(0,255,255,0.35);
+    transform:translateY(-5px);
+    box-shadow:0 0 25px rgba(0,255,255,.35);
 }
-
-.card h3{
-    color:#00ffff;
-    margin:10px 0;
-}
-
-.card p{
-    font-size:13px;
-    color:#ccc;
+.card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:10px;
     margin-bottom:10px;
 }
-
+.card h3{color:#00ffff;margin:10px 0;}
+.card p{font-size:13px;color:#ccc;margin-bottom:10px;}
 .card a{
     display:inline-block;
     padding:10px 14px;
@@ -130,16 +100,8 @@ body::before{
     border-radius:8px;
     text-decoration:none;
     font-weight:bold;
-    box-shadow:0 0 10px #00ffff;
-    transition:0.3s;
 }
 
-.card a:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px #00ffff;
-}
-
-/* FEEDBACK */
 .feedback-box{
     display:flex;
     flex-direction:column;
@@ -147,16 +109,13 @@ body::before{
     max-width:500px;
     margin:auto;
 }
-
 .feedback-box textarea{
     height:120px;
     resize:none;
     border:none;
     border-radius:10px;
     padding:10px;
-    outline:none;
 }
-
 .feedback-box button{
     padding:10px;
     border:none;
@@ -164,126 +123,105 @@ body::before{
     cursor:pointer;
     background:#00ffff;
     font-weight:bold;
-    box-shadow:0 0 10px #00ffff;
-}
-
-.hero{
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.hero h1{
-    color:#00ffff;
 }
 </style>
-
 </head>
-
 <body>
 
 <div class="container">
 
-    <div class="tabs">
-        <button onclick="mostrar(event,'inicio')">🏠 Início</button>
-        <button onclick="mostrar(event,'mods')">🛒 Mods</button>
-        <button onclick="mostrar(event,'discord')">🎮 Discord</button>
-        <button onclick="mostrar(event,'feedback')">💬 Feedback</button>
-    </div>
+<div class="tabs">
+<button onclick="mostrar(event,'inicio')">🏠 Início</button>
+<button onclick="mostrar(event,'mods')">🛒 Mods</button>
+<button onclick="mostrar(event,'discord')">🎮 Discord</button>
+<button onclick="mostrar(event,'feedback')">💬 Feedback</button>
+</div>
 
-    <!-- INICIO -->
-    <section id="inicio" class="pagina ativa">
-        <div class="hero">
-            <h1>⚡ Nebula Mods Store ⚡</h1>
-            <p>Os melhores mods reunidos em um só lugar</p>
-        </div>
-    </section>
+<section id="inicio" class="pagina ativa">
+<div class="hero">
+<h1>⚡ ⚡ Portal Nebuloso ⚡ ⚡</h1>
+<p>Os melhores mods reunidos em um só lugar</p>
+</div>
+</section>
 
-    <!-- MODS -->
-    <section id="mods" class="pagina">
-        <div class="grid">
+<section id="mods" class="pagina">
+<div class="hero">
+<h1>🛒 Mods Disponíveis</h1>
+<p id="contadorMods">Mods disponíveis: 0</p>
+</div>
 
-            <div class="card">
-                <h3>Among Us Mod</h3>
-                <p>Unlock skins + extras</p>
-                <a href="https://www.mediafire.com/file/a5drvko5ofwkgbf/among-us-mod-Nebuloso.com.apk/file">Baixar</a>
-            </div>
+<div class="grid">
 
-            <div class="card">
-                <h3>Starlight Pack</h3>
-                <p>Skins exclusivas</p>
-                <a href="https://play.google.com/store/search?q=starlight+among+us&c=apps">Baixar</a>
-            </div>
+<div class="card">
+<img src="amongus.jpg" alt="Among Us Mod">
+<h3>Among Us Mod</h3>
+<p>Unlock skins + extras</p>
+<a href="https://www.mediafire.com/file/a5drvko5ofwkgbf/among-us-mod-Nebuloso.com.apk/file">⬇ Baixar</a>
+</div>
 
-        </div>
-    </section>
+<div class="card">
+<img src="starlight.jpg" alt="Starlight Pack">
+<h3>Starlight Pack</h3>
+<p>Skins exclusivas</p>
+<a href="https://play.google.com/store/search?q=starlight+among+us&c=apps">⬇ Baixar</a>
+</div>
 
-    <!-- DISCORD -->
-    <section id="discord" class="pagina">
-        <div class="hero">
-            <h1>Discord</h1>
-            <a href="https://discord.gg/S9ggHtngD6" style="color:#00ffff;">Entrar</a>
-        </div>
-    </section>
+</div>
+</section>
 
-    <!-- FEEDBACK -->
-    <section id="feedback" class="pagina">
-        <div class="hero">
-            <h1>Deixe seu feedback 💬</h1>
-        </div>
+<section id="discord" class="pagina">
+<div class="hero">
+<h1>Discord</h1>
+<a href="https://discord.gg/S9ggHtngD6" style="color:#00ffff;">Entrar</a>
+</div>
+</section>
 
-        <div class="feedback-box">
-            <textarea id="msg" placeholder="Escreva sua opinião..."></textarea>
-            <button onclick="enviarFeedback()">Enviar</button>
-        </div>
-    </section>
+<section id="feedback" class="pagina">
+<div class="hero">
+<h1>Deixe seu feedback 💬</h1>
+</div>
+
+<div class="feedback-box">
+<textarea id="msg" placeholder="Escreva sua opinião..."></textarea>
+<button onclick="enviarFeedback()">Enviar</button>
+</div>
+</section>
 
 </div>
 
 <script>
-function mostrar(event, id){
-    document.querySelectorAll('.pagina').forEach(p=>{
-        p.classList.remove('ativa');
-    });
-
-    document.querySelectorAll('.tabs button').forEach(b=>{
-        b.classList.remove('ativo');
-    });
-
-    document.getElementById(id).classList.add('ativa');
-    event.currentTarget.classList.add('ativo');
+function mostrar(event,id){
+document.querySelectorAll('.pagina').forEach(p=>p.classList.remove('ativa'));
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('ativo'));
+document.getElementById(id).classList.add('ativa');
+event.currentTarget.classList.add('ativo');
 }
 
-/* FEEDBACK FUNCIONANDO */
+window.onload=function(){
+const total=document.querySelectorAll('#mods .card').length;
+document.getElementById('contadorMods').innerText='Mods disponíveis: '+total;
+}
+
 function enviarFeedback(){
+const msg=document.getElementById("msg").value.trim();
+if(!msg){alert("Escreva algo antes de enviar!");return;}
 
-    const msg = document.getElementById("msg").value.trim();
-
-    if(!msg){
-        alert("Escreva algo antes de enviar!");
-        return;
-    }
-
-    fetch("https://discord.com/api/webhooks/1514650773303066704/UytEJ8u-3P1YtaZiJf0UTh5nN4nuSMWOeA8Kui5jHrhzNpF0foNXGHpptFWkLnaSt9l6", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            content: `💬 **Feedback Nebula Mods:**\n${msg}`
-        })
-    })
-    .then(res=>{
-        if(res.ok){
-            alert("Feedback enviado!");
-            document.getElementById("msg").value = "";
-        } else {
-            alert("Erro ao enviar feedback.");
-        }
-    })
-    .catch(err=>{
-        alert("Erro de conexão com Discord.");
-        console.log(err);
-    });
+fetch("https://discord.com/api/webhooks/SEU_WEBHOOK_AQUI",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+content:`💬 **Feedback Nebula Mods:**\n${msg}`
+})
+})
+.then(res=>{
+if(res.ok){
+alert("Feedback enviado!");
+document.getElementById("msg").value="";
+}else{
+alert("Erro ao enviar feedback.");
+}
+})
+.catch(()=>alert("Erro de conexão com Discord."));
 }
 </script>
 
