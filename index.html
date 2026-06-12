@@ -134,11 +134,29 @@ body::before{
 }
 #pesquisa{
     width:100%;
-    padding:12px;
+    padding:14px 18px;
     border:none;
-    border-radius:10px;
+    border-radius:15px;
     margin:15px 0;
     font-size:16px;
+    background:rgba(21,28,43,0.9);
+    color:white;
+    outline:none;
+    border:2px solid transparent;
+    transition:0.3s;
+    box-shadow:0 0 10px rgba(0,255,255,.15);
+}
+
+#pesquisa::placeholder{
+    color:#aaa;
+}
+
+#pesquisa:focus{
+    border:2px solid #00ffff;
+    box-shadow:
+        0 0 10px #00ffff,
+        0 0 20px rgba(0,255,255,.5);
+    transform:scale(1.02);
 }
 .novo{
     display:inline-block;
@@ -225,9 +243,13 @@ body::before{
 <input
 id="pesquisa"
 type="text"
-placeholder="🔍 Pesquisar mod..."
-onkeyup="pesquisarMods()">    
+placeholder="🔍 Pesquisar mods..."
+onkeyup="pesquisarMods()">
 
+<p style="color:#00ffff;margin-bottom:15px;">
+📚 Biblioteca Nebulosa
+</p>
+    
 <div class="grid">
 
 <div class="card">
