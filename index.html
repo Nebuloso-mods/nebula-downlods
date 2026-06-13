@@ -12,42 +12,31 @@ body{
     background-image:url('Correto.png');
     background-size:cover;
     background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
     color:white;
     min-height:100vh;
 }
 
-/* fundo escuro */
+/* overlay */
 body::before{
     content:"";
     position:fixed;
     inset:0;
     background:rgba(0,0,0,0.55);
+    z-index:0;
 }
 
 /* LOGIN */
 #loginScreen{
-    position:fixed;
-    inset:0;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-    background:black;
-    z-index:9999;
-}
-
-/* SITE (começa escondido) */
-#site{
-    display:none;
     position:relative;
-    z-index:1;
-    width:95%;
-    max-width:900px;
-    margin:auto;
-    padding:20px;
+    z-index:2;
 }
 
-/* botão login */
 #loginGoogle{
     padding:12px 20px;
     border:none;
@@ -56,6 +45,77 @@ body::before{
     font-weight:bold;
     cursor:pointer;
 }
+
+/* SITE */
+.container{
+    position:relative;
+    z-index:1;
+    width:95%;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+    display:none;
+}
+
+/* TABS */
+.tabs{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.tabs button{
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#1c2333;
+    color:white;
+}
+
+.tabs button:hover{
+    background:#00ffff;
+    color:black;
+}
+
+/* páginas */
+.pagina{display:none;}
+.pagina.ativa{display:block;}
+
+.hero{text-align:center;margin-bottom:20px;}
+.hero h1{color:#00ffff;}
+
+/* GRID MODS */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.card{
+    background:#151c2b;
+    padding:15px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.card h3{color:#00ffff;}
+
+#pesquisa{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    margin:10px 0;
+}
 </style>
 </head>
 
@@ -63,27 +123,137 @@ body::before{
 
 <!-- LOGIN -->
 <div id="loginScreen">
+  <div style="
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    gap:15px;
+    background:black;
+    color:white;
+    position:fixed;
+    width:100%;
+    z-index:9999;
+  ">
+    
     <h2>🔐 Entrar no Portal Nebuloso</h2>
 
-    <button id="loginGoogle" onclick="loginGoogle()">
-        🔵 Entrar com Google
+    <button id="loginGoogle" onclick="window.loginGoogle()"
+    style="
+      padding:12px 20px;
+      border:none;
+      border-radius:10px;
+      background:#00ffff;
+      font-weight:bold;
+      cursor:pointer;
+    ">
+      🔵 Entrar com Google
     </button>
+
+  </div>
+</div>
 </div>
 
 <!-- SITE -->
-<div id="site">
+<div class="container" id="site">
 
-    <h1 style="text-align:center;color:#00ffff;">Portal Nebuloso</h1>
+<div class="tabs">
+<button onclick="mostrar(event,'inicio')">🏠 Início</button>
+<button onclick="mostrar(event,'mods')">🛒 Mods</button>
+<button onclick="mostrar(event,'discord')">🎮 Discord</button>
+<button onclick="mostrar(event,'feedback')">💬 Feedback</button>
+</div>
 
-    <div style="text-align:center;margin-top:20px;">
-        <a href="https://nebuloso-mods.github.io/nebula-downlods/" style="color:#00ffff;">
-            Acessar site
-        </a>
-    </div>
+<!-- INICIO -->
+<section id="inicio" class="pagina ativa">
+<div class="hero">
+<img src="Banner.png" style="width:100%;border-radius:15px;">
+<p>Os melhores mods reunidos em um só universo ✨</p>
+</div>
+</section>
+
+<!-- MODS -->
+<section id="mods" class="pagina">
+<div class="hero">
+<h1>🛒 Mods Disponíveis</h1>
+<p id="contadorMods"></p>
+</div>
+
+<input id="pesquisa" type="text" placeholder="🔍 Pesquisar mods..." onkeyup="pesquisarMods()">
+
+<div class="grid">
+
+<!-- MOD 1 -->
+<div class="card">
+<img src="amongus.jpg">
+<h3>Among Us Mod</h3>
+<p>⭐⭐⭐⭐⭐ 4.9/5</p>
+<p>📥 12.547 downloads</p>
+<a href="https://www.mediafire.com/file/q3ehhgtacsf1phs/among-us-mod_2026.4.7-an1.com.apk/file" target="_blank">⬇ Baixar</a>
+</div>
+
+<!-- MOD 2 -->
+<div class="card">
+<img src="starlight.png">
+<h3>Starlight Pack</h3>
+<p>⭐⭐⭐⭐☆ 4.4/5</p>
+<p>📥 1.204 downloads</p>
+<a href="https://play.google.com/store/search?q=starlight+among+us&c=apps" target="_blank">⬇ Baixar</a>
+</div>
 
 </div>
 
+</section>
+
+<!-- DISCORD -->
+<section id="discord" class="pagina">
+<h2 style="text-align:center;">Discord</h2>
+<a href="https://discord.gg/S9ggHtngD6" style="color:#00ffff;display:block;text-align:center;">Entrar</a>
+</section>
+
+<!-- FEEDBACK -->
+<section id="feedback" class="pagina">
+<h2 style="text-align:center;">Feedback</h2>
+<div style="text-align:center;">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSdWSvXoNvq54T-FRJXKh6CPW0cGh6_uOvE6PTpZ2XXiEthSBw/viewform?usp=dialog">
+<button style="padding:10px;border:none;border-radius:10px;background:#00ffff;">
+📝 Abrir Formulário
+</button>
+</a>
+</div>
+</section>
+
+</div>
+
+<script>
+function mostrar(event,id){
+document.querySelectorAll('.pagina').forEach(p=>p.classList.remove('ativa'));
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('ativo'));
+document.getElementById(id).classList.add('ativa');
+event.currentTarget.classList.add('ativo');
+}
+
+function pesquisarMods(){
+const texto=document.getElementById("pesquisa").value.toLowerCase();
+const cards=document.querySelectorAll(".card");
+
+let encontrados=0;
+
+cards.forEach(card=>{
+const nome=card.querySelector("h3").innerText.toLowerCase();
+if(nome.includes(texto)){
+card.style.display="block";
+encontrados++;
+}else{
+card.style.display="none";
+}
+});
+}
+</script>
+
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
 getAuth,
@@ -96,6 +266,9 @@ const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
   projectId: "portal-nebuloso",
+  storageBucket: "portal-nebuloso.firebasestorage.app",
+  messagingSenderId: "755593713969",
+  appId: "1:755593713969:web:0c3a45cb65061d1457f810",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -103,18 +276,23 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 window.loginGoogle = async function(){
+  try {
     await signInWithPopup(auth, provider);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 onAuthStateChanged(auth, (user) => {
-    if(user){
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("site").style.display = "block";
-    } else {
-        document.getElementById("loginScreen").style.display = "flex";
-        document.getElementById("site").style.display = "none";
-    }
+  if(user){
+    document.getElementById("loginScreen").style.display="none";
+    document.getElementById("site").style.display="block";
+  } else {
+    document.getElementById("loginScreen").style.display="flex";
+    document.getElementById("site").style.display="none";
+  }
 });
+
 </script>
 
 </body>
