@@ -154,11 +154,26 @@ body::before{
 </head>
 
 <body>
-    
-<button id="logoutBtn" onclick="logout()">
+
+<!-- BOTÃO LOGOUT -->
+<button id="logoutBtn" onclick="logout()" style="
+position:fixed;
+top:10px;
+right:10px;
+padding:10px 15px;
+border:none;
+border-radius:10px;
+background:#ff3b3b;
+color:white;
+font-weight:bold;
+cursor:pointer;
+z-index:10000;
+display:none;
+">
 🚪 Sair da conta
 </button>
-    
+
+<!-- LOADING -->
 <div id="loading" style="
 position:fixed;
 inset:0;
@@ -169,6 +184,7 @@ background:black;
 color:#00ffff;
 z-index:10000;
 font-size:18px;
+transition:opacity 0.3s ease;
 ">
 Verificando login...
 </div>
@@ -284,17 +300,13 @@ function pesquisarMods() {
   cards.forEach(card => {
     const nome = card.querySelector("h3").innerText.toLowerCase();
 
-    if (texto === "") {
-      card.style.display = "block";
-    } else {
-      card.style.display = nome.includes(texto) ? "block" : "none";
-    }
+    card.style.display =
+      texto === "" || nome.includes(texto) ? "block" : "none";
   });
 }
 </script>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getAuth,
@@ -330,25 +342,23 @@ window.loginGoogle = async function () {
 window.logout = async function () {
   try {
     await signOut(auth);
-
     const search = document.getElementById("pesquisa");
     if (search) search.value = "";
-
   } catch (e) {
     console.log("Erro logout:", e);
   }
 };
 
-/* ESTADO DO LOGIN */
+/* ESTADO LOGIN */
 onAuthStateChanged(auth, (user) => {
-
   const loading = document.getElementById("loading");
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
   const logoutBtn = document.getElementById("logoutBtn");
 
   if (loading) {
-    loading.style.display = "none";
+    loading.style.opacity = "0";
+    setTimeout(() => loading.style.display = "none", 300);
   }
 
   if (user) {
@@ -358,7 +368,7 @@ onAuthStateChanged(auth, (user) => {
     site.classList.add("visible");
     site.classList.remove("hidden");
 
-    if (logoutBtn) logoutBtn.style.display = "block";
+    logoutBtn.style.display = "block";
 
   } else {
     site.classList.add("hidden");
@@ -367,7 +377,7 @@ onAuthStateChanged(auth, (user) => {
     login.classList.add("visible");
     login.classList.remove("hidden");
 
-    if (logoutBtn) logoutBtn.style.display = "none";
+    logoutBtn.style.display = "none";
   }
 });
 </script>
