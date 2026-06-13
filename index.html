@@ -244,7 +244,19 @@ body::before{
 </style>
 </head>
 <body>
-
+<div style="text-align:center;margin-bottom:20px;">
+<button id="loginGoogle" onclick="loginGoogle()"
+style="
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#00ffff;
+font-weight:bold;
+cursor:pointer;
+">
+🔵 Entrar com Google
+</button>
+</div>
 <div class="container">
 
 <div class="tabs">
@@ -414,5 +426,58 @@ color:#aaa;
 font-size:14px;">
 ⚡ Portal Nebuloso © 2026
 </footer>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
+  authDomain: "portal-nebuloso.firebaseapp.com",
+  projectId: "portal-nebuloso",
+  storageBucket: "portal-nebuloso.firebasestorage.app",
+  messagingSenderId: "755593713969",
+  appId: "1:755593713969:web:0c3a45cb65061d1457f810",
+  measurementId: "G-W8E8MEZKQP"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+window.loginGoogle = async function(){
+
+try{
+
+await signInWithPopup(auth, provider);
+
+}catch(error){
+
+console.log(error);
+
+alert(error.message);
+
+}
+
+}
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+document.getElementById("loginGoogle").style.display="none";
+
+}
+
+});
+
+</script>    
 </body>
 </html>
