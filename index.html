@@ -342,8 +342,10 @@ window.loginGoogle = async function () {
 window.logout = async function () {
   try {
     await signOut(auth);
+
     const search = document.getElementById("pesquisa");
     if (search) search.value = "";
+
   } catch (e) {
     console.log("Erro logout:", e);
   }
@@ -351,33 +353,37 @@ window.logout = async function () {
 
 /* ESTADO LOGIN */
 onAuthStateChanged(auth, (user) => {
+
   const loading = document.getElementById("loading");
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
   const logoutBtn = document.getElementById("logoutBtn");
 
+  // loading seguro
   if (loading) {
     loading.style.opacity = "0";
-    setTimeout(() => loading.style.display = "none", 300);
+    setTimeout(() => {
+      loading.style.display = "none";
+    }, 300);
   }
 
   if (user) {
-    login.classList.add("hidden");
-    login.classList.remove("visible");
+    login?.classList.add("hidden");
+    login?.classList.remove("visible");
 
-    site.classList.add("visible");
-    site.classList.remove("hidden");
+    site?.classList.add("visible");
+    site?.classList.remove("hidden");
 
-    logoutBtn.style.display = "block";
+    if (logoutBtn) logoutBtn.style.display = "block";
 
   } else {
-    site.classList.add("hidden");
-    site.classList.remove("visible");
+    site?.classList.add("hidden");
+    site?.classList.remove("visible");
 
-    login.classList.add("visible");
-    login.classList.remove("hidden");
+    login?.classList.add("visible");
+    login?.classList.remove("hidden");
 
-    logoutBtn.style.display = "none";
+    if (logoutBtn) logoutBtn.style.display = "none";
   }
 });
 </script>
