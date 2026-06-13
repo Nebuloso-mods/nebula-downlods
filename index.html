@@ -59,6 +59,21 @@ body::before{
     padding:20px;
 }
 
+/* BOTÃO SAIR */
+#logoutBtn{
+    position:fixed;
+    top:10px;
+    right:10px;
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    background:#ff3b3b;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:10000;
+    display:none;
+}
 /* TABS */
 .tabs{
     display:flex;
@@ -67,7 +82,7 @@ body::before{
     margin-bottom:20px;
     flex-wrap:wrap;
 }
-
+    
 .tabs button{
     padding:10px 15px;
     border:none;
@@ -139,7 +154,11 @@ body::before{
 </head>
 
 <body>
-
+    
+<button id="logoutBtn" onclick="logout()">
+🚪 Sair da conta
+</button>
+    
 <div id="loading" style="
 position:fixed;
 inset:0;
@@ -250,28 +269,27 @@ style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-
 </div>
 
 <script>
-function mostrar(event,id){
-document.querySelectorAll('.pagina').forEach(p=>p.classList.remove('ativa'));
-document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('ativo'));
-document.getElementById(id).classList.add('ativa');
-event.currentTarget.classList.add('ativo');
+function mostrar(event, id) {
+  document.querySelectorAll('.pagina').forEach(p => p.classList.remove('ativa'));
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('ativo'));
+
+  document.getElementById(id).classList.add('ativa');
+  event.currentTarget.classList.add('ativo');
 }
 
-function pesquisarMods(){
-const texto=document.getElementById("pesquisa").value.toLowerCase();
-const cards=document.querySelectorAll(".card");
+function pesquisarMods() {
+  const texto = document.getElementById("pesquisa").value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
 
-let encontrados=0;
+  cards.forEach(card => {
+    const nome = card.querySelector("h3").innerText.toLowerCase();
 
-cards.forEach(card=>{
-const nome=card.querySelector("h3").innerText.toLowerCase();
-if(nome.includes(texto)){
-card.style.display="block";
-encontrados++;
-}else{
-card.style.display="none";
-}
-});
+    if (texto === "") {
+      card.style.display = "block";
+    } else {
+      card.style.display = nome.includes(texto) ? "block" : "none";
+    }
+  });
 }
 </script>
 
@@ -279,10 +297,11 @@ card.style.display="none";
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
-getAuth,
-GoogleAuthProvider,
-signInWithPopup,
-onAuthStateChanged
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
@@ -298,20 +317,39 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-window.loginGoogle = async function(){
+/* LOGIN */
+window.loginGoogle = async function () {
   try {
     await signInWithPopup(auth, provider);
   } catch (e) {
-    console.log(e);
+    console.log("Erro login:", e);
   }
 };
 
+/* LOGOUT */
+window.logout = async function () {
+  try {
+    await signOut(auth);
+
+    const search = document.getElementById("pesquisa");
+    if (search) search.value = "";
+
+  } catch (e) {
+    console.log("Erro logout:", e);
+  }
+};
+
+/* ESTADO DO LOGIN */
 onAuthStateChanged(auth, (user) => {
 
-  document.getElementById("loading").style.display = "none";
-
+  const loading = document.getElementById("loading");
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (loading) {
+    loading.style.display = "none";
+  }
 
   if (user) {
     login.classList.add("hidden");
@@ -320,16 +358,18 @@ onAuthStateChanged(auth, (user) => {
     site.classList.add("visible");
     site.classList.remove("hidden");
 
+    if (logoutBtn) logoutBtn.style.display = "block";
+
   } else {
     site.classList.add("hidden");
     site.classList.remove("visible");
 
     login.classList.add("visible");
     login.classList.remove("hidden");
+
+    if (logoutBtn) logoutBtn.style.display = "none";
   }
 });
-
 </script>
-
 </body>
 </html>
