@@ -7,6 +7,7 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+
 body{
     background-image:url('Correto.png');
     background-size:cover;
@@ -15,25 +16,35 @@ body{
     background-attachment:fixed;
     color:white;
     min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
 }
+
 body::before{
     content:"";
     position:fixed;
     inset:0;
     background:rgba(0,0,0,0.55);
     z-index:0;
-    pointer-events:none;
 }
+
+#loginScreen{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+
 .container{
     position:relative;
     z-index:1;
     width:95%;
     max-width:900px;
+    margin:auto;
     padding:20px;
+    display:none; /* começa bloqueado */
 }
+
 .tabs{
     display:flex;
     justify-content:center;
@@ -41,6 +52,7 @@ body::before{
     margin-bottom:20px;
     flex-wrap:wrap;
 }
+
 .tabs button{
     padding:10px 15px;
     border:none;
@@ -50,16 +62,19 @@ body::before{
     color:white;
     transition:.3s;
 }
+
 .tabs button:hover{
     background:#00ffff;
     color:black;
     transform:scale(1.05);
 }
+
 .tabs button.ativo{
     background:#00ffff;
     color:black;
     box-shadow:0 0 25px #00ffff;
 }
+
 .pagina{display:none;}
 .pagina.ativa{display:block;}
 
@@ -77,198 +92,39 @@ body::before{
     padding:15px;
     border-radius:15px;
     text-align:center;
-    transition:.3s;
-    box-shadow:0 0 15px rgba(0,255,255,.1);
 }
-.card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 0 25px rgba(0,255,255,.35);
-}
+
 .card img{
     width:100%;
     height:150px;
     object-fit:cover;
     border-radius:10px;
-    margin-bottom:10px;
-}
-.card h3{color:#00ffff;margin:10px 0;}
-.card p{font-size:13px;color:#ccc;margin-bottom:10px;}
-.card a{
-    display:inline-block;
-    padding:10px 14px;
-    background:linear-gradient(90deg,#00ffff,#0088ff);
-    color:black;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:bold;
 }
 
-.feedback-box{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    max-width:500px;
-    margin:auto;
-}
-.feedback-box textarea{
-    height:120px;
-    resize:none;
-    border:none;
-    border-radius:10px;
-    padding:10px;
-}
-.feedback-box button{
-    padding:10px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:#00ffff;
-    font-weight:bold;
-}
-.Banner{
-    width:100%;
-    max-width:700px;
-    display:block;
-    margin:0 auto 20px auto;
-    border-radius:15px;
-    box-shadow:0 0 20px rgba(128,0,255,.5);
-}
-.feedback-box a{
-    text-decoration:none;
-}
-
-.feedback-box button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:#00ffff;
-    color:black;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.feedback-box button:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px #00ffff;
-}    
-#pesquisa{
-    width:100%;
-    padding:14px 18px;
-    border:none;
-    border-radius:15px;
-    margin:15px 0;
-    font-size:16px;
-    background:rgba(21,28,43,0.9);
-    color:white;
-    outline:none;
-    border:2px solid transparent;
-    transition:0.3s;
-    box-shadow:0 0 10px rgba(0,255,255,.15);
-}
-
-#pesquisa::placeholder{
-    color:#aaa;
-}
-
-#pesquisa:focus{
-    border:2px solid #00ffff;
-    box-shadow:
-        0 0 10px #00ffff,
-        0 0 20px rgba(0,255,255,.5);
-    transform:scale(1.02);
-}
-.novo{
-    display:inline-block;
-    background:#00ff88;
-    color:black;
-    padding:4px 8px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.popular{
-    display:inline-block;
-    background:#ff8800;
-    color:white;
-    padding:4px 8px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.rating{
-    color:gold !important;
-    font-weight:bold;
-}
-
-.downloads{
-    color:#00ffff !important;
-    font-weight:bold;
-}
-.slogan{
-    font-size:18px;
-    color:#ffffff;
-    margin-top:10px;
-    text-shadow:
-        0 0 5px #00ffff,
-        0 0 10px #00ffff,
-        0 0 20px #00ffff;
-    animation: brilho 2s infinite alternate;
-}
-#semResultado{
-    display:none;
-    text-align:center;
-    color:#00ffff;
-    font-size:20px;
-    margin-top:20px;
-    text-shadow:0 0 10px #00ffff;
-}
-@keyframes brilho{
-    from{
-        opacity:0.8;
-        transform:scale(1);
-    }
-    to{
-        opacity:1;
-        transform:scale(1.03);
-        text-shadow:
-            0 0 10px #00ffff,
-            0 0 20px #00ffff,
-            0 0 40px #00ffff;
-    }
-}
+.card h3{color:#00ffff;}
 
 #loginGoogle{
-    position:relative;
-    z-index:9999;
-    pointer-events:auto;
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#00ffff;
+    font-weight:bold;
+    cursor:pointer;
 }
 </style>
 </head>
+
 <body>
-<div style="text-align:center;margin-bottom:20px;">
 
-<button
-id="loginGoogle"
-onclick="window.loginGoogle()"
-style="
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:#00ffff;
-font-weight:bold;
-cursor:pointer;
-">
-🔵 Entrar com Google
-</button>
-
+<!-- LOGIN -->
+<div id="loginScreen">
+  <button id="loginGoogle" onclick="loginGoogle()">
+    🔵 Entrar com Google
+  </button>
 </div>
-<div class="container">
+
+<!-- SITE -->
+<div class="container" id="site">
 
 <div class="tabs">
 <button onclick="mostrar(event,'inicio')">🏠 Início</button>
@@ -278,175 +134,32 @@ cursor:pointer;
 </div>
 
 <section id="inicio" class="pagina ativa">
-<div class="hero">
-<img src="Banner.png" class="Banner" alt="Banner Portal Nebuloso">
-<p class="slogan">Os melhores mods reunidos em um só universo ✨</p>
-</div>
+<h1 style="text-align:center;color:#00ffff;">Portal Nebuloso</h1>
+<p style="text-align:center;">Bem-vindo ao site 🔥</p>
 </section>
 
 <section id="mods" class="pagina">
-<div class="hero">
-<h1>🛒 Mods Disponíveis</h1>
-<p id="contadorMods">Mods disponíveis: 0</p>
-</div>
-
-<input
-id="pesquisa"
-type="text"
-placeholder="🔍 Pesquisar mods..."
-onkeyup="pesquisarMods()">
-
-<p style="color:#00ffff;margin-bottom:15px;">
-📚 Biblioteca
-</p>
-    
-<div class="grid">
-
-<div class="card">
-
-<span class="popular">🔥 POPULAR</span>
-
-<img src="amongus.jpg" alt="Among Us Mod">
-
-<h3>Among Us Mod</h3>
-
-<p class="rating">⭐⭐⭐⭐⭐ 4.9/5</p>
-
-<p class="downloads">📥 12.547 downloads</p>
-
-<p>Unlock skins + extras</p>
-
-<a href="https://www.mediafire.com/file/q3ehhgtacsf1phs/among-us-mod_2026.4.7-an1.com.apk/file" target="_blank">
-⬇ Baixar
-</a>
-
-</div>
-
-<div class="card">
-
-<span class="novo">🆕 NOVO</span>
-
-<img src="starlight.png" alt="Starlight Pack">
-
-<h3>Starlight Pack</h3>
-
-<p class="rating">⭐⭐⭐⭐☆ 4.4/5</p>
-
-<p class="downloads">📥 1.204 downloads</p>
-
-<p>Skins exclusivas</p>
-
-<a href="https://play.google.com/store/search?q=starlight+among+us&c=apps" target="_blank">
-⬇ Baixar
-</a>
-
-</div>
-
-</div>
-
-<p id="semResultado">
-🌌 Nenhum mod encontrado no universo Nebuloso
-</p>
-
+<h2 style="text-align:center;">Mods</h2>
 </section>
 
 <section id="discord" class="pagina">
-<div class="hero">
-<h1>Discord</h1>
-<a href="https://discord.gg/S9ggHtngD6" style="color:#00ffff;">Entrar</a>
-</div>
+<h2 style="text-align:center;">Discord</h2>
 </section>
 
 <section id="feedback" class="pagina">
-<div class="hero">
-<h1>Deixe seu feedback 💬</h1>
-<p>Ajude a melhorar o Portal Nebuloso</p>
-</div>
-
-<div class="feedback-box">
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSdWSvXoNvq54T-FRJXKh6CPW0cGh6_uOvE6PTpZ2XXiEthSBw/viewform?usp=dialog"
-target="_blank">
-
-<button>
-📝 Abrir Formulário
-</button>
-
-</a>
-</div>
+<h2 style="text-align:center;">Feedback</h2>
 </section>
 
 </div>
 
-<script>
-function mostrar(event,id){
-document.querySelectorAll('.pagina').forEach(p=>p.classList.remove('ativa'));
-document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('ativo'));
-document.getElementById(id).classList.add('ativa');
-event.currentTarget.classList.add('ativo');
-}
-
-window.onload=function(){
-const total=document.querySelectorAll('#mods .card').length;
-document.getElementById('contadorMods').innerText='Mods disponíveis: '+total;
-}
-
-function pesquisarMods(){
-
-const texto =
-document.getElementById("pesquisa")
-.value.toLowerCase();
-
-const cards =
-document.querySelectorAll("#mods .card");
-
-let encontrados = 0;
-
-cards.forEach(card=>{
-
-const nome =
-card.querySelector("h3")
-.innerText
-.toLowerCase();
-
-if(nome.includes(texto)){
-card.style.display="block";
-encontrados++;
-}else{
-card.style.display="none";
-}
-
-});
-
-const semResultado =
-document.getElementById("semResultado");
-
-if(encontrados === 0){
-semResultado.style.display = "block";
-}else{
-semResultado.style.display = "none";
-}
-
-}    
-
-</script>
-<footer style="
-text-align:center;
-margin-top:30px;
-padding:15px;
-color:#aaa;
-font-size:14px;">
-⚡ Portal Nebuloso © 2026
-</footer>
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
 import {
 getAuth,
 GoogleAuthProvider,
 signInWithPopup,
-onAuthStateChanged,
-signOut
+onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
@@ -456,38 +169,40 @@ const firebaseConfig = {
   storageBucket: "portal-nebuloso.firebasestorage.app",
   messagingSenderId: "755593713969",
   appId: "1:755593713969:web:0c3a45cb65061d1457f810",
-  measurementId: "G-W8E8MEZKQP"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-window.loginGoogle = async function() {
-
+window.loginGoogle = async function () {
   try {
-
     await signInWithPopup(auth, provider);
-
- catch (error) {
-
-  alert(error.code);
-  console.log(error);
-
-}
-
+  } catch (e) {
+    alert(e.message);
+  }
 };
 
 onAuthStateChanged(auth, (user) => {
-
   if (user) {
-
-    document.getElementById("loginGoogle").style.display = "none";
-
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("site").style.display = "block";
+  } else {
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("site").style.display = "none";
   }
-
 });
 
-</script>    
+</script>
+
+<script>
+function mostrar(event,id){
+document.querySelectorAll('.pagina').forEach(p=>p.classList.remove('ativa'));
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('ativo'));
+document.getElementById(id).classList.add('ativa');
+event.currentTarget.classList.add('ativo');
+}
+</script>
+
 </body>
 </html>
