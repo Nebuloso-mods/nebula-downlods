@@ -254,7 +254,6 @@ background:#00ffff;
 font-weight:bold;
 cursor:pointer;
 ">
-<button id="loginGoogle" onclick="loginGoogle()">
 🔵 Entrar com Google
 </button>
 </div>
@@ -452,12 +451,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-    
-alert("Firebase carregado!");
-    
-window.loginGoogle = async function(){
 
-alert("Clique detectado!");
+window.loginGoogle = async function(){
 
 try{
 
@@ -465,13 +460,12 @@ await signInWithPopup(auth, provider);
 
 }catch(error){
 
-console.log(error);
-
-alert(error.message);
+alert("Erro ao fazer login");
 
 }
 
 }
+
 onAuthStateChanged(auth,(user)=>{
 
 if(user){
