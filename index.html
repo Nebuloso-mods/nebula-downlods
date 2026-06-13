@@ -149,6 +149,24 @@ body::before{
 .visible {
     opacity: 1;
     transform: scale(1);
+} 
+/* 🔧 evita o botão sair ficar em cima das tabs */
+.container{
+    padding-top: 70px;
+}
+
+/* 📱 ajuste mobile */
+@media (max-width: 600px){
+    #logoutBtn{
+        top: 15px;
+        right: 15px;
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .tabs{
+        margin-top: 10px;
+    }
 }    
 </style>
 </head>
