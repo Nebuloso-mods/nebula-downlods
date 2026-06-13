@@ -132,6 +132,26 @@ body::before{
     border-radius:15px;
     box-shadow:0 0 20px rgba(128,0,255,.5);
 }
+.feedback-box a{
+    text-decoration:none;
+}
+
+.feedback-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#00ffff;
+    color:black;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.feedback-box button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px #00ffff;
+}    
 #pesquisa{
     width:100%;
     padding:14px 18px;
@@ -273,7 +293,7 @@ onkeyup="pesquisarMods()">
 
 <p>Unlock skins + extras</p>
 
-<a href="https://www.mediafire.com/file/q3ehhgtacsf1phs/among-us-mod_2026.4.7-an1.com.apk/file">
+<a href="https://www.mediafire.com/file/q3ehhgtacsf1phs/among-us-mod_2026.4.7-an1.com.apk/file" target="_blank">
 ⬇ Baixar
 </a>
 
@@ -293,7 +313,7 @@ onkeyup="pesquisarMods()">
 
 <p>Skins exclusivas</p>
 
-<a href="https://play.google.com/store/search?q=starlight+among+us&c=apps">
+<a href="https://play.google.com/store/search?q=starlight+among+us&c=apps" target="_blank">
 ⬇ Baixar
 </a>
 
@@ -317,11 +337,18 @@ onkeyup="pesquisarMods()">
 <section id="feedback" class="pagina">
 <div class="hero">
 <h1>Deixe seu feedback 💬</h1>
+<p>Ajude a melhorar o Portal Nebuloso</p>
 </div>
 
 <div class="feedback-box">
-<textarea id="msg" placeholder="Escreva sua opinião..."></textarea>
-<button onclick="enviarFeedback()">Enviar</button>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSdWSvXoNvq54T-FRJXKh6CPW0cGh6_uOvE6PTpZ2XXiEthSBw/viewform?usp=dialog"
+target="_blank">
+
+<button>
+📝 Abrir Formulário
+</button>
+
+</a>
 </div>
 </section>
 
@@ -377,27 +404,15 @@ semResultado.style.display = "none";
 }
 
 }    
-function enviarFeedback(){
-const msg=document.getElementById("msg").value.trim();
-if(!msg){alert("Escreva algo antes de enviar!");return;}
 
-fetch("https://discord.com/api/webhooks/1514650773303066704/UytEJ8u-3P1YtaZiJf0UTh5nN4nuSMWOeA8Kui5jHrhzNpF0foNXGHpptFWkLnaSt9l6",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-content:`💬 **Feedback Nebula Mods:**\n${msg}`
-})
-})
-.then(res=>{
-if(res.ok){
-alert("Feedback enviado!");
-document.getElementById("msg").value="";
-}else{
-alert("Erro ao enviar feedback.");
-}
-})
-.catch(()=>alert("Erro de conexão com Discord."));
-}
 </script>
-
+<footer style="
+text-align:center;
+margin-top:30px;
+padding:15px;
+color:#aaa;
+font-size:14px;">
+⚡ Portal Nebuloso © 2026
+</footer>
 </body>
+</html>
