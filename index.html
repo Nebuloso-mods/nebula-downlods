@@ -611,12 +611,18 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 getRedirectResult(auth)
   .then((result) => {
-    if (result) {
-      console.log("Login realizado com sucesso!");
+    console.log("Redirect result:", result);
+
+    if (result?.user) {
+      console.log("Usuário:", result.user.email);
     }
   })
   .catch((error) => {
-    console.log("Erro redirect:", error);
+    console.error(
+      "Erro redirect:",
+      error.code,
+      error.message
+    );
   });
     
 /* LOGIN */
@@ -624,7 +630,11 @@ window.loginGoogle = async function () {
   try {
     await signInWithRedirect(auth, provider);
   } catch (e) {
-    console.log("Erro login:", e);
+    console.error(
+  "Erro login:",
+  e.code,
+  e.message
+);
   }
 };
 
