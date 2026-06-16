@@ -480,38 +480,9 @@ z-index:9999;
 
 <h2>🔐 Entrar no Portal Nebuloso</h2>
 
-<input
-id="email"
-type="email"
-placeholder="Seu email"
-style="padding:10px;border-radius:10px;width:250px;">
-
-<input
-id="senha"
-type="password"
-placeholder="Sua senha"
-style="padding:10px;border-radius:10px;width:250px;">
-
-<button onclick="loginEmail()" style="
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:#00ff88;
-font-weight:bold;
-cursor:pointer;
-">
-🔑 Entrar
-</button>
-
-<button onclick="criarConta()" style="
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:#00ffff;
-font-weight:bold;
-cursor:pointer;
-">
-📝 Criar Conta
+<button id="loginGoogle" onclick="window.loginGoogle()"
+style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
+  🔵 Entrar com Google
 </button>
 
 </div>
@@ -616,11 +587,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    
+
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
@@ -656,106 +625,6 @@ window.logout = async function () {
   }
 };
 
-// CRIAR CONTA
-window.criarConta = async function () {
-
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-
-  if (!email || !senha) {
-    alert("Preencha email e senha.");
-    return;
-  }
-
-  if (senha.length < 6) {
-    alert("A senha deve ter pelo menos 6 caracteres.");
-    return;
-  }
-
-  try {
-
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      senha
-    );
-
-    alert("✅ Conta criada com sucesso!");
-
-  } catch (e) {
-
-    console.error(e);
-
-    switch(e.code){
-
-      case "auth/email-already-in-use":
-        alert("❌ Este email já está cadastrado.");
-        break;
-
-      case "auth/invalid-email":
-        alert("❌ Email inválido.");
-        break;
-
-      case "auth/weak-password":
-        alert("❌ Senha muito fraca.");
-        break;
-
-      default:
-        alert("❌ " + e.code);
-
-    }
-
-  }
-
-};
-
-// LOGIN EMAIL
-window.loginEmail = async function () {
-
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-
-  if (!email || !senha) {
-    alert("Preencha email e senha.");
-    return;
-  }
-
-  try {
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      senha
-    );
-
-    alert("✅ Login realizado!");
-
-  } catch (e) {
-
-    console.error(e);
-
-    switch(e.code){
-
-      case "auth/invalid-credential":
-        alert("❌ Email ou senha incorretos.");
-        break;
-
-      case "auth/user-not-found":
-        alert("❌ Conta não encontrada.");
-        break;
-
-      case "auth/wrong-password":
-        alert("❌ Senha incorreta.");
-        break;
-
-      default:
-        alert("❌ " + e.code);
-
-    }
-
-  }
-
-};
 /* ESTADO LOGIN */
 onAuthStateChanged(auth, (user) => {
 
