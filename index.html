@@ -591,11 +591,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+    
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
@@ -608,11 +609,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-
+getRedirectResult(auth)
+  .then((result) => {
+    if (result) {
+      console.log("Login realizado com sucesso!");
+    }
+  })
+  .catch((error) => {
+    console.log("Erro redirect:", error);
+  });
+    
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
-    await signInWithPopup(auth, provider);
+    await signInWithRedirect(auth, provider);
   } catch (e) {
     console.log("Erro login:", e);
   }
