@@ -663,7 +663,15 @@ window.logout = async function () {
 
 /* ESTADO LOGIN */
 onAuthStateChanged(auth, (user) => {
-console.log("Estado auth:", user);
+
+  alert(
+    user
+      ? "LOGADO: " + user.email
+      : "NÃO LOGADO"
+  );
+
+  console.log("Estado auth:", user);
+
   const loading = document.getElementById("loading");
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
@@ -672,7 +680,6 @@ console.log("Estado auth:", user);
   const userInfo = document.getElementById("userInfo");
   const userName = document.getElementById("userName");
   const userPhoto = document.getElementById("userPhoto");
-
   // loading seguro
   if (loading) {
     loading.style.opacity = "0";
