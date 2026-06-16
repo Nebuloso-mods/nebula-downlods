@@ -1,3 +1,166 @@
+<body>
+    
+<div id="loader">
+<div class="loader-logo">NEBULOSO</div>
+</div>
+    
+<!-- BOTÃO LOGOUT -->
+<button id="logoutBtn" onclick="logout()" style="
+position:fixed;
+top:10px;
+right:10px;
+padding:10px 15px;
+border:none;
+border-radius:10px;
+background:#ff3b3b;
+color:white;
+font-weight:bold;
+cursor:pointer;
+z-index:10000;
+display:none;
+">
+🚪 Sair da conta
+</button>
+
+<div id="userInfo" style="
+position:fixed;
+top:10px;
+left:10px;
+display:none;
+align-items:center;
+gap:10px;
+background:rgba(0,0,0,0.6);
+padding:8px 12px;
+border-radius:12px;
+color:#00ffff;
+font-weight:bold;
+z-index:10000;
+backdrop-filter:blur(5px);
+">
+
+<img id="userPhoto" src="" alt="Foto" style="
+width:40px;
+height:40px;
+border-radius:50%;
+border:2px solid #00ffff;
+object-fit:cover;
+">
+
+<span id="userName"></span>
+
+</div>
+    
+<!-- LOADING -->
+<div id="loading" style="
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:black;
+color:#00ffff;
+z-index:10000;
+font-size:18px;
+transition:opacity 0.3s ease;
+">
+Verificando login...
+</div>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="visible" style="
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:15px;
+background:black;
+color:white;
+position:fixed;
+width:100%;
+z-index:9999;
+">
+
+<h2>🔐 Entrar no Portal Nebuloso</h2>
+
+<button id="loginGoogle" onclick="window.loginGoogle()"
+style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
+  🔵 Entrar com Google
+</button>
+
+</div>
+
+<!-- SITE -->
+<div class="container hidden" id="site">
+
+<div class="tabs">
+<button onclick="mostrar(event,'inicio')">🏠 Início</button>
+<button onclick="mostrar(event,'mods')">🛒 Mods</button>
+<button onclick="mostrar(event,'discord')">🎮 Discord</button>
+<button onclick="mostrar(event,'feedback')">💬 Feedback</button>
+</div>
+
+<!-- INICIO -->
+<section id="inicio" class="pagina ativa">
+<div class="hero">
+<img src="Banner.png" style="width:100%;border-radius:15px;">
+<p>Os melhores mods reunidos em um só universo ✨</p>
+</div>
+</section>
+
+<!-- MODS -->
+<section id="mods" class="pagina">
+<div class="hero">
+<h1>🛒 Mods Disponíveis</h1>
+<p id="contadorMods"></p>
+</div>
+
+<input id="pesquisa" type="text" placeholder="🔍 Pesquisar mods..." onkeyup="pesquisarMods()">
+
+<div class="grid">
+
+<!-- MOD 1 -->
+<div class="card">
+<img src="amongus.jpg">
+<h3>Among Us Mod</h3>
+<p>⭐⭐⭐⭐⭐ 4.9/5</p>
+<p>📥 12.547 downloads</p>
+<a href="https://www.mediafire.com/file/q3ehhgtacsf1phs/among-us-mod_2026.4.7-an1.com.apk/file" target="_blank">⬇ Baixar</a>
+</div>
+
+<!-- MOD 2 -->
+<div class="card">
+<img src="starlight.png">
+<h3>Starlight Pack</h3>
+<p>⭐⭐⭐⭐☆ 4.4/5</p>
+<p>📥 1.204 downloads</p>
+<a href="https://play.google.com/store/search?q=starlight+among+us&c=apps" target="_blank">⬇ Baixar</a>
+</div>
+
+</div>
+
+</section>
+
+<!-- DISCORD -->
+<section id="discord" class="pagina">
+<h2 style="text-align:center;">Discord</h2>
+<a href="https://discord.gg/S9ggHtngD6" style="color:#00ffff;display:block;text-align:center;">Entrar</a>
+</section>
+
+<!-- FEEDBACK -->
+<section id="feedback" class="pagina">
+<h2 style="text-align:center;">Feedback</h2>
+<div style="text-align:center;">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSdWSvXoNvq54T-FRJXKh6CPW0cGh6_uOvE6PTpZ2XXiEthSBw/viewform?usp=dialog">
+<button style="padding:10px;border:none;border-radius:10px;background:#00ffff;">
+📝 Abrir Formulário
+</button>
+</a>
+</div>
+</section>
+
+</div>
+
 <script>
 function mostrar(event, id) {
   document.querySelectorAll('.pagina').forEach(p => p.classList.remove('ativa'));
@@ -25,12 +188,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    
+
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
@@ -43,20 +205,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-getRedirectResult(auth)
-  .then((result) => {
-    if (result) {
-      console.log("Login realizado com sucesso!");
-    }
-  })
-  .catch((error) => {
-    console.log("Erro redirect:", error);
-  });
-    
+
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
-    await signInWithRedirect(auth, provider);
+    await signInWithPopup(auth, provider);
   } catch (e) {
     console.log("Erro login:", e);
   }
