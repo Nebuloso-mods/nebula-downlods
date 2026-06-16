@@ -610,8 +610,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-await setPersistence(auth, browserLocalPersistence);    
 const provider = new GoogleAuthProvider();
+
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log("Persistência ativada");
+  })
+  .catch((error) => {
+    console.error("Erro persistência:", error);
+  });
 getRedirectResult(auth)
   .then((result) => {
     console.log("Redirect result:", result);
@@ -656,7 +663,7 @@ window.logout = async function () {
 
 /* ESTADO LOGIN */
 onAuthStateChanged(auth, (user) => {
-
+console.log("Estado auth:", user);
   const loading = document.getElementById("loading");
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
