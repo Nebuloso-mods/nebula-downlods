@@ -115,6 +115,10 @@ body::before{
     flex-wrap:wrap;
 }
     
+#installBtn{
+  display:block;
+}    
+    
 .tabs button{
     padding:10px 15px;
     border:none;
@@ -616,23 +620,6 @@ body::after{
 <div id="loader">
 <div class="loader-logo">NEBULOSO</div>
 </div>
-
-<!-- baixar site -->
-<button id="installBtn" style="
-position:fixed;
-bottom:20px;
-right:20px;
-padding:12px 15px;
-border:none;
-border-radius:10px;
-background:#00ffff;
-color:black;
-font-weight:bold;
-z-index:99999;
-display:none;
-">
-⬇ Instalar App
-</button>
     
 <div id="userInfo" style="
 position:fixed;
@@ -686,7 +673,20 @@ cursor:pointer;
 ">
 🚪 Sair
 </button>
-
+    
+<button id="installBtn" onclick="triggerInstall()" style="
+width:100%;
+padding:8px;
+margin-bottom:8px;
+border:none;
+border-radius:8px;
+background:#00ffff;
+color:black;
+cursor:pointer;
+font-weight:bold;
+">
+⬇ Instalar App
+</button>
 </div>
 
 </div>
@@ -1215,18 +1215,27 @@ btn.addEventListener("click", async () => {
 });
 </script>
 <script>
-document.getElementById("userPhoto").onclick = function () {
-  const menu = document.getElementById("profileMenu");
+const photo = document.getElementById("userPhoto");
 
-  menu.style.display =
-    menu.style.display === "block" ? "none" : "block";
-};
+if (photo) {
+  photo.onclick = function () {
+    const menu = document.getElementById("profileMenu");
 
+    menu.style.display =
+      menu.style.display === "block" ? "none" : "block";
+  };
+}
 document.addEventListener("click", function (e) {
   const userInfo = document.getElementById("userInfo");
+  const menu = document.getElementById("profileMenu");
 
-  if (userInfo && !userInfo.contains(e.target)) {
-    document.getElementById("profileMenu").style.display = "none";
+  if (
+    menu &&
+    userInfo &&
+    !userInfo.contains(e.target) &&
+    !menu.contains(e.target)
+  ) {
+    menu.style.display = "none";
   }
 });
  if ("serviceWorker" in navigator) {
