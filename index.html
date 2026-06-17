@@ -657,6 +657,23 @@ object-fit:cover;
 
 </div>
     
+<!-- baixar site -->
+<button id="installBtn" style="
+position:fixed;
+bottom:20px;
+right:20px;
+padding:12px 15px;
+border:none;
+border-radius:10px;
+background:#00ffff;
+color:black;
+font-weight:bold;
+z-index:99999;
+display:none;
+">
+⬇ Instalar App
+</button>
+    
 <!-- LOADING -->
 <div id="loading" style="
 position:fixed;
@@ -1157,6 +1174,27 @@ document.getElementById("contadorMods")
 .textContent =
 `🚀 ${total} mods disponíveis para download`;
 
+});
+</script>
+<script>
+let deferredPrompt;
+
+const btn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btn.style.display = "block";
+});
+
+btn.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+  const choice = await deferredPrompt.userChoice;
+
+  deferredPrompt = null;
+  btn.style.display = "none";
 });
 </script>    
 </body>
