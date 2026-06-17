@@ -362,10 +362,13 @@ body::after{
     background:#00ffff;
     color:black;
 
+    transform:scale(1.05);
+
     box-shadow:
     0 0 10px #00ffff,
-    0 0 20px #00ffff;
-}    
+    0 0 20px #00ffff,
+    0 0 40px #00ffff;
+}
 
 @keyframes starsMove{
     from{
@@ -472,22 +475,36 @@ body::after{
     }
 }
 
-.hall-card{
-    max-width:600px;
+.inicio-destaque{
+    max-width:450px;
     margin:auto;
-    text-align:center;
 
-    background:rgba(21,28,43,0.95);
+    background:linear-gradient(
+        180deg,
+        rgba(30,40,60,.95),
+        rgba(21,28,43,.95)
+    );
+
     border:2px solid #ffd700;
-
     border-radius:20px;
     padding:25px;
 
-    box-shadow:
-    0 0 15px #ffd700,
-    0 0 30px rgba(255,215,0,.5);
+    backdrop-filter:blur(10px);
 
+    box-shadow:
+    0 0 20px rgba(255,215,0,.5),
+    0 0 40px rgba(255,215,0,.25);
+
+    transition:.3s;
     animation:hallGlow 2s infinite alternate;
+}
+
+.hall-card:hover{
+    transform:translateY(-5px) scale(1.02);
+
+    box-shadow:
+    0 0 30px rgba(255,215,0,.8),
+    0 0 60px rgba(255,215,0,.4);
 }
 
 .hall-img{
@@ -499,6 +516,12 @@ body::after{
     border:3px solid #ffd700;
 
     margin-bottom:15px;
+
+    transition:.4s;
+}
+
+.hall-card:hover .hall-img{
+    transform:scale(1.03);
 }
 
 .hall-card h2{
@@ -507,14 +530,15 @@ body::after{
 
     text-shadow:
     0 0 10px #ffd700,
-    0 0 20px #ffd700;
+    0 0 20px #ffd700,
+    0 0 40px rgba(255,215,0,.8);
 }
 
 .hall-card p{
     color:white;
     margin-bottom:15px;
+    line-height:1.6;
 }
-
 .coroa{
     font-size:50px;
     margin-bottom:10px;
@@ -661,7 +685,16 @@ border-radius:20px;
 box-shadow:0 0 30px rgba(0,255,255,.5);
 margin-bottom:20px;
 ">
-
+<p id="saudacao"
+style="
+margin-top:10px;
+font-size:18px;
+color:#00ffff;
+font-weight:bold;
+">
+✨ Bem-vindo ao Portal Nebuloso
+</p>
+    
 <h1>🌌 Portal Nebuloso</h1>
 
 <p style="font-size:18px;">
@@ -686,8 +719,7 @@ dos nossos eventos exclusivos.
 
 <br>
 
-<div class="hall-card">
-
+<div class="hall-card inicio-destaque">
 <h2>👑 Dupla em Destaque</h2>
 
 <p>
@@ -878,6 +910,21 @@ box-shadow:0 0 15px #00ffff;
 ">
 📝 Enviar Feedback
 </a>
+
+<footer style="
+text-align:center;
+margin-top:40px;
+opacity:.7;
+font-size:14px;
+">
+
+⚡ Portal Nebuloso © 2026
+
+<br>
+
+Desenvolvido por 彡れモ乃Uㄥ口ち〄ッ
+
+</footer>    
 </div>
 
 </section>
@@ -1008,8 +1055,16 @@ onAuthStateChanged(auth, (user) => {
     if (userInfo) userInfo.style.display = "flex";
 
     if (userName) {
-      userName.textContent = user.displayName || "Usuário";
-    }
+  userName.textContent = user.displayName || "Usuário";
+
+  const saudacao =
+  document.getElementById("saudacao");
+
+  if(saudacao){
+      saudacao.textContent =
+      `✨ Bem-vindo, ${user.displayName}`;
+  }
+}
 
     if (userPhoto) {
       userPhoto.src = user.photoURL || "";
@@ -1063,7 +1118,7 @@ document.querySelectorAll(".card").length;
 
 document.getElementById("contadorMods")
 .textContent =
-`📦 ${total} mods disponíveis`;
+`🚀 ${total} mods disponíveis para download`;
 
 });
 </script>    
