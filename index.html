@@ -628,24 +628,6 @@ display:none;
 ⬇ Instalar App
 </button>
     
-<!-- BOTÃO LOGOUT -->
-<button id="logoutBtn" onclick="logout()" style="
-position:fixed;
-top:10px;
-right:10px;
-padding:10px 15px;
-border:none;
-border-radius:10px;
-background:#ff3b3b;
-color:white;
-font-weight:bold;
-cursor:pointer;
-z-index:10000;
-display:none;
-">
-🚪 Sair da conta
-</button>
-
 <div id="userInfo" style="
 position:fixed;
 top:10px;
@@ -660,6 +642,7 @@ color:#00ffff;
 font-weight:bold;
 z-index:10000;
 backdrop-filter:blur(5px);
+cursor:pointer;
 ">
 
 <img id="userPhoto" src="" alt="Foto" style="
@@ -671,6 +654,34 @@ object-fit:cover;
 ">
 
 <span id="userName"></span>
+
+<!-- MENU -->
+<div id="profileMenu" style="
+display:none;
+position:absolute;
+top:60px;
+left:0;
+background:rgba(0,0,0,0.9);
+border:1px solid #00ffff;
+border-radius:12px;
+padding:10px;
+width:150px;
+z-index:99999;
+">
+
+<button onclick="logout()" style="
+width:100%;
+padding:8px;
+border:none;
+border-radius:8px;
+background:#ff3b3b;
+color:white;
+cursor:pointer;
+">
+🚪 Sair
+</button>
+
+</div>
 
 </div>
     
@@ -1195,6 +1206,22 @@ btn.addEventListener("click", async () => {
 
   deferredPrompt = null;
   btn.style.display = "none";
+});
+</script>
+<script>
+document.getElementById("userPhoto").onclick = function () {
+  const menu = document.getElementById("profileMenu");
+
+  menu.style.display =
+    menu.style.display === "block" ? "none" : "block";
+};
+
+document.addEventListener("click", function (e) {
+  const userInfo = document.getElementById("userInfo");
+
+  if (userInfo && !userInfo.contains(e.target)) {
+    document.getElementById("profileMenu").style.display = "none";
+  }
 });
 </script>    
 </body>
