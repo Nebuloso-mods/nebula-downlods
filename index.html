@@ -258,7 +258,13 @@ body::before{
     object-fit:cover;
     border:2px solid #00ffff;
 }
-
+    
+#profileMenu{
+  position:absolute;
+  top:60px;
+  left:0;
+}
+    
 /* 📱 MOBILE */
 @media (max-width:600px){
 
@@ -1223,6 +1229,9 @@ document.addEventListener("click", function (e) {
     document.getElementById("profileMenu").style.display = "none";
   }
 });
+ if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}   
 </script>    
 </body>
 </html>
