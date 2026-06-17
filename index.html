@@ -688,10 +688,32 @@ z-index:9999;
 
 <h2>🔐 Entrar no Portal Nebuloso</h2>
 
-<button id="loginGoogle" onclick="window.loginGoogle()"
-style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
-  🔵 Entrar com Google
+<input id="user" placeholder="Usuário" style="
+padding:10px;
+border-radius:8px;
+border:none;
+outline:none;
+">
+
+<input id="pass" type="password" placeholder="Senha" style="
+padding:10px;
+border-radius:8px;
+border:none;
+outline:none;
+">
+
+<button onclick="login()" style="
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#00ffff;
+font-weight:bold;
+cursor:pointer;
+">
+Entrar
 </button>
+
+<p id="erro" style="color:red;"></p>
 
 </div>
 
@@ -1156,6 +1178,34 @@ document.getElementById("contadorMods")
 `🚀 ${total} mods disponíveis para download`;
 
 });
-</script>    
+</script>
+ <script>
+function login() {
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  // 🔐 LOGIN SIMPLES (você pode mudar depois)
+  if (user === "admin" && pass === "1234") {
+
+    localStorage.setItem("logado", "sim");
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("site").classList.remove("hidden");
+    document.getElementById("site").classList.add("visible");
+
+  } else {
+    document.getElementById("erro").innerText = "Usuário ou senha inválidos!";
+  }
+}
+
+// 🔥 AUTO LOGIN
+window.onload = () => {
+  if (localStorage.getItem("logado") === "sim") {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("site").classList.remove("hidden");
+    document.getElementById("site").classList.add("visible");
+  }
+}
+</script>   
 </body>
 </html>
