@@ -391,7 +391,77 @@ body::after{
     50%{
         transform:scale(1.15);
     }
-}    
+/* HALL DA FAMA */
+
+.hall-card{
+    max-width:600px;
+    margin:auto;
+    text-align:center;
+
+    background:rgba(21,28,43,0.95);
+    border:2px solid #ffd700;
+
+    border-radius:20px;
+    padding:25px;
+
+    box-shadow:
+    0 0 15px #ffd700,
+    0 0 30px rgba(255,215,0,.5);
+
+    animation:hallGlow 2s infinite alternate;
+}
+
+.hall-img{
+    width:100%;
+    max-height:350px;
+    object-fit:cover;
+
+    border-radius:15px;
+    border:3px solid #ffd700;
+
+    margin-bottom:15px;
+}
+
+.hall-card h2{
+    color:#ffd700;
+    margin-bottom:10px;
+
+    text-shadow:
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
+}
+
+.hall-card p{
+    color:white;
+    margin-bottom:15px;
+}
+
+.coroa{
+    font-size:50px;
+    margin-bottom:10px;
+    animation:flutuar 2s infinite ease-in-out;
+}
+
+@keyframes flutuar{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+
+@keyframes hallGlow{
+    from{
+        box-shadow:
+        0 0 15px #ffd700;
+    }
+
+    to{
+        box-shadow:
+        0 0 30px #ffd700,
+        0 0 50px rgba(255,215,0,.7);
+    }
+}
 </style>
 </head>
 
@@ -493,6 +563,7 @@ style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-
 <div class="tabs">
 <button onclick="mostrar(event,'inicio')">🏠 Início</button>
 <button onclick="mostrar(event,'mods')">🛒 Mods</button>
+<button onclick="mostrar(event,'dupladodia')">🏆 Hall da Fama</button>
 <button onclick="mostrar(event,'discord')">🎮 Discord</button>
 <button onclick="mostrar(event,'feedback')">💬 Feedback</button>
 </div>
@@ -512,6 +583,32 @@ style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-
 <p id="contadorMods"></p>
 </div>
 
+<section id="dupladodia" class="pagina">
+
+<div class="hero">
+<h1>🏆 Hall da Fama</h1>
+<p>A melhor dupla do dia no Portal Nebuloso</p>
+</div>
+
+<div class="hall-card">
+
+<div class="coroa">👑</div>
+
+<img src="dupla.jpg" class="hall-img">
+
+<h2>Jogador1 & Jogador2</h2>
+
+<p>
+Foram os destaques do dia com jogadas incríveis,
+dedução perfeita e muita habilidade.
+</p>
+
+<span>📅 17/06/2026</span>
+
+</div>
+
+</section>
+    
 <input id="pesquisa" type="text" placeholder="🔍 Pesquisar mods..." onkeyup="pesquisarMods()">
 
 <div class="grid">
