@@ -19,6 +19,19 @@ body{
     min-height:100vh;
 }
 
+body::after{
+    animation:starsMove 60s linear infinite;
+}
+
+.hero h1,
+.hall-card{
+    will-change:transform,opacity;
+}
+
+.card{
+    transform:translateZ(0);
+}
+
 .pagina{
     display:none;
     opacity:0;
@@ -56,6 +69,14 @@ body::before{
     cursor:pointer;
 }
 
+/* OTIMIZAÇAO */
+.hero h1,
+.hall-card,
+.card,
+.pagina{
+    will-change: transform, opacity;
+}
+    
 /* SITE */
 .container{
     position:relative;
@@ -255,6 +276,17 @@ body::before{
         margin-top:10px;
     }
 }
+
+/* DIMUNUIÇAO DE EFEITOS */
+@keyframes hallGlow{
+    from{
+        filter:brightness(1);
+    }
+    to{
+        filter:brightness(1.08);
+    }
+}
+    
 /* ✨ ANIMAÇÃO DE ENTRADA */
 @keyframes fadeUp{
     from{
@@ -352,8 +384,8 @@ body::after{
     background-image:
         radial-gradient(circle, rgba(0,255,255,.8) 1px, transparent 1px),
         radial-gradient(circle, rgba(255,255,255,.5) 1px, transparent 1px);
-    background-size:120px 120px, 180px 180px;
-    animation:starsMove 20s linear infinite;
+    background-size:250px 250px,350px 350px;
+    animation:starsMove 60s linear infinite;
     pointer-events:none;
     z-index:0;
 }
@@ -721,7 +753,8 @@ dos nossos eventos exclusivos.
 
 <br>
 
-<div class="hall-card inicio-destaque">
+<div class="inicio-destaque">
+
 <h2>👑 Dupla em Destaque</h2>
 
 <p>
