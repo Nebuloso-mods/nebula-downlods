@@ -499,12 +499,22 @@ body::after{
     animation:hallGlow 2s infinite alternate;
 }
 
-.hall-card:hover{
-    transform:translateY(-5px) scale(1.02);
+.hall-card{
+    max-width:600px;
+    margin:auto;
+    text-align:center;
+
+    background:rgba(21,28,43,0.95);
+    border:2px solid #ffd700;
+
+    border-radius:20px;
+    padding:25px;
 
     box-shadow:
-    0 0 30px rgba(255,215,0,.8),
-    0 0 60px rgba(255,215,0,.4);
+    0 0 15px #ffd700,
+    0 0 30px rgba(255,215,0,.5);
+
+    animation:hallGlow 2s infinite alternate;
 }
 
 .hall-img{
@@ -516,12 +526,6 @@ body::after{
     border:3px solid #ffd700;
 
     margin-bottom:15px;
-
-    transition:.4s;
-}
-
-.hall-card:hover .hall-img{
-    transform:scale(1.03);
 }
 
 .hall-card h2{
@@ -530,14 +534,12 @@ body::after{
 
     text-shadow:
     0 0 10px #ffd700,
-    0 0 20px #ffd700,
-    0 0 40px rgba(255,215,0,.8);
+    0 0 20px #ffd700;
 }
 
 .hall-card p{
     color:white;
     margin-bottom:15px;
-    line-height:1.6;
 }
 .coroa{
     font-size:50px;
@@ -704,7 +706,7 @@ Bem-vindo ao universo dos mods, eventos e da comunidade Nebulosa.
 </div>
 
 <div class="portal-card">
-
+    
 <div style="font-size:70px;">🚀</div>
 
 <h2>Bem-vindo ao Portal Nebuloso</h2>
