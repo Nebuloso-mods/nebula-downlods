@@ -265,6 +265,12 @@ body::before{
     transition:all 0.3s ease;
 }
 
+ .galeria .card img,
+#galeria .card img{
+    height:220px;
+    object-fit:cover;
+}   
+
 .tabs button:hover,
 #loginGoogle:hover{
     box-shadow:0 0 15px #00ffff;
@@ -570,6 +576,7 @@ style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-
 <button onclick="mostrar(event,'inicio')">🏠 Início</button>
 <button onclick="mostrar(event,'mods')">🛒 Mods</button>
 <button onclick="mostrar(event,'dupladodia')">🏆 Hall da Fama</button>
+<button onclick="mostrar(event,'galeria')">📸 Galeria</button>    
 <button onclick="mostrar(event,'discord')">🎮 Discord</button>
 <button onclick="mostrar(event,'feedback')">💬 Feedback</button>
 </div>
@@ -636,6 +643,44 @@ Foram os destaques do dia com jogadas incríveis.
 </p>
 
 <span>📅 16/06/2026</span>
+</div>
+
+</section>
+
+<!-- GALERIA -->
+<section id="galeria" class="pagina">
+
+<div class="hero">
+<h1>📸 Galeria Nebulosa</h1>
+<p>Os melhores momentos da comunidade</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<img src="print1.jpg">
+<h3>🏆 Vitória Épica</h3>
+<p>Partida perfeita da equipe Nebulosa.</p>
+</div>
+
+<div class="card">
+<img src="print2.jpg">
+<h3>👑 Dupla Lendária</h3>
+<p>Jogada incrível durante uma partida.</p>
+</div>
+
+<div class="card">
+<img src="print3.jpg">
+<h3>🚀 Melhor Momento</h3>
+<p>Print enviado pela comunidade.</p>
+</div>
+
+<div class="card">
+<img src="print4.jpg">
+<h3>🎮 Among Us</h3>
+<p>Uma partida inesquecível.</p>
+</div>
+
 </div>
 
 </section>
