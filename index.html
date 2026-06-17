@@ -19,6 +19,13 @@ body{
     min-height:100vh;
 }
 
+.pagina{
+    display:none;
+    opacity:0;
+    transform:translateY(15px);
+    transition:all .4s ease;
+}
+
 /* overlay */
 body::before{
     content:"";
@@ -234,6 +241,32 @@ body::before{
     }
 }
 
+.pagina{
+    display:none;
+    opacity:0;
+    transform:translateY(15px);
+    transition:all .4s ease;
+}
+
+.pagina.ativa{
+    display:block;
+    opacity:1;
+    transform:translateY(0);
+    animation:trocarAba .4s ease;
+}
+
+@keyframes trocarAba{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}    
+
 /* 💎 CARDS PREMIUM */
 .card{
     background:rgba(21,28,43,0.9);
@@ -298,6 +331,15 @@ body::after{
     pointer-events:none;
     z-index:0;
 }
+
+.tabs button.ativo{
+    background:#00ffff;
+    color:black;
+
+    box-shadow:
+    0 0 10px #00ffff,
+    0 0 20px #00ffff;
+}    
 
 @keyframes starsMove{
     from{
@@ -817,12 +859,43 @@ box-shadow:0 0 15px #00ffff;
 </div>
 
 <script>
-function mostrar(event, id) {
-  document.querySelectorAll('.pagina').forEach(p => p.classList.remove('ativa'));
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('ativo'));
+function mostrar(event,id){
 
-  document.getElementById(id).classList.add('ativa');
-  event.currentTarget.classList.add('ativo');
+const paginas =
+document.querySelectorAll('.pagina');
+
+paginas.forEach(p=>{
+
+if(p.classList.contains('ativa')){
+p.style.opacity="0";
+p.style.transform="translateY(15px)";
+
+setTimeout(()=>{
+p.classList.remove('ativa');
+},200);
+
+}else{
+p.classList.remove('ativa');
+}
+
+});
+
+setTimeout(()=>{
+
+const pagina =
+document.getElementById(id);
+
+pagina.classList.add('ativa');
+pagina.style.opacity="1";
+pagina.style.transform="translateY(0)";
+
+},200);
+
+document
+.querySelectorAll('.tabs button')
+.forEach(b=>b.classList.remove('ativo'));
+
+event.currentTarget.classList.add('ativo');
 }
 
 function pesquisarMods() {
