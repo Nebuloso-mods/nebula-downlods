@@ -656,7 +656,32 @@ body::after{
     60%{transform:translate(-1px,0);}
     80%{transform:translate(1px,1px);}
     100%{transform:translate(0);}
-}    
+}  
+ .glitch-page{
+    animation: pageGlitch 4s infinite;
+}
+
+@keyframes pageGlitch{
+    0%,95%,100%{
+        transform: translate(0);
+    }
+
+    96%{
+        transform: translate(-3px,2px);
+    }
+
+    97%{
+        transform: translate(3px,-2px);
+    }
+
+    98%{
+        transform: translate(-2px,1px);
+    }
+
+    99%{
+        transform: translate(2px,-1px);
+    }
+}   
 </style>
 </head>
 
@@ -848,11 +873,14 @@ dos nossos eventos exclusivos.
 </div>
 
 </section>
-    
+
+<!--glitch hacker -->
+<section id="emBreve" class="pagina glitch-page">
+     
 <!-- MODS -->
 <section id="mods" class="pagina">
 
-<div class="hero">
+<div class="hero"
 <h1>🛒 Mods Disponíveis</h1>
 <p id="contadorMods"></p>
 </div>
