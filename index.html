@@ -1350,7 +1350,7 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    
+
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
@@ -1362,7 +1362,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);    
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 /* LOGIN */
@@ -1378,158 +1378,92 @@ window.loginGoogle = async function () {
 window.logout = async function () {
   try {
     await signOut(auth);
-
-    const search = document.getElementById("pesquisa");
-    if (search) search.value = "";
-
   } catch (e) {
     console.log("Erro logout:", e);
   }
 };
 
-/* ESTADO LOGIN */
+/* AUTH STATE */
 onAuthStateChanged(auth, (user) => {
-
   const loading = document.getElementById("loading");
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
-  const logoutBtn = document.getElementById("logoutBtn");
-
   const userInfo = document.getElementById("userInfo");
   const userName = document.getElementById("userName");
   const userPhoto = document.getElementById("userPhoto");
 
-  // loading seguro
   if (loading) {
     loading.style.opacity = "0";
-    setTimeout(() => {
-      loading.style.display = "none";
-    }, 300);
+    setTimeout(() => loading.style.display = "none", 300);
   }
 
   if (user) {
-
-    // Mostrar nome e foto
     if (userInfo) userInfo.style.display = "flex";
-
-    if (userName) {
-  userName.textContent = user.displayName || "Usuário";
-
-  const saudacao =
-  document.getElementById("saudacao");
-
-  if(saudacao){
-      saudacao.textContent =
-      `✨ Bem-vindo, ${user.displayName}`;
-  }
-}
-
-    if (userPhoto) {
-      userPhoto.src = user.photoURL || "";
-    }
+    if (userName) userName.textContent = user.displayName;
+    if (userPhoto) userPhoto.src = user.photoURL || "";
 
     login?.classList.add("hidden");
-    login?.classList.remove("visible");
-
-    site?.classList.add("visible");
     site?.classList.remove("hidden");
-
-    if (logoutBtn) logoutBtn.style.display = "block";
-
+    site?.classList.add("visible");
   } else {
-
-    site?.classList.add("hidden");
-    site?.classList.remove("visible");
-
-    login?.classList.add("visible");
     login?.classList.remove("hidden");
-
-    if (logoutBtn) logoutBtn.style.display = "none";
-
-    if (userInfo) {
-      userInfo.style.display = "none";
-    }
+    site?.classList.add("hidden");
+    if (userInfo) userInfo.style.display = "none";
   }
 });
 
-/* CHAT GLOBAL */
-const DONO_EMAIL = "bruninhoedits0@gmail.com";
-let ultimoEnvio = 0;
-
+/* ENVIAR MENSAGEM */
 window.enviarMensagem = async function () {
-  try {
-    const agora = Date.now();
+  const inputEl = document.getElementById("mensagemInput");
+  if (!inputEl) return;
 
-    if (agora - ultimoEnvio < 2000) return;
-    ultimoEnvio = agora;
+  const texto = inputEl.value.trim();
+  if (!texto) return;
 
-    const input = document.getElementById("mensagemInput");
-    if (!input) return;
+  const user = auth.currentUser;
+  if (!user) return;
 
-    const texto = input.value;
-    if (!texto.trim()) return;
+  await addDoc(collection(db, "mensagens"), {
+    nome: user.displayName,
+    email: user.email,
+    foto: user.photoURL,
+    texto,
+    data: Date.now()
+  });
 
-    const user = auth.currentUser;
-    if (!user) return;
+  inputEl.value = "";
 
-    await addDoc(collection(db, "mensagens"), {
-      nome: user.displayName,
-      email: user.email,
-      foto: user.photoURL,
-      texto,
-      data: Date.now()
-    });
-
-    input.value = "";    
-
-    // limpa typing quando enviar mensagem
-    await setDoc(doc(db, "status", "typing"), {
-      nome: ""
-    });
-
-  } catch (e) {
-    console.log("Erro ao enviar:", e);
-  }
+  await setDoc(doc(db, "status", "typing"), { nome: "" });
 };
 
-
-/* ===== MENSAGENS ===== */
+/* CHAT */
 const q = query(
   collection(db, "mensagens"),
- orderBy("data","asc")
+  orderBy("data", "asc"),
   limit(50)
 );
 
 onSnapshot(q, (snapshot) => {
-
   const chat = document.getElementById("mensagens");
   if (!chat) return;
 
   const user = auth.currentUser;
-
-  const isBottom =
-    chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
+  const isBottom = chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
   chat.innerHTML = "";
 
-snapshot.forEach((docSnap) => {
-
-  const msg = docSnap.data();
-  const id = docSnap.id;
+  snapshot.forEach((docSnap) => {
+    const msg = docSnap.data();
+    const id = docSnap.id;
 
     const isMine = user && msg.email === user.email;
-    const isDono = msg.email === DONO_EMAIL;
 
-   chat.innerHTML += `
+    chat.innerHTML += `
 <div class="msg ${isMine ? "mine" : ""}">
   <img src="${msg.foto || ''}">
 
   <div class="msg-content">
-
-    <div class="msg-name">
-      ${msg.nome}
-    </div>
-
+    <div class="msg-name">${msg.nome}</div>
     <div class="bubble">${msg.texto}</div>
 
     ${isMine ? `
@@ -1541,46 +1475,33 @@ snapshot.forEach((docSnap) => {
         border:none;
         padding:4px 8px;
         border-radius:6px;
-        cursor:pointer;
-      ">
-        🗑️ apagar
-      </button>
+      ">🗑️ apagar</button>
     ` : ""}
-
   </div>
-</div>
-`;
+</div>`;
   });
 
-  if (isBottom) {
-    chat.scrollTop = chat.scrollHeight;
-  }
+  if (isBottom) chat.scrollTop = chat.scrollHeight;
 });
 
-
-/* ===== TYPING (MOSTRAR) ===== */
+/* TYPING */
 const typingDiv = document.getElementById("typing");
 
-onSnapshot(doc(db, "status", "typing"), (snapshot) => {
+onSnapshot(doc(db, "status", "typing"), (snap) => {
   if (!typingDiv) return;
-
-  const data = snapshot.data();
-
-  typingDiv.textContent =
-    data?.nome ? `⌨️ ${data.nome} está digitando...` : "";
+  const data = snap.data();
+  typingDiv.textContent = data?.nome ? `⌨️ ${data.nome} está digitando...` : "";
 });
 
-
-/* ===== TYPING (ENVIAR + LIMPAR) ===== */
-const input = document.getElementById("mensagemInput");
+/* INPUT TYPING */
+const msgInput = document.getElementById("mensagemInput");
 let typingTimeout;
 
-if (input) {
-  input.addEventListener("input", async () => {
+if (msgInput) {
+  msgInput.addEventListener("input", async () => {
     const user = auth.currentUser;
     if (!user) return;
 
-    // SALVA no Firestore (isso cria o doc automaticamente)
     await setDoc(doc(db, "status", "typing"), {
       nome: user.displayName
     });
@@ -1588,103 +1509,19 @@ if (input) {
     clearTimeout(typingTimeout);
 
     typingTimeout = setTimeout(async () => {
-      await setDoc(doc(db, "status", "typing"), {
-        nome: ""
-      });
+      await setDoc(doc(db, "status", "typing"), { nome: "" });
     }, 1200);
   });
 }
-</script>
-<script>
-window.addEventListener("load",()=>{
 
-    const loader =
-    document.getElementById("loader");
-
-    if(loader){
-    loader.style.opacity="0";
-
-    setTimeout(()=>{
-        loader.remove();
-    },600);
-}
-
-});
-    
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const total = 2;
-
-  document.getElementById("contadorMods").textContent =
-    `🚀 ${total} mods disponíveis para download`;
-});
-    
-</script>
-<script>
-let deferredPrompt;
-
-const btn = document.getElementById("installBtn");
-
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  btn.style.display = "block";
-});
-
-btn.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
-
-  deferredPrompt.prompt();
-  const choice = await deferredPrompt.userChoice;
-
-  deferredPrompt = null;
-  btn.style.display = "none";
-});
-    
-</script>
-<script>
-const photo = document.getElementById("userPhoto");
-
-if (photo) {
-  photo.onclick = function () {
-    const menu = document.getElementById("profileMenu");
-
-    menu.style.display =
-      menu.style.display === "block" ? "none" : "block";
-  };
-}
-document.addEventListener("click", function (e) {
-  const userInfo = document.getElementById("userInfo");
-  const menu = document.getElementById("profileMenu");
-
-  if (
-    menu &&
-    userInfo &&
-    !userInfo.contains(e.target) &&
-    !menu.contains(e.target)
-  ) {
-    menu.style.display = "none";
-  }
-});
-    
- if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
-} 
-document.getElementById("mensagemInput")
-.addEventListener("keypress",(e)=>{
-  if(e.key === "Enter"){
-    enviarMensagem();
-  }
-});    
-    
+/* DELETE MSG */
 window.apagarMensagem = async function (id) {
   try {
     await deleteDoc(doc(db, "mensagens", id));
   } catch (e) {
     console.log("Erro ao apagar:", e);
   }
-};    
-</script>    
+};
+</script>
 </body>
 </html>
