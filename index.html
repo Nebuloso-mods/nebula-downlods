@@ -718,6 +718,68 @@ body::after{
     font-weight:bold;
     letter-spacing:2px;
 }    
+/* efeito chat */    
+.chat-box{
+  height:400px;
+  overflow-y:auto;
+  text-align:left;
+  padding:10px;
+  border:1px solid #00ffff;
+  border-radius:12px;
+  margin-bottom:10px;
+  background:rgba(0,0,0,0.25);
+}
+
+.msg{
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  align-items:flex-start;
+}
+
+.msg img{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:2px solid #00ffff;
+}
+
+.bubble{
+  background:rgba(0,255,255,0.08);
+  padding:8px 12px;
+  border-radius:12px;
+  max-width:75%;
+  word-break:break-word;
+}
+
+.mine .bubble{
+  background:rgba(0,255,255,0.2);
+  margin-left:auto;
+}
+
+.chat-input{
+  display:flex;
+  gap:10px;
+}
+
+.chat-input input{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #00ffff;
+  background:rgba(0,0,0,0.4);
+  color:white;
+  outline:none;
+}
+
+.chat-input button{
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  background:#00ffff;
+  font-weight:bold;
+  cursor:pointer;
+}    
 </style>
 </head>
 
@@ -918,35 +980,18 @@ dos nossos eventos exclusivos.
 <p>Converse com a comunidade</p>
 </div>
 
-<div class="hall-card">
+<div class="hall-card chat-card">
 
-<div id="mensagens" style="
-height:400px;
-overflow-y:auto;
-text-align:left;
-padding:10px;
-border:1px solid #00ffff;
-border-radius:10px;
-margin-bottom:10px;
-"></div>
+<div id="mensagens" class="chat-box"></div>
 
-<input
-id="mensagemInput"
-placeholder="Digite uma mensagem..."
-style="
-width:100%;
-padding:10px;
-border-radius:10px;
-margin-bottom:10px;
-">
-
-<button onclick="enviarMensagem()">
-📨 Enviar
-</button>
+<div class="chat-input">
+  <input id="mensagemInput" placeholder="Digite uma mensagem..." />
+  <button onclick="enviarMensagem()">📨</button>
+</div>
 
 </div>
 
-</section>    
+</section>  
     
 <!-- MODS -->
 <section id="mods" class="pagina">
@@ -1384,61 +1429,38 @@ orderBy("data","asc")
 
 onSnapshot(q,(snapshot)=>{
 
-const chat =
-document.getElementById("mensagens");
-
+const chat = document.getElementById("mensagens");
 if(!chat) return;
+
+const isBottom =
+chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
 chat.innerHTML="";
 
 snapshot.forEach((doc)=>{
 
 const msg = doc.data();
+const user = auth.currentUser;
+
+const isMine =
+user && msg.nome === user.displayName;
 
 chat.innerHTML += `
-<div style="
-display:flex;
-gap:10px;
-margin-bottom:12px;
-align-items:flex-start;
-">
-
-<img
-src="${msg.foto}"
-style="
-width:35px;
-height:35px;
-border-radius:50%;
-border:2px solid #00ffff;
-object-fit:cover;
-">
-
-<div style="
-background:rgba(0,255,255,.08);
-padding:8px 12px;
-border-radius:10px;
-max-width:80%;
-">
-
-<b style="color:#00ffff;">
-${msg.nome}
-</b>
-
-<br>
-
-${msg.texto}
-
-</div>
-
+<div class="msg ${isMine ? "mine" : ""}">
+  <img src="${msg.foto || ''}">
+  <div class="bubble">
+    <b style="color:#00ffff">${msg.nome}</b><br>
+    ${msg.texto}
+  </div>
 </div>
 `;
-
 });
 
-chat.scrollTop =
-chat.scrollHeight;
+if(isBottom){
+chat.scrollTop = chat.scrollHeight;
+}
 
-});   
+});
 </script>
 <script>
 window.addEventListener("load",()=>{
@@ -1516,7 +1538,12 @@ document.addEventListener("click", function (e) {
  if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 } 
-    
+document.getElementById("mensagemInput")
+.addEventListener("keypress",(e)=>{
+  if(e.key === "Enter"){
+    enviarMensagem();
+  }
+});    
 </script>    
 </body>
 </html>
