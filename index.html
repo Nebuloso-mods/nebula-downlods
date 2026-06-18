@@ -847,7 +847,8 @@ style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-
 <button onclick="mostrar(event,'galeria')">📸 Galeria</button>    
 <button onclick="mostrar(event,'discord')">🎮 Discord</button>
 <button onclick="mostrar(event,'feedback')">💬 Feedback</button>
- <button onclick="mostrar(event,'emBreve')">🚧 tutorial</button>   
+<button onclick="mostrar(event,'emBreve')">🚧 tutorial</button>
+<button onclick="mostrar(event,'chat')">💬 Chat</button>    
 </div>
 
 <!-- INICIO -->
@@ -909,6 +910,43 @@ dos nossos eventos exclusivos.
 </div>
 
 </section>
+
+<section id="chat" class="pagina">
+
+<div class="hero">
+<h1>💬 Chat Nebuloso</h1>
+<p>Converse com a comunidade</p>
+</div>
+
+<div class="hall-card">
+
+<div id="mensagens" style="
+height:400px;
+overflow-y:auto;
+text-align:left;
+padding:10px;
+border:1px solid #00ffff;
+border-radius:10px;
+margin-bottom:10px;
+"></div>
+
+<input
+id="mensagemInput"
+placeholder="Digite uma mensagem..."
+style="
+width:100%;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+">
+
+<button onclick="enviarMensagem()">
+📨 Enviar
+</button>
+
+</div>
+
+</section>    
     
 <!-- MODS -->
 <section id="mods" class="pagina">
@@ -1189,6 +1227,15 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
@@ -1200,6 +1247,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);    
 const provider = new GoogleAuthProvider();
 
 /* LOGIN */
@@ -1288,6 +1336,7 @@ onAuthStateChanged(auth, (user) => {
     }
   }
 });
+    
 </script>
 <script>
 window.addEventListener("load",()=>{
@@ -1304,6 +1353,7 @@ window.addEventListener("load",()=>{
 }
 
 });
+    
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -1312,6 +1362,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("contadorMods").textContent =
     `🚀 ${total} mods disponíveis para download`;
 });
+    
 </script>
 <script>
 let deferredPrompt;
@@ -1333,6 +1384,7 @@ btn.addEventListener("click", async () => {
   deferredPrompt = null;
   btn.style.display = "none";
 });
+    
 </script>
 <script>
 const photo = document.getElementById("userPhoto");
@@ -1358,9 +1410,81 @@ document.addEventListener("click", function (e) {
     menu.style.display = "none";
   }
 });
+    
  if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
-}   
+} 
+window.enviarMensagem = async function(){
+
+const texto =
+document.getElementById("mensagemInput").value;
+
+if(!texto.trim()) return;
+
+const user = auth.currentUser;
+
+await addDoc(
+collection(db,"mensagens"),
+{
+nome:user.displayName,
+foto:user.photoURL,
+texto:texto,
+data:Date.now()
+}
+);
+
+document.getElementById(
+"mensagemInput"
+).value="";
+}
+
+const q =
+query(
+collection(db,"mensagens"),
+orderBy("data","asc")
+);
+
+onSnapshot(q,(snapshot)=>{
+
+const chat =
+document.getElementById("mensagens");
+
+if(!chat) return;
+
+chat.innerHTML="";
+
+snapshot.forEach(doc=>{
+
+const msg = doc.data();
+
+chat.innerHTML += `
+<div style="
+margin-bottom:10px;
+display:flex;
+gap:10px;
+">
+
+<img src="${msg.foto}"
+style="
+width:35px;
+height:35px;
+border-radius:50%;
+">
+
+<div>
+<b>${msg.nome}</b><br>
+${msg.texto}
+</div>
+
+</div>
+`;
+
+});
+
+chat.scrollTop =
+chat.scrollHeight;
+
+});    
 </script>    
 </body>
 </html>
