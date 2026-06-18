@@ -669,6 +669,44 @@ body::after{
     80%{transform:translate(5px,-2px);}
     100%{transform:translate(0);}
 }
+ .scanner-box{
+    position:relative;
+    overflow:hidden;
+}
+
+.scanner-box::after{
+    content:"";
+    position:absolute;
+    left:0;
+    top:-100%;
+    width:100%;
+    height:120px;
+
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0,255,255,.15),
+        rgba(0,255,255,.6),
+        rgba(0,255,255,.15),
+        transparent
+    );
+
+    animation:scanner 3s linear infinite;
+}
+
+@keyframes scanner{
+    from{
+        top:-120px;
+    }
+
+    to{
+        top:120%;
+    }
+}
+.scanner-box{
+    filter:contrast(1.1) brightness(1.05);
+}
+    
 </style>
 </head>
 
@@ -897,7 +935,8 @@ onkeyup="pesquisarMods()">
 </section>
     
 <section id="emBreve" class="pagina glitch-page">
-
+<section id="emBreve" class="pagina scanner-box">
+    
 <div class="hero">
 <h1 class="hacker-title">🚧 EM BREVE</h1>
 </div>
