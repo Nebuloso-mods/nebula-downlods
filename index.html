@@ -33,6 +33,10 @@ body::after{
 .card{
     transform:translateZ(0);
 }
+    
+#site.hidden {
+  display: none !important;
+}    
 
 .pagina{
     display:none;
@@ -1523,5 +1527,12 @@ window.apagarMensagem = async function (id) {
   }
 };
 </script>
+    
+<script>
+setTimeout(() => {
+  const loader = document.getElementById("loader");
+  if (loader) loader.remove();
+}, 2000);
+</script>    
 </body>
 </html>
