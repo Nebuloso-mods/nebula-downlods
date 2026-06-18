@@ -1495,7 +1495,7 @@ window.enviarMensagem = async function () {
 /* ===== MENSAGENS ===== */
 const q = query(
   collection(db, "mensagens"),
-  orderBy("data", "desc"),
+ orderBy("data","asc")
   limit(50)
 );
 
