@@ -1339,7 +1339,8 @@ import {
   onSnapshot,
   limit,
   doc,
-  setDoc
+  setDoc,
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
@@ -1479,7 +1480,7 @@ window.enviarMensagem = async function () {
       data: Date.now()
     });
 
-    input.value = "";
+    input.value = "";    
 
     // limpa typing quando enviar mensagem
     await setDoc(doc(db, "status", "typing"), {
@@ -1511,30 +1512,44 @@ onSnapshot(q, (snapshot) => {
 
   chat.innerHTML = "";
 
-  snapshot.forEach((docSnap) => {
+snapshot.forEach((docSnap) => {
 
-    const msg = docSnap.data();
+  const msg = docSnap.data();
+  const id = docSnap.id;
 
     const isMine = user && msg.email === user.email;
     const isDono = msg.email === DONO_EMAIL;
 
-    chat.innerHTML += `
-      <div class="msg ${isMine ? "mine" : ""}">
-        <img src="${msg.foto || ''}">
+   chat.innerHTML += `
+<div class="msg ${isMine ? "mine" : ""}">
+  <img src="${msg.foto || ''}">
 
-        <div class="msg-content">
+  <div class="msg-content">
 
-          <div class="msg-name">
-            ${msg.nome}
+    <div class="msg-name">
+      ${msg.nome}
+    </div>
 
-            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
-          </div>
+    <div class="bubble">${msg.texto}</div>
 
-          <div class="bubble">${msg.texto}</div>
+    ${isMine ? `
+      <button onclick="apagarMensagem('${id}')" style="
+        margin-top:5px;
+        font-size:10px;
+        background:#ff3b3b;
+        color:white;
+        border:none;
+        padding:4px 8px;
+        border-radius:6px;
+        cursor:pointer;
+      ">
+        🗑️ apagar
+      </button>
+    ` : ""}
 
-        </div>
-      </div>
-    `;
+  </div>
+</div>
+`;
   });
 
   if (isBottom) {
@@ -1662,6 +1677,14 @@ document.getElementById("mensagemInput")
     enviarMensagem();
   }
 });    
+    
+window.apagarMensagem = async function (id) {
+  try {
+    await deleteDoc(doc(db, "mensagens", id));
+  } catch (e) {
+    console.log("Erro ao apagar:", e);
+  }
+};    
 </script>    
 </body>
 </html>
