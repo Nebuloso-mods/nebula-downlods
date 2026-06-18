@@ -718,6 +718,25 @@ body::after{
     font-weight:bold;
     letter-spacing:2px;
 }    
+
+ /* ✨ perfil preimum */   
+@keyframes donoGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 5px #ffd700,
+      0 0 12px #ffd700,
+      0 0 25px rgba(255, 215, 0, 0.8);
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow:
+      0 0 10px #ffd700,
+      0 0 20px #ffd700,
+      0 0 45px rgba(255, 215, 0, 1);
+    transform: scale(1.05);
+  }
+}    
 </style>
 </head>
 
@@ -1218,6 +1237,9 @@ function pesquisarMods() {
 </script>
 
 <script type="module">
+    
+const OWNER_EMAIL = "bruninhoedits0@gmail.com";
+    
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getAuth,
@@ -1359,15 +1381,13 @@ return;
 
 try{
 
-await addDoc(
-collection(db,"mensagens"),
-{
-nome:user.displayName,
-foto:user.photoURL,
-texto:texto,
-data:Date.now()
-}
-);
+await addDoc(collection(db,"mensagens"), {
+  nome: user.displayName,
+  email: user.email, // 👈 ADICIONADO
+  foto: user.photoURL,
+  texto: texto,
+  data: Date.now()
+});
 
 input.value="";
 
@@ -1390,12 +1410,10 @@ document.getElementById("mensagens");
 if(!chat) return;
 
 chat.innerHTML="";
-
-snapshot.forEach((doc)=>{
-
-const msg = doc.data();
+const isOwner = msg.email === OWNER_EMAIL;
 
 chat.innerHTML += `
+
 <div style="
 display:flex;
 gap:10px;
@@ -1403,9 +1421,7 @@ margin-bottom:12px;
 align-items:flex-start;
 ">
 
-<img
-src="${msg.foto}"
-style="
+<img src="${msg.foto}" style="
 width:35px;
 height:35px;
 border-radius:50%;
@@ -1420,9 +1436,49 @@ border-radius:10px;
 max-width:80%;
 ">
 
-<b style="color:#00ffff;">
-${msg.nome}
-</b>
+<div class="msg-name">
+  <b style="color:#00ffff;">
+    ${msg.nome}
+
+    ${msg.email === DONO_EMAIL ? `
+      <span style="
+        margin-left:6px;
+        padding:2px 7px;
+        border-radius:6px;
+        font-size:10px;
+        font-weight:bold;
+        color:black;
+        background: linear-gradient(90deg, #ffd700, #ffec8b);
+        box-shadow:
+          0 0 6px #ffd700,
+          0 0 12px rgba(255, 215, 0, 0.8),
+          0 0 20px rgba(255, 215, 0, 0.6);
+        text-shadow: 0 0 2px rgba(0,0,0,0.4);
+      ">
+      👑 DONO
+      </span>
+    ` : ""}
+  </b>
+</div>
+
+${isOwner ? `
+<span style="
+  margin-left:6px;
+  padding:3px 8px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:bold;
+  color:#1a1a1a;
+  background: linear-gradient(90deg, #ffd700, #ffec8b, #ffd700);
+  box-shadow:
+    0 0 10px #ffd700,
+    0 0 25px rgba(255, 215, 0, 0.9),
+    0 0 45px rgba(255, 215, 0, 0.6);
+  animation:donoGlow 1.5s infinite ease-in-out;
+">
+👑 DONO
+</span>
+` : ""}
 
 <br>
 
@@ -1432,7 +1488,6 @@ ${msg.texto}
 
 </div>
 `;
-
 });
 
 chat.scrollTop =
