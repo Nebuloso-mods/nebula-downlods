@@ -610,6 +610,53 @@ body::after{
         0 0 50px rgba(255,215,0,.7);
     }
 }
+/* 🔥 HACKER STYLE */
+.hacker-title{
+    color:#00ffff;
+    text-shadow:
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 20px #00ffff;
+    animation:glitch 1.5s infinite;
+}
+
+.hacker-box{
+    text-align:center;
+    margin-top:40px;
+    position:relative;
+}
+
+.hacker-img{
+    width:260px;
+    max-width:80%;
+    filter:contrast(1.2) brightness(1.1)
+    drop-shadow(0 0 15px #00ffff);
+    animation:float 3s infinite ease-in-out;
+}
+
+.hacker-text{
+    margin-top:15px;
+    color:#00ffff;
+    font-weight:bold;
+    letter-spacing:2px;
+    text-shadow:0 0 10px #00ffff;
+}
+
+/* FLUTUAR */
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+}
+
+/* GLITCH */
+@keyframes glitch{
+    0%{transform:translate(0);}
+    20%{transform:translate(-1px,1px);}
+    40%{transform:translate(1px,-1px);}
+    60%{transform:translate(-1px,0);}
+    80%{transform:translate(1px,1px);}
+    100%{transform:translate(0);}
+}    
 </style>
 </head>
 
@@ -840,19 +887,15 @@ onkeyup="pesquisarMods()">
 <section id="emBreve" class="pagina">
 
 <div class="hero">
-<h1>🚧 Em breve</h1>
+<h1 class="hacker-title">🚧 EM BREVE</h1>
 </div>
 
-<div style="text-align:center; margin-top:40px;">
+<div class="hacker-box">
 
-<img src="tela de espera.png"
-style="
-width:260px;
-max-width:80%;
-">
+<img src="em-breve.png" class="hacker-img">
 
-<p style="color:#00ffff; margin-top:15px; font-weight:bold;">
-Novidades chegando em breve...
+<p class="hacker-text">
+⚠ SISTEMA EM DESENVOLVIMENTO ⚠<br>
 </p>
 
 </div>
