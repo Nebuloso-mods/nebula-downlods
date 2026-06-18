@@ -802,6 +802,42 @@ body::after{
 .msg-name::after{
   content:"";
 }    
+.dono-badge{
+  margin-left:6px;
+  padding:2px 7px;
+  border-radius:6px;
+  font-size:10px;
+  font-weight:bold;
+  color:black;
+  background: linear-gradient(90deg, #ffd700, #ffec8b);
+
+  box-shadow:
+    0 0 6px #ffd700,
+    0 0 12px rgba(255, 215, 0, 0.8),
+    0 0 25px rgba(255, 215, 0, 0.6);
+
+  text-shadow: 0 0 2px rgba(0,0,0,0.4);
+
+  animation: donoGlow 1.5s infinite ease-in-out;
+}
+
+@keyframes donoGlow{
+  0%,100%{
+    transform: scale(1);
+    box-shadow:
+      0 0 6px #ffd700,
+      0 0 12px rgba(255, 215, 0, 0.8),
+      0 0 25px rgba(255, 215, 0, 0.6);
+  }
+
+  50%{
+    transform: scale(1.08);
+    box-shadow:
+      0 0 10px #ffd700,
+      0 0 25px rgba(255, 215, 0, 0.9),
+      0 0 40px rgba(255, 215, 0, 0.8);
+  }
+}    
 </style>
 </head>
 
@@ -1005,6 +1041,13 @@ dos nossos eventos exclusivos.
 <div class="hall-card chat-card">
 
 <div id="mensagens" class="chat-box"></div>
+    
+<div id="typing" style="
+font-size:12px;
+color:#00ffff;
+margin-top:5px;
+opacity:0.8;
+"></div>    
 
 <div class="chat-input">
   <input id="mensagemInput" placeholder="Digite uma mensagem..." />
@@ -1286,13 +1329,6 @@ function pesquisarMods() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
   getFirestore,
@@ -1300,8 +1336,19 @@ import {
   addDoc,
   query,
   orderBy,
-  onSnapshot
+  onSnapshot,
+  limit,
+  doc,
+  setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
@@ -1404,118 +1451,134 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
- /* CHAT GLOBAL */
+/* CHAT GLOBAL */
 const DONO_EMAIL = "bruninhoedits0@gmail.com";
-    
-window.enviarMensagem = async function(){
+let ultimoEnvio = 0;
 
-const input =
-document.getElementById("mensagemInput");
+window.enviarMensagem = async function () {
+  try {
+    const agora = Date.now();
 
-if(!input) return;
+    if (agora - ultimoEnvio < 2000) return;
+    ultimoEnvio = agora;
 
-const texto = input.value;
+    const input = document.getElementById("mensagemInput");
+    if (!input) return;
 
-if(!texto.trim()) return;
+    const texto = input.value;
+    if (!texto.trim()) return;
 
-const user = auth.currentUser;
+    const user = auth.currentUser;
+    if (!user) return;
 
-if(!user){
-alert("Faça login primeiro.");
-return;
-}
+    await addDoc(collection(db, "mensagens"), {
+      nome: user.displayName,
+      email: user.email,
+      foto: user.photoURL,
+      texto,
+      data: Date.now()
+    });
 
-try{
+    input.value = "";
 
-await addDoc(
-collection(db,"mensagens"),
-{
-  nome: user.displayName,
-  foto: user.photoURL,
-  texto: texto,
-  data: Date.now(),
-  role: user.email === "SEUEMAIL@gmail.com" ? "dono" : "user"
-}
-);
+    // limpa typing quando enviar mensagem
+    await setDoc(doc(db, "status", "typing"), {
+      nome: ""
+    });
 
-input.value="";
-
-}catch(e){
-console.log("Erro ao enviar:",e);
-}
-
+  } catch (e) {
+    console.log("Erro ao enviar:", e);
+  }
 };
 
+
+/* ===== MENSAGENS ===== */
 const q = query(
-collection(db,"mensagens"),
-orderBy("data","asc")
+  collection(db, "mensagens"),
+  orderBy("data", "desc"),
+  limit(50)
 );
 
-onSnapshot(q,(snapshot)=>{
+onSnapshot(q, (snapshot) => {
 
-const chat = document.getElementById("mensagens");
-if(!chat) return;
+  const chat = document.getElementById("mensagens");
+  if (!chat) return;
 
-const user = auth.currentUser;
+  const user = auth.currentUser;
 
-const isBottom =
-chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
+  const isBottom =
+    chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
-chat.innerHTML="";
+  chat.innerHTML = "";
 
-snapshot.forEach((doc)=>{
+  snapshot.forEach((docSnap) => {
 
-const msg = doc.data();
+    const msg = docSnap.data();
 
-const isMine =
-user && msg.email === user.email;
+    const isMine = user && msg.email === user.email;
+    const isDono = msg.email === DONO_EMAIL;
 
-const isDono =
-msg.email === DONO_EMAIL;
+    chat.innerHTML += `
+      <div class="msg ${isMine ? "mine" : ""}">
+        <img src="${msg.foto || ''}">
 
-chat.innerHTML += `
-<div class="msg ${isMine ? "mine" : ""}">
-  <img src="${msg.foto || ''}">
+        <div class="msg-content">
 
-  <div class="msg-content">
+          <div class="msg-name">
+            ${msg.nome}
 
- <div class="msg-name">
-  ${msg.nome}
+            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
+          </div>
 
-  ${isDono ? `
-    <span style="
-      margin-left:6px;
-      padding:2px 7px;
-      border-radius:6px;
-      font-size:10px;
-      font-weight:bold;
-      color:black;
-      background: linear-gradient(90deg, #ffd700, #ffec8b);
+          <div class="bubble">${msg.texto}</div>
 
-      box-shadow:
-        0 0 6px #ffd700,
-        0 0 12px rgba(255, 215, 0, 0.8),
-        0 0 20px rgba(255, 215, 0, 0.6);
+        </div>
+      </div>
+    `;
+  });
 
-      text-shadow: 0 0 2px rgba(0,0,0,0.4);
-    ">
-    👑 DONO
-    </span>
-  ` : ""}
-</div>
-
-    <div class="bubble">${msg.texto}</div>
-
-  </div>
-</div>
-`;
+  if (isBottom) {
+    chat.scrollTop = chat.scrollHeight;
+  }
 });
 
-if(isBottom){
-chat.scrollTop = chat.scrollHeight;
+
+/* ===== TYPING (MOSTRAR) ===== */
+const typingDiv = document.getElementById("typing");
+
+onSnapshot(doc(db, "status", "typing"), (snapshot) => {
+  if (!typingDiv) return;
+
+  const data = snapshot.data();
+
+  typingDiv.textContent =
+    data?.nome ? `⌨️ ${data.nome} está digitando...` : "";
+});
+
+
+/* ===== TYPING (ENVIAR + LIMPAR) ===== */
+const input = document.getElementById("mensagemInput");
+let typingTimeout;
+
+if (input) {
+  input.addEventListener("input", async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    // SALVA no Firestore (isso cria o doc automaticamente)
+    await setDoc(doc(db, "status", "typing"), {
+      nome: user.displayName
+    });
+
+    clearTimeout(typingTimeout);
+
+    typingTimeout = setTimeout(async () => {
+      await setDoc(doc(db, "status", "typing"), {
+        nome: ""
+      });
+    }, 1200);
+  });
 }
-
-});
 </script>
 <script>
 window.addEventListener("load",()=>{
