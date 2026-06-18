@@ -1439,26 +1439,6 @@ max-width:80%;
 <div class="msg-name">
   <b style="color:#00ffff;">
     ${msg.nome}
-
-    ${msg.email === DONO_EMAIL ? `
-      <span style="
-        margin-left:6px;
-        padding:2px 7px;
-        border-radius:6px;
-        font-size:10px;
-        font-weight:bold;
-        color:black;
-        background: linear-gradient(90deg, #ffd700, #ffec8b);
-        box-shadow:
-          0 0 6px #ffd700,
-          0 0 12px rgba(255, 215, 0, 0.8),
-          0 0 20px rgba(255, 215, 0, 0.6);
-        text-shadow: 0 0 2px rgba(0,0,0,0.4);
-      ">
-      👑 DONO
-      </span>
-    ` : ""}
-  </b>
 </div>
 
 ${isOwner ? `
