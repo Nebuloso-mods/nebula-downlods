@@ -613,61 +613,95 @@ body::after{
 /* 🔥 HACKER STYLE */
 .glitch-page{
     position:relative;
-    animation:rgbPage .15s infinite;
+    overflow:hidden;
+    animation:glitchMove .12s infinite;
 }
 
-.glitch-page::before,
+/* camada vermelha */
+.glitch-page::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(255,0,0,.08);
+    mix-blend-mode:screen;
+    pointer-events:none;
+    animation:redGlitch .08s infinite;
+}
+
+/* camada azul */
 .glitch-page::after{
     content:"";
     position:absolute;
     inset:0;
-    pointer-events:none;
-}
-
-.glitch-page::before{
-    background:rgba(255,0,0,.08);
-    mix-blend-mode:screen;
-    animation:redShift .15s infinite;
-}
-
-.glitch-page::after{
     background:rgba(0,255,255,.08);
     mix-blend-mode:screen;
-    animation:blueShift .15s infinite;
+    pointer-events:none;
+    animation:blueGlitch .08s infinite;
 }
 
-@keyframes redShift{
-    50%{
-        transform:translate(-3px,0);
-    }
+/* linhas horizontais */
+.glitch-page{
+    background-image:
+    repeating-linear-gradient(
+        transparent 0px,
+        transparent 3px,
+        rgba(255,255,255,.03) 4px
+    );
 }
 
-@keyframes blueShift{
-    50%{
-        transform:translate(3px,0);
-    }
-}
-
-@keyframes rgbPage{
+@keyframes glitchMove{
     0%,100%{
         transform:translate(0);
     }
-    25%{
-        transform:translate(-1px,1px);
+
+    20%{
+        transform:translate(-3px,2px);
     }
+
+    40%{
+        transform:translate(3px,-2px);
+    }
+
+    60%{
+        transform:translate(-2px,-1px);
+    }
+
+    80%{
+        transform:translate(2px,1px);
+    }
+}
+
+@keyframes redGlitch{
     50%{
-        transform:translate(1px,-1px);
+        transform:translate(-6px,0);
     }
-    75%{
-        transform:translate(-1px,0);
+}
+
+@keyframes blueGlitch{
+    50%{
+        transform:translate(6px,0);
     }
 }
 .hacker-title{
     color:#00ffff;
+    position:relative;
+
     text-shadow:
-    -2px 0 red,
-     2px 0 cyan,
-     0 0 15px #00ffff;
+    -3px 0 red,
+     3px 0 cyan,
+     0 0 20px #00ffff;
+
+    animation:titleGlitch .08s infinite;
+}
+
+@keyframes titleGlitch{
+    0%,100%{
+        transform:translate(0);
+    }
+
+    50%{
+        transform:translate(2px,-1px);
+    }
 }
 
 .hacker-box{
