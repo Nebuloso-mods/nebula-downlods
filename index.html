@@ -722,64 +722,72 @@ body::after{
 .chat-box{
   height:400px;
   overflow-y:auto;
-  text-align:left;
-  padding:10px;
+  padding:12px;
   border:1px solid #00ffff;
   border-radius:12px;
-  margin-bottom:10px;
   background:rgba(0,0,0,0.25);
 }
 
+/* mensagem geral */
 .msg{
   display:flex;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:14px;
   align-items:flex-start;
 }
 
+/* avatar */
 .msg img{
-  width:35px;
-  height:35px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   border:2px solid #00ffff;
 }
 
+/* área da mensagem */
+.msg-content{
+  display:flex;
+  flex-direction:column;
+}
+
+/* nome estilo discord */
+.msg-name{
+  font-size:13px;
+  color:#00ffff;
+  font-weight:bold;
+  margin-bottom:3px;
+}
+
+/* balão estilo discord */
 .bubble{
-  background:rgba(0,255,255,0.08);
+  background:rgba(255,255,255,0.06);
   padding:8px 12px;
-  border-radius:12px;
+  border-radius:8px;
   max-width:75%;
+  color:white;
+  position:relative;
   word-break:break-word;
+  border:1px solid rgba(0,255,255,0.15);
+}
+
+/* efeito hover leve */
+.bubble:hover{
+  background:rgba(255,255,255,0.09);
+}
+
+/* minhas mensagens (lado diferente tipo discord) */
+.mine{
+  justify-content:flex-end;
 }
 
 .mine .bubble{
-  background:rgba(0,255,255,0.2);
-  margin-left:auto;
-}
-
-.chat-input{
-  display:flex;
-  gap:10px;
-}
-
-.chat-input input{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
+  background:rgba(0,255,255,0.15);
   border:1px solid #00ffff;
-  background:rgba(0,0,0,0.4);
-  color:white;
-  outline:none;
 }
 
-.chat-input button{
-  padding:10px 15px;
-  border:none;
-  border-radius:10px;
-  background:#00ffff;
-  font-weight:bold;
-  cursor:pointer;
-}    
+.mine .msg-content{
+  align-items:flex-end;
+}
 </style>
 </head>
 
@@ -1442,15 +1450,15 @@ snapshot.forEach((doc)=>{
 const msg = doc.data();
 const user = auth.currentUser;
 
-const isMine =
-user && msg.nome === user.displayName;
+const isMine = user && msg.nome === user.displayName;
 
 chat.innerHTML += `
 <div class="msg ${isMine ? "mine" : ""}">
   <img src="${msg.foto || ''}">
-  <div class="bubble">
-    <b style="color:#00ffff">${msg.nome}</b><br>
-    ${msg.texto}
+
+  <div class="msg-content">
+    <div class="msg-name">${msg.nome}</div>
+    <div class="bubble">${msg.texto}</div>
   </div>
 </div>
 `;
