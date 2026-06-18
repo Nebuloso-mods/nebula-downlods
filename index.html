@@ -1336,7 +1336,109 @@ onAuthStateChanged(auth, (user) => {
     }
   }
 });
-    
+
+ /* CHAT GLOBAL */
+
+window.enviarMensagem = async function(){
+
+const input =
+document.getElementById("mensagemInput");
+
+if(!input) return;
+
+const texto = input.value;
+
+if(!texto.trim()) return;
+
+const user = auth.currentUser;
+
+if(!user){
+alert("Faça login primeiro.");
+return;
+}
+
+try{
+
+await addDoc(
+collection(db,"mensagens"),
+{
+nome:user.displayName,
+foto:user.photoURL,
+texto:texto,
+data:Date.now()
+}
+);
+
+input.value="";
+
+}catch(e){
+console.log("Erro ao enviar:",e);
+}
+
+};
+
+const q = query(
+collection(db,"mensagens"),
+orderBy("data","asc")
+);
+
+onSnapshot(q,(snapshot)=>{
+
+const chat =
+document.getElementById("mensagens");
+
+if(!chat) return;
+
+chat.innerHTML="";
+
+snapshot.forEach((doc)=>{
+
+const msg = doc.data();
+
+chat.innerHTML += `
+<div style="
+display:flex;
+gap:10px;
+margin-bottom:12px;
+align-items:flex-start;
+">
+
+<img
+src="${msg.foto}"
+style="
+width:35px;
+height:35px;
+border-radius:50%;
+border:2px solid #00ffff;
+object-fit:cover;
+">
+
+<div style="
+background:rgba(0,255,255,.08);
+padding:8px 12px;
+border-radius:10px;
+max-width:80%;
+">
+
+<b style="color:#00ffff;">
+${msg.nome}
+</b>
+
+<br>
+
+${msg.texto}
+
+</div>
+
+</div>
+`;
+
+});
+
+chat.scrollTop =
+chat.scrollHeight;
+
+});   
 </script>
 <script>
 window.addEventListener("load",()=>{
@@ -1414,77 +1516,7 @@ document.addEventListener("click", function (e) {
  if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 } 
-window.enviarMensagem = async function(){
-
-const texto =
-document.getElementById("mensagemInput").value;
-
-if(!texto.trim()) return;
-
-const user = auth.currentUser;
-
-await addDoc(
-collection(db,"mensagens"),
-{
-nome:user.displayName,
-foto:user.photoURL,
-texto:texto,
-data:Date.now()
-}
-);
-
-document.getElementById(
-"mensagemInput"
-).value="";
-}
-
-const q =
-query(
-collection(db,"mensagens"),
-orderBy("data","asc")
-);
-
-onSnapshot(q,(snapshot)=>{
-
-const chat =
-document.getElementById("mensagens");
-
-if(!chat) return;
-
-chat.innerHTML="";
-
-snapshot.forEach(doc=>{
-
-const msg = doc.data();
-
-chat.innerHTML += `
-<div style="
-margin-bottom:10px;
-display:flex;
-gap:10px;
-">
-
-<img src="${msg.foto}"
-style="
-width:35px;
-height:35px;
-border-radius:50%;
-">
-
-<div>
-<b>${msg.nome}</b><br>
-${msg.texto}
-</div>
-
-</div>
-`;
-
-});
-
-chat.scrollTop =
-chat.scrollHeight;
-
-});    
+    
 </script>    
 </body>
 </html>
