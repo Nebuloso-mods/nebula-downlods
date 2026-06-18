@@ -722,64 +722,86 @@ body::after{
 .chat-box{
   height:400px;
   overflow-y:auto;
-  text-align:left;
-  padding:10px;
+  padding:12px;
   border:1px solid #00ffff;
   border-radius:12px;
-  margin-bottom:10px;
   background:rgba(0,0,0,0.25);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
+/* mensagem */
 .msg{
   display:flex;
-  gap:10px;
-  margin-bottom:12px;
-  align-items:flex-start;
+  gap:8px;
+  align-items:flex-end;
 }
 
+/* avatar */
 .msg img{
-  width:35px;
-  height:35px;
+  width:32px;
+  height:32px;
   border-radius:50%;
   border:2px solid #00ffff;
 }
 
+/* bloco da mensagem */
+.msg-content{
+  display:flex;
+  flex-direction:column;
+  max-width:75%;
+}
+
+/* nome pequeno */
+.msg-name{
+  font-size:12px;
+  color:#00ffff;
+  margin-bottom:2px;
+  opacity:0.9;
+}
+
+/* BALÃO WHATSAPP */
 .bubble{
-  background:rgba(0,255,255,0.08);
   padding:8px 12px;
   border-radius:12px;
-  max-width:75%;
+  background:rgba(255,255,255,0.08);
+  color:white;
   word-break:break-word;
+  position:relative;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* MINHAS MENSAGENS (verde tipo WhatsApp) */
+.mine{
+  justify-content:flex-end;
+}
+
+.mine .msg-content{
+  align-items:flex-end;
 }
 
 .mine .bubble{
-  background:rgba(0,255,255,0.2);
-  margin-left:auto;
-}
-
-.chat-input{
-  display:flex;
-  gap:10px;
-}
-
-.chat-input input{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
+  background:rgba(0,255,255,0.18);
   border:1px solid #00ffff;
-  background:rgba(0,0,0,0.4);
-  color:white;
-  outline:none;
 }
 
-.chat-input button{
-  padding:10px 15px;
-  border:none;
-  border-radius:10px;
-  background:#00ffff;
-  font-weight:bold;
-  cursor:pointer;
+/* efeito leve hover */
+.bubble:hover{
+  transform:scale(1.01);
+  transition:.2s;
 }
+    
+/* Dono Premium */ 
+.msg-name{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.msg-name::after{
+  content:"";
+}    
 </style>
 </head>
 
@@ -1383,7 +1405,8 @@ onAuthStateChanged(auth, (user) => {
 });
 
  /* CHAT GLOBAL */
-
+const DONO_EMAIL = "bruninhoedits0@gmail.com";
+    
 window.enviarMensagem = async function(){
 
 const input =
@@ -1407,10 +1430,11 @@ try{
 await addDoc(
 collection(db,"mensagens"),
 {
-nome:user.displayName,
-foto:user.photoURL,
-texto:texto,
-data:Date.now()
+  nome: user.displayName,
+  foto: user.photoURL,
+  texto: texto,
+  data: Date.now(),
+  role: user.email === "SEUEMAIL@gmail.com" ? "dono" : "user"
 }
 );
 
@@ -1432,6 +1456,8 @@ onSnapshot(q,(snapshot)=>{
 const chat = document.getElementById("mensagens");
 if(!chat) return;
 
+const user = auth.currentUser;
+
 const isBottom =
 chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
@@ -1440,17 +1466,46 @@ chat.innerHTML="";
 snapshot.forEach((doc)=>{
 
 const msg = doc.data();
-const user = auth.currentUser;
 
-const isMine = user && msg.nome === user.displayName;
+const isMine =
+user && msg.email === user.email;
+
+const isDono =
+msg.email === DONO_EMAIL;
 
 chat.innerHTML += `
 <div class="msg ${isMine ? "mine" : ""}">
   <img src="${msg.foto || ''}">
 
   <div class="msg-content">
-    <div class="msg-name">${msg.nome}</div>
+
+ <div class="msg-name">
+  ${msg.nome}
+
+  ${isDono ? `
+    <span style="
+      margin-left:6px;
+      padding:2px 7px;
+      border-radius:6px;
+      font-size:10px;
+      font-weight:bold;
+      color:black;
+      background: linear-gradient(90deg, #ffd700, #ffec8b);
+
+      box-shadow:
+        0 0 6px #ffd700,
+        0 0 12px rgba(255, 215, 0, 0.8),
+        0 0 20px rgba(255, 215, 0, 0.6);
+
+      text-shadow: 0 0 2px rgba(0,0,0,0.4);
+    ">
+    👑 DONO
+    </span>
+  ` : ""}
+</div>
+
     <div class="bubble">${msg.texto}</div>
+
   </div>
 </div>
 `;
