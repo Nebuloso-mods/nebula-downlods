@@ -259,9 +259,21 @@ body::before{
     width:40px;
     height:40px;
     border-radius:50%;
-    object-fit:cover;
     border:2px solid #00ffff;
+
+    box-shadow:
+      0 0 10px #00ffff,
+      0 0 20px rgba(0,255,255,.6);
+
+    transition:.3s;
 }
+    
+#userPhoto:hover{
+    transform:scale(1.1);
+    box-shadow:
+      0 0 20px #00ffff,
+      0 0 40px #00ffff;
+}    
     
 #profileMenu{
   position:absolute;
@@ -1101,7 +1113,7 @@ onclick="window.loginGithub()">
 </button>    
 
 <span class="login-info">
-🔒 Login seguro
+✨ Entre e conecte-se com a comunidade Nebulosa
 </span>
 
 </div>
@@ -1479,14 +1491,6 @@ function pesquisarMods() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
   getFirestore,
