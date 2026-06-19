@@ -65,6 +65,22 @@ body::after{
     rgba(0,255,255,.12),
     transparent 60%),
     rgba(0,0,0,0.95);
+
+  transition: opacity .4s ease, transform .4s ease;
+}
+
+/* escondido de verdade */
+#loginScreen.hidden{
+  opacity:0;
+  pointer-events:none;
+  transform:scale(1.05);
+}
+
+/* visível */
+#loginScreen.visible{
+  opacity:1;
+  pointer-events:auto;
+  transform:scale(1);
 }
 
 .login-card{
@@ -918,7 +934,7 @@ onAuthStateChanged(auth, (user) => {
   const userName = document.getElementById("userName");
   const userPhoto = document.getElementById("userPhoto");
 
-  // loading seguro
+  // remove loading
   if (loading) {
     loading.style.opacity = "0";
     setTimeout(() => {
@@ -926,42 +942,62 @@ onAuthStateChanged(auth, (user) => {
     }, 300);
   }
 
+  // =========================
+  // USUÁRIO LOGADO
+  // =========================
   if (user) {
 
-    // Mostrar nome e foto
+    // SITE ON
+    if (site) {
+      site.style.display = "block";
+      site.classList.add("visible");
+      site.classList.remove("hidden");
+    }
+
+    // LOGIN OFF (IMPORTANTE: display none)
+    if (login) {
+      login.style.display = "none";
+      login.classList.remove("visible");
+      login.classList.add("hidden");
+    }
+
+    // USER INFO
     if (userInfo) userInfo.style.display = "flex";
 
     if (userName) {
-  userName.textContent = user.displayName || "Usuário";
+      userName.textContent = user.displayName || "Usuário";
 
-  const saudacao =
-  document.getElementById("saudacao");
-
-  if(saudacao){
-      saudacao.textContent =
-      `✨ Bem-vindo, ${user.displayName}`;
-  }
-}
+      const saudacao = document.getElementById("saudacao");
+      if (saudacao) {
+        saudacao.textContent = `✨ Bem-vindo, ${user.displayName}`;
+      }
+    }
 
     if (userPhoto) {
       userPhoto.src = user.photoURL || "";
     }
 
-    login?.classList.add("hidden");
-    login?.classList.remove("visible");
-
-    site?.classList.add("visible");
-    site?.classList.remove("hidden");
-
     if (logoutBtn) logoutBtn.style.display = "block";
+  }
 
-  } else {
+  // =========================
+  // USUÁRIO DESLOGADO
+  // =========================
+  else {
 
-    site?.classList.add("hidden");
-    site?.classList.remove("visible");
+    // SITE OFF
+    if (site) {
+      site.style.display = "none";
+      site.classList.remove("visible");
+      site.classList.add("hidden");
+    }
 
-    login?.classList.add("visible");
-    login?.classList.remove("hidden");
+    // LOGIN ON
+    if (login) {
+      login.style.display = "flex";
+      login.classList.add("visible");
+      login.classList.remove("hidden");
+    }
 
     if (logoutBtn) logoutBtn.style.display = "none";
 
