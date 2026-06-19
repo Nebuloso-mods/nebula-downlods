@@ -477,7 +477,6 @@ body::after{
         0 0 40px #00ffff,
         0 0 70px #00ffff;
     }
-}
 
 .hero h1{
     animation:none;
@@ -579,6 +578,17 @@ body::after{
   50%{
     transform:translateY(-8px);
   }
+/* logingithub */    
+#loginGithub{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#24292e;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
     
 /* LOADER */
@@ -614,7 +624,6 @@ body::after{
     50%{
         transform:scale(1.15);
     }
-}
 
 .inicio-destaque{
     max-width:450px;
@@ -1086,8 +1095,13 @@ galeria e eventos da comunidade.
 🔵 Entrar com Google
 </button>
 
+<button id="loginGithub"
+onclick="window.loginGithub()">
+🐙 Entrar com GitHub
+</button>    
+
 <span class="login-info">
-🔒 Login seguro via Google
+🔒 Login seguro
 </span>
 
 </div>
@@ -1485,6 +1499,15 @@ import {
   doc,
   setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";    
     
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
@@ -1494,14 +1517,19 @@ const firebaseConfig = {
   messagingSenderId: "755593713969",
   appId: "1:755593713969:web:0c3a45cb65061d1457f810",
 };
+
+    
     
 const chat = document.getElementById("mensagens");
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+    
 const provider = new GoogleAuthProvider();    
+const githubProvider = new GithubAuthProvider();    
+    
 const typingRef = (uid) => doc(db, "status", uid);
-// 👇 ISSO AQUI VOCÊ ADICIONA
+    
 const input = document.getElementById("mensagemInput");
 let typingTimeout;    
 if (input) {
@@ -1524,6 +1552,7 @@ if (input) {
     }, 2000);
   });
 }    
+    
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
@@ -1532,7 +1561,16 @@ window.loginGoogle = async function () {
     console.log("Erro login:", e);
   }
 };
-
+    
+/* LOGIN GITHUB */
+window.loginGithub = async function () {
+  try {
+    await signInWithPopup(auth, githubProvider);
+  } catch (e) {
+    console.log("Erro login GitHub:", e);
+  }
+};
+    
 /* LOGOUT */
 window.logout = async function () {
   try {
