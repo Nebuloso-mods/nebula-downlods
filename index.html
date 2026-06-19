@@ -1361,10 +1361,33 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);    
-const typingRef = doc(db, "status", "typing");    
-const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();    
+const typingRef = (uid) => doc(db, "status", uid);
+const typingCol = collection(db, "typing");
+// 👇 ISSO AQUI VOCÊ ADICIONA
+const input = document.getElementById("mensagemInput");
+let typingTimeout;    
+if (input) {
+  input.addEventListener("input", async () => {
+    const user = auth.currentUser;
+    if (!user) return;
 
+    await setDoc(typingRef(user.uid), {
+      nome: user.displayName,
+      time: Date.now()
+    });
+
+    clearTimeout(typingTimeout);
+
+    typingTimeout = setTimeout(async () => {
+      await setDoc(typingRef(user.uid), {
+        nome: "",
+        time: 0
+      });
+    }, 2000);
+  });
+}    
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
@@ -1549,45 +1572,30 @@ chat.scrollTop = chat.scrollHeight;
 }
 
 });
-onSnapshot(typingRef, (snap) => {
-
+    
+onSnapshot(typingCol, (snapshot) => {
   const typingDiv = document.getElementById("typing");
   if (!typingDiv) return;
 
-  const data = snap.data();
+  const usersTyping = [];
 
-  if (!data || !data.nome) {
-    typingDiv.textContent = "";
-    return;
-  }
+  snapshot.forEach((doc) => {
+    const data = doc.data();
 
-  typingDiv.textContent =
-    `⌨️ ${data.nome} está digitando...`;
-});
-    
-const input = document.getElementById("mensagemInput");
-
-let typingTimeout;
-
-input?.addEventListener("input", async () => {
-
-  const user = auth.currentUser;
-  if (!user) return;
-
-  await setDoc(typingRef, {
-    nome: user.displayName,
-    time: Date.now()
+    if (data.nome && Date.now() - data.time < 3000) {
+      usersTyping.push(data.nome);
+    }
   });
 
-  clearTimeout(typingTimeout);
-
-  typingTimeout = setTimeout(async () => {
-    await setDoc(typingRef, {
-      nome: "",
-      time: Date.now()
-    });
-  }, 2000);
-});    
+  if (usersTyping.length === 0) {
+    typingDiv.textContent = "";
+  } else if (usersTyping.length === 1) {
+    typingDiv.textContent = `⌨️ ${usersTyping[0]} está digitando...`;
+  } else {
+    typingDiv.textContent = `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
+  }
+});
+    
 </script>
 <script>
 window.addEventListener("load",()=>{
