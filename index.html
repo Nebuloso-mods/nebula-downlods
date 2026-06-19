@@ -1514,14 +1514,12 @@ snapshot.forEach((doc)=>{
 const msg = doc.data();
 
 const isMine =
-user && msg.email === user.email;
+  auth.currentUser &&
+  msg.email === auth.currentUser.email;
 
 const isDono =
-msg.email === DONO_EMAIL;
-
-const isMine = auth.currentUser &&
-               auth.currentUser.displayName === msg.nome;
-
+  msg.email === DONO_EMAIL;
+    
 chat.innerHTML += `
 <div class="msg ${isMine ? "mine" : ""}">
   <img src="${msg.foto || ''}">
