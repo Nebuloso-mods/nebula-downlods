@@ -1673,9 +1673,12 @@ window.enviarMensagem = async function () {
 
     input.value = "";
   } catch (e) {
-    console.log("Erro ao enviar:", e);
-  }
-};
+  console.error("Erro ao enviar:", e);
+  alert(
+    "Código: " + e.code +
+    "\nMensagem: " + e.message
+  );
+}
 
 const q = query(
   collection(db,"mensagens"),
