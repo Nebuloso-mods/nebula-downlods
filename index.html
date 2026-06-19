@@ -722,14 +722,25 @@ body::after{
 .chat-box{
   height:400px;
   overflow-y:auto;
-  padding:12px;
+  padding:16px; /* antes 12px */
   border:1px solid #00ffff;
   border-radius:12px;
   background:rgba(0,0,0,0.25);
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:12px; /* melhor que 10px */
 }
+
+.msg{
+  display:flex;
+  gap:8px;
+  align-items:flex-end;
+  margin-bottom:6px; /* 👈 isso aqui melhora muito */
+}
+
+.mine{
+  justify-content:flex-end;
+}    
 
 /* mensagem */
 .msg{
