@@ -1473,16 +1473,15 @@ window.enviarMensagem = async function () {
     const user = auth.currentUser;
     if (!user) return;
 
-  await addDoc(
+ await addDoc(
   collection(db,"mensagens"),
- {
- nome:user.displayName,
- foto:user.photoURL,
- email:user.email,
- uid:user.uid,
- texto:texto,
- data:Date.now()
-}
+  {
+    nome: user.displayName,
+    foto: user.photoURL,
+    email: user.email,
+    texto: texto,
+    data: Date.now()
+  }
 );
 
     input.value = "";
@@ -1493,7 +1492,7 @@ window.enviarMensagem = async function () {
 
 const q = query(
   collection(db,"mensagens"),
-  orderBy("data","asc")
+  orderBy("data","asc"),
   limit(50)
 );
 
@@ -1526,15 +1525,15 @@ chat.innerHTML += `
 
   <div class="msg-content">
 
-    <div class="msg-name">
-      ${msg.nome}
+   <div class="msg-name">
+  ${msg.nome}
 
-      ${msg.email === "bruninhoedits0@gmail.com" ? `
-      <span class="dono-badge">
-        👑 DONO
-      </span>
-      ` : ""}
-    </div>
+  ${isDono ? `
+  <span class="dono-badge">
+    👑 DONO
+  </span>
+  ` : ""}
+</div>
 
     <div class="bubble">
       ${msg.texto}
@@ -1550,11 +1549,9 @@ chat.scrollTop = chat.scrollHeight;
 }
 
 });
-onSnapshot(typingRef, (snapshot) => {
-const typingDiv = document.getElementById("typing");
+onSnapshot(typingRef, (snap) => {
 
-onSnapshot(doc(db, "status", "typing"), (snap) => {
-
+  const typingDiv = document.getElementById("typing");
   if (!typingDiv) return;
 
   const data = snap.data();
@@ -1567,9 +1564,30 @@ onSnapshot(doc(db, "status", "typing"), (snap) => {
   typingDiv.textContent =
     `⌨️ ${data.nome} está digitando...`;
 });
+    
+const input = document.getElementById("mensagemInput");
 
-  div.textContent = nome ? `⌨️ ${nome} está digitando...` : "";
-});
+let typingTimeout;
+
+input?.addEventListener("input", async () => {
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await setDoc(typingRef, {
+    nome: user.displayName,
+    time: Date.now()
+  });
+
+  clearTimeout(typingTimeout);
+
+  typingTimeout = setTimeout(async () => {
+    await setDoc(typingRef, {
+      nome: "",
+      time: Date.now()
+    });
+  }, 2000);
+});    
 </script>
 <script>
 window.addEventListener("load",()=>{
