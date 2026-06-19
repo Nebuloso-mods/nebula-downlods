@@ -482,6 +482,105 @@ body::after{
 .hero h1{
     animation:none;
 }
+
+/* logingoogle */    
+#loginScreen{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:
+    radial-gradient(circle at top,
+    rgba(0,255,255,.15),
+    transparent 50%),
+    #000;
+}
+
+.login-card{
+  width:90%;
+  max-width:380px;
+
+  padding:30px;
+
+  text-align:center;
+
+  background:rgba(0,0,0,.55);
+
+  border:1px solid rgba(0,255,255,.3);
+
+  border-radius:24px;
+
+  backdrop-filter:blur(15px);
+
+  box-shadow:
+    0 0 25px rgba(0,255,255,.25);
+}
+
+.login-logo{
+  width:100px;
+  height:100px;
+  object-fit:contain;
+
+  margin-bottom:15px;
+
+  animation:floatLogo 3s infinite ease-in-out;
+}
+
+.login-card h1{
+  color:#00ffff;
+
+  margin-bottom:10px;
+
+  text-shadow:
+    0 0 10px #00ffff,
+    0 0 20px #00ffff;
+}
+
+.login-card p{
+  color:#ddd;
+  margin-bottom:20px;
+}
+
+#loginGoogle{
+  width:100%;
+  padding:14px;
+
+  border:none;
+  border-radius:14px;
+
+  font-size:16px;
+  font-weight:bold;
+
+  background:#00ffff;
+  color:black;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+#loginGoogle:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 20px #00ffff;
+}
+
+.login-info{
+  display:block;
+  margin-top:15px;
+  font-size:12px;
+  color:#aaa;
+}
+
+@keyframes floatLogo{
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-8px);
+  }
+}
+    
 /* LOADER */
 #loader{
     position:fixed;
@@ -970,29 +1069,30 @@ Verificando login...
 </div>
 
 <!-- LOGIN -->
-<div id="loginScreen" class="visible" style="
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-gap:15px;
-background:black;
-color:white;
-position:fixed;
-width:100%;
-z-index:9999;
-">
+<div id="loginScreen" class="visible">
 
-<h2>🔐 Entrar no Portal Nebuloso</h2>
+<div class="login-card">
 
-<button id="loginGoogle" onclick="window.loginGoogle()"
-style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
-  🔵 Entrar com Google
+<img src="Banner.png" class="login-logo">
+
+<h1>🌌 Portal Nebuloso</h1>
+
+<p>
+Entre para acessar o chat, mods,
+galeria e eventos da comunidade.
+</p>
+
+<button id="loginGoogle" onclick="window.loginGoogle()">
+🔵 Entrar com Google
 </button>
+
+<span class="login-info">
+🔒 Login seguro via Google
+</span>
 
 </div>
 
+</div>
 <!-- SITE -->
 <div class="container hidden" id="site">
 
