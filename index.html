@@ -1706,15 +1706,17 @@ const q = query(
 
 onSnapshot(q, (snapshot) => {
 
+  console.log("Mensagens recebidas:", snapshot.size);
+
   const chat = document.getElementById("mensagens");
   if (!chat) return;
-
-  const isBottom =
-    chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
   chat.innerHTML = "";
 
   snapshot.forEach((docSnap) => {
+
+    console.log(docSnap.data());
+
     const msg = docSnap.data();
 
     const isMine =
@@ -1743,12 +1745,7 @@ onSnapshot(q, (snapshot) => {
     `;
   });
 
-  if (isBottom) {
-    chat.scrollTop = chat.scrollHeight;
-  }
-
 });
-
 onSnapshot(collection(db, "status"), (snapshot) => {
   const typingDiv = document.getElementById("typing");
   if (!typingDiv) return;
