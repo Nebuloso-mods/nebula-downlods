@@ -1519,7 +1519,7 @@ const q = query(
   limit(50)
 );
 
-onSnapshot(q,(snapshot)=>{
+const typingCol = collection(db, "status");
 
 const chat = document.getElementById("mensagens");
 if(!chat) return;
@@ -1572,6 +1572,8 @@ chat.scrollTop = chat.scrollHeight;
 }
 
 });
+
+const typingCol = collection(db, "status");
     
 onSnapshot(typingCol, (snapshot) => {
   const typingDiv = document.getElementById("typing");
