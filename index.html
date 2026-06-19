@@ -1475,13 +1475,14 @@ window.enviarMensagem = async function () {
 
   await addDoc(
   collection(db,"mensagens"),
-  {
-    nome:user.displayName,
-    foto:user.photoURL,
-    email:user.email,
-    texto:texto,
-    data:Date.now()
-  }
+ {
+ nome:user.displayName,
+ foto:user.photoURL,
+ email:user.email,
+ uid:user.uid,
+ texto:texto,
+ data:Date.now()
+}
 );
 
     input.value = "";
