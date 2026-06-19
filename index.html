@@ -563,7 +563,19 @@ body::after{
   transform:translateY(-2px);
   box-shadow:0 0 20px #00ffff;
 }
-
+    
+#loginGithub{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#24292e;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+    
 .login-info{
   display:block;
   margin-top:15px;
@@ -1086,8 +1098,13 @@ galeria e eventos da comunidade.
 🔵 Entrar com Google
 </button>
 
+<button id="loginGithub"
+onclick="window.loginGithub()">
+🐙 Entrar com GitHub
+</button>    
+
 <span class="login-info">
-🔒 Login seguro via Google
+✨ Entre e conecte-se com a comunidade Nebulosa
 </span>
 
 </div>
@@ -1469,11 +1486,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getAuth,
   GoogleAuthProvider,
+  GithubAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+    
 import {
   getFirestore,
   collection,
@@ -1498,10 +1516,13 @@ const firebaseConfig = {
 const chat = document.getElementById("mensagens");
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();    
+    
+const db = getFirestore(app);   
+const provider = new GoogleAuthProvider(); 
+const githubProvider = new GithubAuthProvider();
+    
 const typingRef = (uid) => doc(db, "status", uid);
-// 👇 ISSO AQUI VOCÊ ADICIONA
+    
 const input = document.getElementById("mensagemInput");
 let typingTimeout;    
 if (input) {
@@ -1533,6 +1554,13 @@ window.loginGoogle = async function () {
   }
 };
 
+window.loginGithub = async function () {
+  try {
+    await signInWithPopup(auth, githubProvider);
+  } catch (e) {
+    console.log("Erro login GitHub:", e);
+  }
+};    
 /* LOGOUT */
 window.logout = async function () {
   try {
