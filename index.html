@@ -1473,13 +1473,16 @@ window.enviarMensagem = async function () {
     const user = auth.currentUser;
     if (!user) return;
 
-    await addDoc(collection(db, "mensagens"), {
-      nome: user.displayName,
-      email: user.email,
-      foto: user.photoURL,
-      texto,
-      data: Date.now()
-    });
+  await addDoc(
+  collection(db,"mensagens"),
+  {
+    nome:user.displayName,
+    foto:user.photoURL,
+    email:user.email,
+    texto:texto,
+    data:Date.now()
+  }
+);
 
     input.value = "";
   } catch (e) {
@@ -1489,7 +1492,7 @@ window.enviarMensagem = async function () {
 
 const q = query(
   collection(db,"mensagens"),
-  orderBy("data","desc"),
+  orderBy("data","asc")
   limit(50)
 );
 
@@ -1515,21 +1518,28 @@ user && msg.email === user.email;
 const isDono =
 msg.email === DONO_EMAIL;
 
+const isMine = auth.currentUser &&
+               auth.currentUser.displayName === msg.nome;
+
 chat.innerHTML += `
 <div class="msg ${isMine ? "mine" : ""}">
   <img src="${msg.foto || ''}">
 
   <div class="msg-content">
 
-<div class="msg-name">
-  ${msg.nome}
+    <div class="msg-name">
+      ${msg.nome}
 
-  ${isDono ? `
-    <span class="dono-badge">👑 DONO</span>
-  ` : ""}
-</div>
+      ${msg.email === "bruninhoedits0@gmail.com" ? `
+      <span class="dono-badge">
+        👑 DONO
+      </span>
+      ` : ""}
+    </div>
 
-    <div class="bubble">${msg.texto}</div>
+    <div class="bubble">
+      ${msg.texto}
+    </div>
 
   </div>
 </div>
@@ -1542,15 +1552,22 @@ chat.scrollTop = chat.scrollHeight;
 
 });
 onSnapshot(typingRef, (snapshot) => {
- const typingRef = collection(db, "typing");
-  if (!div) return;
+const typingDiv = document.getElementById("typing");
 
-  let nome = "";
+onSnapshot(doc(db, "status", "typing"), (snap) => {
 
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    if (data.nome) nome = data.nome;
-  });
+  if (!typingDiv) return;
+
+  const data = snap.data();
+
+  if (!data || !data.nome) {
+    typingDiv.textContent = "";
+    return;
+  }
+
+  typingDiv.textContent =
+    `⌨️ ${data.nome} está digitando...`;
+});
 
   div.textContent = nome ? `⌨️ ${nome} está digitando...` : "";
 });
