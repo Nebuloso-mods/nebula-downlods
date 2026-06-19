@@ -1698,7 +1698,15 @@ window.enviarMensagem = async function () {
 
 };
     
-onSnapshot(collection(db, "mensagens"), (snapshot) => {
+const q = query(
+  collection(db, "mensagens"),
+  orderBy("data", "asc"),
+  limit(50)
+);
+
+onSnapshot(q, (snapshot) => {
+
+  console.log("Recebidas:", snapshot.size);
 
   const chat = document.getElementById("mensagens");
   if (!chat) return;
@@ -1709,11 +1717,14 @@ onSnapshot(collection(db, "mensagens"), (snapshot) => {
 
     const msg = docSnap.data();
 
+    console.log(msg);
+
     const isMine =
       auth.currentUser &&
       msg.email === auth.currentUser.email;
 
-    const isDono = msg.email === DONO_EMAIL;
+    const isDono =
+      msg.email === DONO_EMAIL;
 
     chat.innerHTML += `
       <div class="msg ${isMine ? "mine" : ""}">
@@ -1723,7 +1734,7 @@ onSnapshot(collection(db, "mensagens"), (snapshot) => {
 
           <div class="msg-name">
             ${msg.nome}
-            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
+            ${isDono ? '<span class="dono-badge">👑 DONO</span>' : ''}
           </div>
 
           <div class="bubble">
@@ -1737,6 +1748,8 @@ onSnapshot(collection(db, "mensagens"), (snapshot) => {
 
   chat.scrollTop = chat.scrollHeight;
 
+}, (erro) => {
+  console.error("Erro ao ler mensagens:", erro);
 });
 onSnapshot(collection(db, "status"), (snapshot) => {
   const typingDiv = document.getElementById("typing");
