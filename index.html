@@ -1645,6 +1645,7 @@ let ultimoEnvio = 0;
 
 window.enviarMensagem = async function () {
   try {
+
     const agora = Date.now();
 
     if (agora - ultimoEnvio < 2000) return;
@@ -1660,26 +1661,30 @@ window.enviarMensagem = async function () {
     const user = auth.currentUser;
     if (!user) return;
 
- await addDoc(
-  collection(db,"mensagens"),
-  {
-    nome: user.displayName,
-    foto: user.photoURL,
-    email: user.email,
-    texto: texto,
-    data: Date.now()
-  }
-);
+    await addDoc(
+      collection(db, "mensagens"),
+      {
+        nome: user.displayName,
+        foto: user.photoURL,
+        email: user.email,
+        texto: texto,
+        data: Date.now()
+      }
+    );
 
     input.value = "";
-  } catch (e) {
-  console.error("Erro ao enviar:", e);
-  alert(
-    "Código: " + e.code +
-    "\nMensagem: " + e.message
-  );
-}
 
+  } catch (e) {
+
+    console.error("Erro ao enviar:", e);
+
+    alert(
+      "Código: " + e.code +
+      "\nMensagem: " + e.message
+    );
+
+  }
+}; // ← ESTA CHAVE ESTÁ FALTANDO
 const q = query(
   collection(db,"mensagens"),
   orderBy("data","asc"),
@@ -1789,19 +1794,23 @@ const btn = document.getElementById("installBtn");
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  btn.style.display = "block";
+
+  if (btn) {
+    btn.style.display = "block";
+  }
 });
 
-btn.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
+if (btn) {
+  btn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
 
-  deferredPrompt.prompt();
-  const choice = await deferredPrompt.userChoice;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
 
-  deferredPrompt = null;
-  btn.style.display = "none";
-});
-    
+    deferredPrompt = null;
+    btn.style.display = "none";
+  });
+}
 </script>
 <script>
 const photo = document.getElementById("userPhoto");
