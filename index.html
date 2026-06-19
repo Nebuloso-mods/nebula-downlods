@@ -259,21 +259,9 @@ body::before{
     width:40px;
     height:40px;
     border-radius:50%;
+    object-fit:cover;
     border:2px solid #00ffff;
-
-    box-shadow:
-      0 0 10px #00ffff,
-      0 0 20px rgba(0,255,255,.6);
-
-    transition:.3s;
 }
-    
-#userPhoto:hover{
-    transform:scale(1.1);
-    box-shadow:
-      0 0 20px #00ffff,
-      0 0 40px #00ffff;
-}    
     
 #profileMenu{
   position:absolute;
@@ -528,13 +516,13 @@ body::after{
 }
 
 .login-logo{
-  width:120px;
-  height:120px;
-  object-fit:cover;
-  border-radius:20px;
+  width:100px;
+  height:100px;
+  object-fit:contain;
 
-  box-shadow:
-    0 0 15px rgba(0,255,255,.5);
+  margin-bottom:15px;
+
+  animation:floatLogo 3s infinite ease-in-out;
 }
 
 .login-card h1{
@@ -759,6 +747,241 @@ body::after{
     animation:blueGlitch .08s infinite;
 }
 
+/* linhas horizontais */
+.glitch-page{
+    background-image:
+    repeating-linear-gradient(
+        transparent 0px,
+        transparent 3px,
+        rgba(255,255,255,.03) 4px
+    );
+}
+
+@keyframes glitchMove{
+    0%,100%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-3px,2px);
+    }
+
+    40%{
+        transform:translate(3px,-2px);
+    }
+
+    60%{
+        transform:translate(-2px,-1px);
+    }
+
+    80%{
+        transform:translate(2px,1px);
+    }
+}
+
+@keyframes redGlitch{
+    50%{
+        transform:translate(-6px,0);
+    }
+}
+
+@keyframes blueGlitch{
+    50%{
+        transform:translate(6px,0);
+    }
+}
+.hacker-title{
+    color:#00ffff;
+    position:relative;
+
+    text-shadow:
+    -3px 0 red,
+     3px 0 cyan,
+     0 0 20px #00ffff;
+
+    animation:titleGlitch .08s infinite;
+}
+
+@keyframes titleGlitch{
+    0%,100%{
+        transform:translate(0);
+    }
+
+    50%{
+        transform:translate(2px,-1px);
+    }
+}
+
+.hacker-box{
+    text-align:center;
+}
+
+.hacker-img{
+    width:280px;
+    max-width:80%;
+}
+
+.hacker-text{
+    color:#00ffff;
+    font-weight:bold;
+    letter-spacing:2px;
+}    
+/* efeito chat */    
+.chat-box{
+  height:400px;
+  overflow-y:auto;
+  padding:20px; /* já inclui topo e baixo */
+  border:1px solid #00ffff;
+  border-radius:12px;
+  background:rgba(0,0,0,0.25);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.msg{
+  display:flex;
+  gap:8px;
+  align-items:flex-end;
+  margin-bottom:6px; /* 👈 isso aqui melhora muito */
+}
+
+.mine{
+  justify-content:flex-end;
+}    
+
+/* mensagem */
+.msg{
+  display:flex;
+  gap:8px;
+  align-items:flex-end;
+}
+
+/* avatar */
+.msg img{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid #00ffff;
+}
+
+/* bloco da mensagem */
+.msg-content{
+  display:flex;
+  flex-direction:column;
+  max-width:75%;
+}
+
+/* nome pequeno */
+.msg-name{
+  font-size:12px;
+  color:#00ffff;
+  margin-bottom:2px;
+  opacity:0.9;
+}
+
+/* BALÃO WHATSAPP */
+.bubble{
+  padding:8px 12px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.08);
+  color:white;
+  word-break:break-word;
+  position:relative;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* MINHAS MENSAGENS (verde tipo WhatsApp) */
+.mine{
+  justify-content:flex-end;
+}
+
+.mine .msg-content{
+  align-items:flex-end;
+}
+
+.mine .bubble{
+  background:rgba(0,255,255,0.18);
+  border:1px solid #00ffff;
+}
+
+/* efeito leve hover */
+.bubble:hover{
+  transform:scale(1.01);
+  transition:.2s;
+}
+    
+/* Dono Premium */ 
+.msg-name{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.msg-name::after{
+  content:"";
+}    
+.dono-badge{
+  margin-left:6px;
+  padding:2px 7px;
+  border-radius:6px;
+  font-size:10px;
+  font-weight:bold;
+  color:black;
+  background: linear-gradient(90deg, #ffd700, #ffec8b);
+
+  box-shadow:
+    0 0 6px #ffd700,
+    0 0 12px rgba(255, 215, 0, 0.8),
+    0 0 25px rgba(255, 215, 0, 0.6);
+
+  text-shadow: 0 0 2px rgba(0,0,0,0.4);
+
+  animation: donoGlow 1.5s infinite ease-in-out;
+}
+
+.chat-input{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.chat-input input{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #00ffff;
+  background:rgba(0,0,0,0.3);
+  color:white;
+  outline:none;
+}
+
+.chat-input button{
+  padding:12px 16px;
+  border-radius:12px;
+  border:none;
+  background:#00ffff;
+  cursor:pointer;
+  font-weight:bold;
+}    
+
+@keyframes donoGlow{
+  0%,100%{
+    transform: scale(1);
+    box-shadow:
+      0 0 6px #ffd700,
+      0 0 12px rgba(255, 215, 0, 0.8),
+      0 0 25px rgba(255, 215, 0, 0.6);
+  }
+
+  50%{
+    transform: scale(1.08);
+    box-shadow:
+      0 0 10px #ffd700,
+      0 0 25px rgba(255, 215, 0, 0.9),
+      0 0 40px rgba(255, 215, 0, 0.8);
+  }
+}    
 </style>
 </head>
 
@@ -1365,7 +1588,7 @@ onAuthStateChanged(auth, (user) => {
   const userName = document.getElementById("userName");
   const userPhoto = document.getElementById("userPhoto");
 
-  // remove loading
+  // loading seguro
   if (loading) {
     loading.style.opacity = "0";
     setTimeout(() => {
@@ -1373,62 +1596,42 @@ onAuthStateChanged(auth, (user) => {
     }, 300);
   }
 
-  // =========================
-  // USUÁRIO LOGADO
-  // =========================
   if (user) {
 
-    // SITE ON
-    if (site) {
-      site.style.display = "block";
-      site.classList.add("visible");
-      site.classList.remove("hidden");
-    }
-
-    // LOGIN OFF (IMPORTANTE: display none)
-    if (login) {
-      login.style.display = "none";
-      login.classList.remove("visible");
-      login.classList.add("hidden");
-    }
-
-    // USER INFO
+    // Mostrar nome e foto
     if (userInfo) userInfo.style.display = "flex";
 
     if (userName) {
-      userName.textContent = user.displayName || "Usuário";
+  userName.textContent = user.displayName || "Usuário";
 
-      const saudacao = document.getElementById("saudacao");
-      if (saudacao) {
-        saudacao.textContent = `✨ Bem-vindo, ${user.displayName}`;
-      }
-    }
+  const saudacao =
+  document.getElementById("saudacao");
+
+  if(saudacao){
+      saudacao.textContent =
+      `✨ Bem-vindo, ${user.displayName}`;
+  }
+}
 
     if (userPhoto) {
       userPhoto.src = user.photoURL || "";
     }
 
+    login?.classList.add("hidden");
+    login?.classList.remove("visible");
+
+    site?.classList.add("visible");
+    site?.classList.remove("hidden");
+
     if (logoutBtn) logoutBtn.style.display = "block";
-  }
 
-  // =========================
-  // USUÁRIO DESLOGADO
-  // =========================
-  else {
+  } else {
 
-    // SITE OFF
-    if (site) {
-      site.style.display = "none";
-      site.classList.remove("visible");
-      site.classList.add("hidden");
-    }
+    site?.classList.add("hidden");
+    site?.classList.remove("visible");
 
-    // LOGIN ON
-    if (login) {
-      login.style.display = "flex";
-      login.classList.add("visible");
-      login.classList.remove("hidden");
-    }
+    login?.classList.add("visible");
+    login?.classList.remove("hidden");
 
     if (logoutBtn) logoutBtn.style.display = "none";
 
