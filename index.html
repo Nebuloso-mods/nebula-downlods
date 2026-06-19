@@ -1700,35 +1700,12 @@ window.enviarMensagem = async function () {
     
 onSnapshot(collection(db, "mensagens"), (snapshot) => {
 
-  console.log("Mensagens recebidas:", snapshot.size);
-
-  const chat = document.getElementById("mensagens");
-
-  chat.innerHTML = "";
-
-  snapshot.forEach((docSnap) => {
-
-    const msg = docSnap.data();
-
-    chat.innerHTML += `
-      <div>
-        ${msg.nome}: ${msg.texto}
-      </div>
-    `;
-  });
-
-onSnapshot(q, (snapshot) => {
-
-  console.log("Mensagens recebidas:", snapshot.size);
-
   const chat = document.getElementById("mensagens");
   if (!chat) return;
 
   chat.innerHTML = "";
 
   snapshot.forEach((docSnap) => {
-
-    console.log(docSnap.data());
 
     const msg = docSnap.data();
 
@@ -1758,6 +1735,8 @@ onSnapshot(q, (snapshot) => {
     `;
   });
 
+  chat.scrollTop = chat.scrollHeight;
+
 });
 onSnapshot(collection(db, "status"), (snapshot) => {
   const typingDiv = document.getElementById("typing");
@@ -1778,9 +1757,11 @@ onSnapshot(collection(db, "status"), (snapshot) => {
   } else if (usersTyping.length === 1) {
     typingDiv.textContent = `⌨️ ${usersTyping[0]} está digitando...`;
   } else {
-    typingDiv.textContent = `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
+    typingDiv.textContent =
+      `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
   }
-});
+
+}); // ← ESTE FECHAMENTO ESTÁ FALTANDO
     
 </script>
 <script>
