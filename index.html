@@ -1644,6 +1644,9 @@ const DONO_EMAIL = "bruninhoedits0@gmail.com";
 let ultimoEnvio = 0;
 
 window.enviarMensagem = async function () {
+
+  console.log("Botão clicado");
+
   try {
 
     const agora = Date.now();
@@ -1653,12 +1656,18 @@ window.enviarMensagem = async function () {
     ultimoEnvio = agora;
 
     const input = document.getElementById("mensagemInput");
+    console.log("Input:", input);
+
     if (!input) return;
 
     const texto = input.value;
+    console.log("Texto:", texto);
+
     if (!texto.trim()) return;
 
     const user = auth.currentUser;
+    console.log("Usuário:", user);
+
     if (!user) return;
 
     await addDoc(
@@ -1672,6 +1681,8 @@ window.enviarMensagem = async function () {
       }
     );
 
+    console.log("Mensagem enviada");
+
     input.value = "";
 
   } catch (e) {
@@ -1684,7 +1695,9 @@ window.enviarMensagem = async function () {
     );
 
   }
-}; // ← ESTA CHAVE ESTÁ FALTANDO
+
+};
+    
 const q = query(
   collection(db,"mensagens"),
   orderBy("data","asc"),
