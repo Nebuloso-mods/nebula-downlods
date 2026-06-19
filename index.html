@@ -1698,11 +1698,24 @@ window.enviarMensagem = async function () {
 
 };
     
-const q = query(
-  collection(db,"mensagens"),
-  orderBy("data","asc"),
-  limit(50)
-);
+onSnapshot(collection(db, "mensagens"), (snapshot) => {
+
+  console.log("Mensagens recebidas:", snapshot.size);
+
+  const chat = document.getElementById("mensagens");
+
+  chat.innerHTML = "";
+
+  snapshot.forEach((docSnap) => {
+
+    const msg = docSnap.data();
+
+    chat.innerHTML += `
+      <div>
+        ${msg.nome}: ${msg.texto}
+      </div>
+    `;
+  });
 
 onSnapshot(q, (snapshot) => {
 
