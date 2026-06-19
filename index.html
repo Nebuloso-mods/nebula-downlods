@@ -563,19 +563,7 @@ body::after{
   transform:translateY(-2px);
   box-shadow:0 0 20px #00ffff;
 }
-    
-#loginGithub{
-  width:100%;
-  margin-top:10px;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#24292e;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-    
+
 .login-info{
   display:block;
   margin-top:15px;
@@ -1098,13 +1086,8 @@ galeria e eventos da comunidade.
 🔵 Entrar com Google
 </button>
 
-<button id="loginGithub"
-onclick="window.loginGithub()">
-🐙 Entrar com GitHub
-</button>    
-
 <span class="login-info">
-✨ Entre e conecte-se com a comunidade Nebulosa
+🔒 Login seguro via Google
 </span>
 
 </div>
@@ -1486,12 +1469,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getAuth,
   GoogleAuthProvider,
-  GithubAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    
+
 import {
   getFirestore,
   collection,
@@ -1516,13 +1498,10 @@ const firebaseConfig = {
 const chat = document.getElementById("mensagens");
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-    
-const db = getFirestore(app);   
-const provider = new GoogleAuthProvider(); 
-const githubProvider = new GithubAuthProvider();
-    
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();    
 const typingRef = (uid) => doc(db, "status", uid);
-    
+// 👇 ISSO AQUI VOCÊ ADICIONA
 const input = document.getElementById("mensagemInput");
 let typingTimeout;    
 if (input) {
@@ -1554,13 +1533,6 @@ window.loginGoogle = async function () {
   }
 };
 
-window.loginGithub = async function () {
-  try {
-    await signInWithPopup(auth, githubProvider);
-  } catch (e) {
-    console.log("Erro login GitHub:", e);
-  }
-};    
 /* LOGOUT */
 window.logout = async function () {
   try {
@@ -1644,11 +1616,7 @@ const DONO_EMAIL = "bruninhoedits0@gmail.com";
 let ultimoEnvio = 0;
 
 window.enviarMensagem = async function () {
-
-  console.log("Botão clicado");
-
   try {
-
     const agora = Date.now();
 
     if (agora - ultimoEnvio < 2000) return;
@@ -1656,75 +1624,55 @@ window.enviarMensagem = async function () {
     ultimoEnvio = agora;
 
     const input = document.getElementById("mensagemInput");
-    console.log("Input:", input);
-
     if (!input) return;
 
     const texto = input.value;
-    console.log("Texto:", texto);
-
     if (!texto.trim()) return;
 
     const user = auth.currentUser;
-    console.log("Usuário:", user);
-
     if (!user) return;
 
-    await addDoc(
-      collection(db, "mensagens"),
-      {
-        nome: user.displayName,
-        foto: user.photoURL,
-        email: user.email,
-        texto: texto,
-        data: Date.now()
-      }
-    );
-
-    console.log("Mensagem enviada");
+ await addDoc(
+  collection(db,"mensagens"),
+  {
+    nome: user.displayName,
+    foto: user.photoURL,
+    email: user.email,
+    texto: texto,
+    data: Date.now()
+  }
+);
 
     input.value = "";
-
   } catch (e) {
-
-    console.error("Erro ao enviar:", e);
-
-    alert(
-      "Código: " + e.code +
-      "\nMensagem: " + e.message
-    );
-
+    console.log("Erro ao enviar:", e);
   }
-
 };
-    
+
 const q = query(
-  collection(db, "mensagens"),
-  orderBy("data", "asc"),
+  collection(db,"mensagens"),
+  orderBy("data","asc"),
   limit(50)
 );
 
 onSnapshot(q, (snapshot) => {
 
-  console.log("Recebidas:", snapshot.size);
-
   const chat = document.getElementById("mensagens");
   if (!chat) return;
+
+  const isBottom =
+    chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
   chat.innerHTML = "";
 
   snapshot.forEach((docSnap) => {
-
     const msg = docSnap.data();
-
-    console.log(msg);
 
     const isMine =
       auth.currentUser &&
       msg.email === auth.currentUser.email;
 
-    const isDono =
-      msg.email === DONO_EMAIL;
+    const isDono = msg.email === DONO_EMAIL;
 
     chat.innerHTML += `
       <div class="msg ${isMine ? "mine" : ""}">
@@ -1734,7 +1682,7 @@ onSnapshot(q, (snapshot) => {
 
           <div class="msg-name">
             ${msg.nome}
-            ${isDono ? '<span class="dono-badge">👑 DONO</span>' : ''}
+            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
           </div>
 
           <div class="bubble">
@@ -1746,11 +1694,12 @@ onSnapshot(q, (snapshot) => {
     `;
   });
 
-  chat.scrollTop = chat.scrollHeight;
+  if (isBottom) {
+    chat.scrollTop = chat.scrollHeight;
+  }
 
-}, (erro) => {
-  console.error("Erro ao ler mensagens:", erro);
 });
+
 onSnapshot(collection(db, "status"), (snapshot) => {
   const typingDiv = document.getElementById("typing");
   if (!typingDiv) return;
@@ -1770,11 +1719,9 @@ onSnapshot(collection(db, "status"), (snapshot) => {
   } else if (usersTyping.length === 1) {
     typingDiv.textContent = `⌨️ ${usersTyping[0]} está digitando...`;
   } else {
-    typingDiv.textContent =
-      `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
+    typingDiv.textContent = `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
   }
-
-}); // ← ESTE FECHAMENTO ESTÁ FALTANDO
+});
     
 </script>
 <script>
@@ -1811,23 +1758,19 @@ const btn = document.getElementById("installBtn");
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-
-  if (btn) {
-    btn.style.display = "block";
-  }
+  btn.style.display = "block";
 });
 
-if (btn) {
-  btn.addEventListener("click", async () => {
-    if (!deferredPrompt) return;
+btn.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
 
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
+  deferredPrompt.prompt();
+  const choice = await deferredPrompt.userChoice;
 
-    deferredPrompt = null;
-    btn.style.display = "none";
-  });
-}
+  deferredPrompt = null;
+  btn.style.display = "none";
+});
+    
 </script>
 <script>
 const photo = document.getElementById("userPhoto");
