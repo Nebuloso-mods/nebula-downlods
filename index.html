@@ -1661,7 +1661,7 @@ window.enviarMensagem = async function () {
 
 const q = query(
   collection(db,"mensagens"),
-  orderBy("data","desc")
+  orderBy("data","desc"),
   limit(100)
 );
 
