@@ -171,6 +171,12 @@ body::before{
     backdrop-filter:blur(10px);
 }
 
+#mensagens{
+background:
+rgba(0,0,0,.35);
+backdrop-filter:blur(10px);
+}    
+
 .portal-card h2{
     color:#00ffff;
     margin-bottom:10px;
@@ -482,105 +488,6 @@ body::after{
 .hero h1{
     animation:none;
 }
-
-/* logingoogle */    
-#loginScreen{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  background:
-    radial-gradient(circle at top,
-    rgba(0,255,255,.15),
-    transparent 50%),
-    #000;
-}
-
-.login-card{
-  width:90%;
-  max-width:380px;
-
-  padding:30px;
-
-  text-align:center;
-
-  background:rgba(0,0,0,.55);
-
-  border:1px solid rgba(0,255,255,.3);
-
-  border-radius:24px;
-
-  backdrop-filter:blur(15px);
-
-  box-shadow:
-    0 0 25px rgba(0,255,255,.25);
-}
-
-.login-logo{
-  width:100px;
-  height:100px;
-  object-fit:contain;
-
-  margin-bottom:15px;
-
-  animation:floatLogo 3s infinite ease-in-out;
-}
-
-.login-card h1{
-  color:#00ffff;
-
-  margin-bottom:10px;
-
-  text-shadow:
-    0 0 10px #00ffff,
-    0 0 20px #00ffff;
-}
-
-.login-card p{
-  color:#ddd;
-  margin-bottom:20px;
-}
-
-#loginGoogle{
-  width:100%;
-  padding:14px;
-
-  border:none;
-  border-radius:14px;
-
-  font-size:16px;
-  font-weight:bold;
-
-  background:#00ffff;
-  color:black;
-
-  cursor:pointer;
-
-  transition:.3s;
-}
-
-#loginGoogle:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 20px #00ffff;
-}
-
-.login-info{
-  display:block;
-  margin-top:15px;
-  font-size:12px;
-  color:#aaa;
-}
-
-@keyframes floatLogo{
-  0%,100%{
-    transform:translateY(0);
-  }
-
-  50%{
-    transform:translateY(-8px);
-  }
-}
-    
 /* LOADER */
 #loader{
     position:fixed;
@@ -817,162 +724,6 @@ body::after{
     font-weight:bold;
     letter-spacing:2px;
 }    
-/* efeito chat */    
-.chat-box{
-  height:400px;
-  overflow-y:auto;
-  padding:20px; /* já inclui topo e baixo */
-  border:1px solid #00ffff;
-  border-radius:12px;
-  background:rgba(0,0,0,0.25);
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.msg{
-  display:flex;
-  gap:8px;
-  align-items:flex-end;
-  margin-bottom:6px; /* 👈 isso aqui melhora muito */
-}
-
-.mine{
-  justify-content:flex-end;
-}    
-
-/* mensagem */
-.msg{
-  display:flex;
-  gap:8px;
-  align-items:flex-end;
-}
-
-/* avatar */
-.msg img{
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid #00ffff;
-}
-
-/* bloco da mensagem */
-.msg-content{
-  display:flex;
-  flex-direction:column;
-  max-width:75%;
-}
-
-/* nome pequeno */
-.msg-name{
-  font-size:12px;
-  color:#00ffff;
-  margin-bottom:2px;
-  opacity:0.9;
-}
-
-/* BALÃO WHATSAPP */
-.bubble{
-  padding:8px 12px;
-  border-radius:12px;
-  background:rgba(255,255,255,0.08);
-  color:white;
-  word-break:break-word;
-  position:relative;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-/* MINHAS MENSAGENS (verde tipo WhatsApp) */
-.mine{
-  justify-content:flex-end;
-}
-
-.mine .msg-content{
-  align-items:flex-end;
-}
-
-.mine .bubble{
-  background:rgba(0,255,255,0.18);
-  border:1px solid #00ffff;
-}
-
-/* efeito leve hover */
-.bubble:hover{
-  transform:scale(1.01);
-  transition:.2s;
-}
-    
-/* Dono Premium */ 
-.msg-name{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-.msg-name::after{
-  content:"";
-}    
-.dono-badge{
-  margin-left:6px;
-  padding:2px 7px;
-  border-radius:6px;
-  font-size:10px;
-  font-weight:bold;
-  color:black;
-  background: linear-gradient(90deg, #ffd700, #ffec8b);
-
-  box-shadow:
-    0 0 6px #ffd700,
-    0 0 12px rgba(255, 215, 0, 0.8),
-    0 0 25px rgba(255, 215, 0, 0.6);
-
-  text-shadow: 0 0 2px rgba(0,0,0,0.4);
-
-  animation: donoGlow 1.5s infinite ease-in-out;
-}
-
-.chat-input{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-}
-
-.chat-input input{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #00ffff;
-  background:rgba(0,0,0,0.3);
-  color:white;
-  outline:none;
-}
-
-.chat-input button{
-  padding:12px 16px;
-  border-radius:12px;
-  border:none;
-  background:#00ffff;
-  cursor:pointer;
-  font-weight:bold;
-}    
-
-@keyframes donoGlow{
-  0%,100%{
-    transform: scale(1);
-    box-shadow:
-      0 0 6px #ffd700,
-      0 0 12px rgba(255, 215, 0, 0.8),
-      0 0 25px rgba(255, 215, 0, 0.6);
-  }
-
-  50%{
-    transform: scale(1.08);
-    box-shadow:
-      0 0 10px #ffd700,
-      0 0 25px rgba(255, 215, 0, 0.9),
-      0 0 40px rgba(255, 215, 0, 0.8);
-  }
-}    
 </style>
 </head>
 
@@ -1069,30 +820,29 @@ Verificando login...
 </div>
 
 <!-- LOGIN -->
-<div id="loginScreen" class="visible">
+<div id="loginScreen" class="visible" style="
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:15px;
+background:black;
+color:white;
+position:fixed;
+width:100%;
+z-index:9999;
+">
 
-<div class="login-card">
+<h2>🔐 Entrar no Portal Nebuloso</h2>
 
-<img src="Banner.png" class="login-logo">
-
-<h1>🌌 Portal Nebuloso</h1>
-
-<p>
-Entre para acessar o chat, mods,
-galeria e eventos da comunidade.
-</p>
-
-<button id="loginGoogle" onclick="window.loginGoogle()">
-🔵 Entrar com Google
+<button id="loginGoogle" onclick="window.loginGoogle()"
+style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
+  🔵 Entrar com Google
 </button>
 
-<span class="login-info">
-🔒 Login seguro via Google
-</span>
-
 </div>
 
-</div>
 <!-- SITE -->
 <div class="container hidden" id="site">
 
@@ -1174,25 +924,35 @@ dos nossos eventos exclusivos.
 <p>Converse com a comunidade</p>
 </div>
 
-<div class="hall-card chat-card">
+<div class="hall-card">
 
-<div id="mensagens" class="chat-box"></div>
-    
-<div id="typing" style="
-font-size:12px;
-color:#00ffff;
-margin-top:5px;
-opacity:0.8;
-"></div>    
+<div id="mensagens" style="
+height:400px;
+overflow-y:auto;
+text-align:left;
+padding:10px;
+border:1px solid #00ffff;
+border-radius:10px;
+margin-bottom:10px;
+"></div>
 
-<div class="chat-input">
-  <input id="mensagemInput" placeholder="Digite uma mensagem..." />
-  <button onclick="enviarMensagem()">📨</button>
+<input
+id="mensagemInput"
+placeholder="Digite uma mensagem..."
+style="
+width:100%;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+">
+
+<button onclick="enviarMensagem()">
+📨 Enviar
+</button>
+
 </div>
 
-</div>
-
-</section>  
+</section>    
     
 <!-- MODS -->
 <section id="mods" class="pagina">
@@ -1465,7 +1225,6 @@ function pesquisarMods() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
 import {
   getAuth,
   GoogleAuthProvider,
@@ -1480,11 +1239,7 @@ import {
   addDoc,
   query,
   orderBy,
-  onSnapshot,
-  limit,
-  doc,
-  setDoc,
-  getDocs
+  onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     
 const firebaseConfig = {
@@ -1495,37 +1250,12 @@ const firebaseConfig = {
   messagingSenderId: "755593713969",
   appId: "1:755593713969:web:0c3a45cb65061d1457f810",
 };
-    
-const chat = document.getElementById("mensagens");
-console.log("SCRIPT FIREBASE CARREGOU");    
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();    
-const typingRef = (uid) => doc(db, "status", uid);
-// 👇 ISSO AQUI VOCÊ ADICIONA
-const input = document.getElementById("mensagemInput");
-let typingTimeout;    
-if (input) {
-  input.addEventListener("input", async () => {
-    const user = auth.currentUser;
-    if (!user) return;
+const db = getFirestore(app);    
+const provider = new GoogleAuthProvider();
 
-    await setDoc(typingRef(user.uid), {
-      nome: user.displayName,
-      time: Date.now()
-    });
-
-    clearTimeout(typingTimeout);
-
-    typingTimeout = setTimeout(async () => {
-      await setDoc(typingRef(user.uid), {
-        nome: "",
-        time: 0
-      });
-    }, 2000);
-  });
-}    
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
@@ -1614,139 +1344,107 @@ onAuthStateChanged(auth, (user) => {
 });
 
  /* CHAT GLOBAL */
-const DONO_EMAIL = "bruninhoedits0@gmail.com";
-let ultimoEnvio = 0;
 
-window.enviarMensagem = async function () {
+window.enviarMensagem = async function(){
 
-  console.log("BOTÃO FUNCIONOU");
+const input =
+document.getElementById("mensagemInput");
 
-  try {
+if(!input) return;
 
-    const agora = Date.now();
+const texto = input.value;
 
-    if (agora - ultimoEnvio < 2000) return;
+if(!texto.trim()) return;
 
-    ultimoEnvio = agora;
+const user = auth.currentUser;
 
-    const input = document.getElementById("mensagemInput");
-    if (!input) return;
+if(!user){
+alert("Faça login primeiro.");
+return;
+}
 
-    const texto = input.value;
-    if (!texto.trim()) return;
+try{
 
-    const user = auth.currentUser;
-
-    console.log("USER:", user);
-
-    if (!user) return;
-      
-  await addDoc(
-  collection(db,"mensagens"),
-  {
-    nome: user.displayName,
-    foto: user.photoURL,
-    email: user.email,
-    texto: texto,
-    data: Date.now()
-  }
+await addDoc(
+collection(db,"mensagens"),
+{
+nome:user.displayName,
+foto:user.photoURL,
+texto:texto,
+data:Date.now()
+}
 );
 
-console.log("MENSAGEM ENVIADA");
+input.value="";
 
-// TESTE
-const chat = document.getElementById("mensagens");
-console.log("CHAT:", chat);
+}catch(e){
+console.log("Erro ao enviar:",e);
+}
 
-input.value = "";
+};
 
 const q = query(
-  collection(db,"mensagens"),
-  orderBy("data","asc"),
-  limit(100)
+collection(db,"mensagens"),
+orderBy("data","asc")
 );
 
-console.log("QUERY CRIADA");
+onSnapshot(q,(snapshot)=>{
 
-console.log("REGISTRANDO SNAPSHOT");
+const chat =
+document.getElementById("mensagens");
 
-onSnapshot(q, (snapshot) => {
+if(!chat) return;
 
-  console.log("SNAPSHOT DISPAROU");
-  console.log("Mensagens carregadas:", snapshot.size);
+chat.innerHTML="";
 
-  const chat = document.getElementById("mensagens");
-  if (!chat) return;
+snapshot.forEach((doc)=>{
 
-  const isBottom =
-    chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
+const msg = doc.data();
 
-  chat.innerHTML = "";
+chat.innerHTML += `
+<div style="
+display:flex;
+gap:10px;
+margin-bottom:12px;
+align-items:flex-start;
+">
 
-  snapshot.forEach((docSnap) => {
+<img
+src="${msg.foto}"
+style="
+width:35px;
+height:35px;
+border-radius:50%;
+border:2px solid #00ffff;
+object-fit:cover;
+">
 
-    const msg = docSnap.data();
+<div style="
+background:rgba(0,255,255,.08);
+padding:8px 12px;
+border-radius:10px;
+max-width:80%;
+">
 
-    console.log("MSG:", msg);
+<b style="color:#00ffff;">
+${msg.nome}
+</b>
 
-    const isMine =
-      auth.currentUser &&
-      msg.email === auth.currentUser.email;
+<br>
 
-    const isDono = msg.email === DONO_EMAIL;
+${msg.texto}
 
-    chat.innerHTML += `
-      <div class="msg ${isMine ? "mine" : ""}">
-        <img src="${msg.foto || ''}">
+</div>
 
-        <div class="msg-content">
+</div>
+`;
 
-          <div class="msg-name">
-            ${msg.nome}
-            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
-          </div>
-
-          <div class="bubble">
-            ${msg.texto}
-          </div>
-
-        </div>
-      </div>
-    `;
-  });
-
-  console.log("HTML FINAL:", chat.innerHTML);
-
-  if (isBottom) {
-    chat.scrollTop = chat.scrollHeight;
-  }
-
-}, (error) => {
-  console.error("ERRO SNAPSHOT:", error);
 });
-onSnapshot(collection(db, "status"), (snapshot) => {
-  const typingDiv = document.getElementById("typing");
-  if (!typingDiv) return;
 
-  const usersTyping = [];
+chat.scrollTop =
+chat.scrollHeight;
 
-  snapshot.forEach((doc) => {  
-    const data = doc.data();
-
-    if (data.nome && Date.now() - data.time < 3000) {
-      usersTyping.push(data.nome);
-    }
-  });
-
-  if (usersTyping.length === 0) {
-    typingDiv.textContent = "";
-  } else if (usersTyping.length === 1) {
-    typingDiv.textContent = `⌨️ ${usersTyping[0]} está digitando...`;
-  } else {
-    typingDiv.textContent = `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
-  }
-});
-    
+});   
 </script>
 <script>
 window.addEventListener("load",()=>{
@@ -1824,12 +1522,7 @@ document.addEventListener("click", function (e) {
  if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 } 
-document.getElementById("mensagemInput")
-.addEventListener("keypress",(e)=>{
-  if(e.key === "Enter"){
-    enviarMensagem();
-  }
-});    
+    
 </script>    
 </body>
 </html>
