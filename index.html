@@ -1661,7 +1661,7 @@ window.enviarMensagem = async function () {
 
 const q = query(
   collection(db,"mensagens"),
-  orderBy("data","desc"),
+orderBy("data","asc"),
   limit(100)
 );
 
@@ -1723,6 +1723,7 @@ onSnapshot(collection(db, "status"), (snapshot) => {
   const usersTyping = [];
 
   snapshot.forEach((doc) => {
+    console.log("DATA:", docSnap.data().data);  
     const data = doc.data();
 
     if (data.nome && Date.now() - data.time < 3000) {
