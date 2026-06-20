@@ -1660,12 +1660,17 @@ console.log("MENSAGEM ENVIADA");
 
 const q = query(
   collection(db,"mensagens"),
-orderBy("data","asc"),
+  orderBy("data","asc"),
   limit(100)
 );
 
+console.log("QUERY CRIADA");
+
+console.log("REGISTRANDO SNAPSHOT");
+
 onSnapshot(q, (snapshot) => {
 
+  console.log("SNAPSHOT DISPAROU");
   console.log("Mensagens carregadas:", snapshot.size);
 
   const chat = document.getElementById("mensagens");
@@ -1674,7 +1679,6 @@ onSnapshot(q, (snapshot) => {
   const isBottom =
     chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
- console.log("SNAPSHOT DISPAROU");   
   chat.innerHTML = "";
 
   snapshot.forEach((docSnap) => {
@@ -1715,6 +1719,8 @@ onSnapshot(q, (snapshot) => {
     chat.scrollTop = chat.scrollHeight;
   }
 
+}, (error) => {
+  console.error("ERRO SNAPSHOT:", error);
 });
 onSnapshot(collection(db, "status"), (snapshot) => {
   const typingDiv = document.getElementById("typing");
