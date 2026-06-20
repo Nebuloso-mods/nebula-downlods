@@ -1667,6 +1667,8 @@ const q = query(
 
 onSnapshot(q, (snapshot) => {
 
+  console.log("Mensagens carregadas:", snapshot.size);
+
   const chat = document.getElementById("mensagens");
   if (!chat) return;
 
@@ -1676,7 +1678,10 @@ onSnapshot(q, (snapshot) => {
   chat.innerHTML = "";
 
   snapshot.forEach((docSnap) => {
+
     const msg = docSnap.data();
+
+    console.log("MSG:", msg);
 
     const isMine =
       auth.currentUser &&
@@ -1704,6 +1709,9 @@ onSnapshot(q, (snapshot) => {
     `;
   });
 
+  console.log("HTML FINAL:", chat.innerHTML);
+
+});
   if (isBottom) {
     chat.scrollTop = chat.scrollHeight;
   }
