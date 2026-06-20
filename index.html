@@ -840,10 +840,6 @@ z-index:9999;
 style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
   🔵 Entrar com Google
 </button>
-    
- <button id="loginGithub">
-  Entrar com GitHub
-</button>   
 
 </div>
 
@@ -1229,7 +1225,6 @@ function pesquisarMods() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
 import {
   getAuth,
   GoogleAuthProvider,
@@ -1244,10 +1239,7 @@ import {
   addDoc,
   query,
   orderBy,
-  onSnapshot,
-  limit,
-  doc,
-  setDoc
+  onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     
 const firebaseConfig = {
@@ -1258,36 +1250,12 @@ const firebaseConfig = {
   messagingSenderId: "755593713969",
   appId: "1:755593713969:web:0c3a45cb65061d1457f810",
 };
-    
-const chat = document.getElementById("mensagens");
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();    
-const typingRef = (uid) => doc(db, "status", uid);
-// 👇 ISSO AQUI VOCÊ ADICIONA
-const input = document.getElementById("mensagemInput");
-let typingTimeout;    
-if (input) {
-  input.addEventListener("input", async () => {
-    const user = auth.currentUser;
-    if (!user) return;
+const db = getFirestore(app);    
+const provider = new GoogleAuthProvider();
 
-    await setDoc(typingRef(user.uid), {
-      nome: user.displayName,
-      time: Date.now()
-    });
-
-    clearTimeout(typingTimeout);
-
-    typingTimeout = setTimeout(async () => {
-      await setDoc(typingRef(user.uid), {
-        nome: "",
-        time: 0
-      });
-    }, 2000);
-  });
-}    
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
@@ -1376,117 +1344,107 @@ onAuthStateChanged(auth, (user) => {
 });
 
  /* CHAT GLOBAL */
-const DONO_EMAIL = "bruninhoedits0@gmail.com";
-let ultimoEnvio = 0;
 
-window.enviarMensagem = async function () {
-  try {
-    const agora = Date.now();
+window.enviarMensagem = async function(){
 
-    if (agora - ultimoEnvio < 2000) return;
+const input =
+document.getElementById("mensagemInput");
 
-    ultimoEnvio = agora;
+if(!input) return;
 
-    const input = document.getElementById("mensagemInput");
-    if (!input) return;
+const texto = input.value;
 
-    const texto = input.value;
-    if (!texto.trim()) return;
+if(!texto.trim()) return;
 
-    const user = auth.currentUser;
-    if (!user) return;
+const user = auth.currentUser;
 
- await addDoc(
-  collection(db,"mensagens"),
-  {
-    nome: user.displayName,
-    foto: user.photoURL,
-    email: user.email,
-    texto: texto,
-    data: Date.now()
-  }
+if(!user){
+alert("Faça login primeiro.");
+return;
+}
+
+try{
+
+await addDoc(
+collection(db,"mensagens"),
+{
+nome:user.displayName,
+foto:user.photoURL,
+texto:texto,
+data:Date.now()
+}
 );
 
-    input.value = "";
-  } catch (e) {
-    console.log("Erro ao enviar:", e);
-  }
+input.value="";
+
+}catch(e){
+console.log("Erro ao enviar:",e);
+}
+
 };
 
 const q = query(
-  collection(db,"mensagens"),
-  orderBy("data","asc"),
-  limit(50)
+collection(db,"mensagens"),
+orderBy("data","asc")
 );
 
-onSnapshot(q, (snapshot) => {
+onSnapshot(q,(snapshot)=>{
 
-  const chat = document.getElementById("mensagens");
-  if (!chat) return;
+const chat =
+document.getElementById("mensagens");
 
-  const isBottom =
-    chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
+if(!chat) return;
 
-  chat.innerHTML = "";
+chat.innerHTML="";
 
-  snapshot.forEach((docSnap) => {
-    const msg = docSnap.data();
+snapshot.forEach((doc)=>{
 
-    const isMine =
-      auth.currentUser &&
-      msg.email === auth.currentUser.email;
+const msg = doc.data();
 
-    const isDono = msg.email === DONO_EMAIL;
+chat.innerHTML += `
+<div style="
+display:flex;
+gap:10px;
+margin-bottom:12px;
+align-items:flex-start;
+">
 
-    chat.innerHTML += `
-      <div class="msg ${isMine ? "mine" : ""}">
-        <img src="${msg.foto || ''}">
+<img
+src="${msg.foto}"
+style="
+width:35px;
+height:35px;
+border-radius:50%;
+border:2px solid #00ffff;
+object-fit:cover;
+">
 
-        <div class="msg-content">
+<div style="
+background:rgba(0,255,255,.08);
+padding:8px 12px;
+border-radius:10px;
+max-width:80%;
+">
 
-          <div class="msg-name">
-            ${msg.nome}
-            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
-          </div>
+<b style="color:#00ffff;">
+${msg.nome}
+</b>
 
-          <div class="bubble">
-            ${msg.texto}
-          </div>
+<br>
 
-        </div>
-      </div>
-    `;
-  });
+${msg.texto}
 
-  if (isBottom) {
-    chat.scrollTop = chat.scrollHeight;
-  }
+</div>
+
+</div>
+`;
 
 });
 
-onSnapshot(collection(db, "status"), (snapshot) => {
-  const typingDiv = document.getElementById("typing");
-  if (!typingDiv) return;
+chat.scrollTop =
+chat.scrollHeight;
 
-  const usersTyping = [];
-
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-
-    if (data.nome && Date.now() - data.time < 3000) {
-      usersTyping.push(data.nome);
-    }
-  });
-
-  if (usersTyping.length === 0) {
-    typingDiv.textContent = "";
-  } else if (usersTyping.length === 1) {
-    typingDiv.textContent = `⌨️ ${usersTyping[0]} está digitando...`;
-  } else {
-    typingDiv.textContent = `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
-  }
-});
-    
+});   
 </script>
 <script>
 window.addEventListener("load",()=>{
@@ -1564,12 +1522,7 @@ document.addEventListener("click", function (e) {
  if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 } 
-document.getElementById("mensagemInput")
-.addEventListener("keypress",(e)=>{
-  if(e.key === "Enter"){
-    enviarMensagem();
-  }
-});    
+    
 </script>    
 </body>
 </html>
