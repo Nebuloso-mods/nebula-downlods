@@ -772,7 +772,8 @@ import {
   doc,
   setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    
+
+// ===== FIREBASE CONFIG =====
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
@@ -784,11 +785,33 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);    
-const typingRef = doc(db, "status", "typing");    
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-/* LOGIN */
+// ===== TYPING SYSTEM =====
+window.setTyping = async function (isTyping) {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await setDoc(doc(db, "status", "typing"), {
+    nome: isTyping ? user.displayName : null,
+    time: Date.now()
+  });
+};
+
+let stopTypingTimer;
+
+window.startTyping = function () {
+  setTyping(true);
+
+  clearTimeout(stopTypingTimer);
+
+  stopTypingTimer = setTimeout(() => {
+    setTyping(false);
+  }, 1500);
+};
+
+// ===== LOGIN =====
 window.loginGoogle = async function () {
   try {
     await signInWithPopup(auth, provider);
@@ -797,94 +820,44 @@ window.loginGoogle = async function () {
   }
 };
 
-/* LOGOUT */
+// ===== LOGOUT =====
 window.logout = async function () {
   try {
     await signOut(auth);
-
-    const search = document.getElementById("pesquisa");
-    if (search) search.value = "";
-
   } catch (e) {
     console.log("Erro logout:", e);
   }
 };
 
-/* ESTADO LOGIN */
+// ===== ESTADO LOGIN =====
 onAuthStateChanged(auth, (user) => {
-
   const loading = document.getElementById("loading");
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
-  const logoutBtn = document.getElementById("logoutBtn");
 
-  const userInfo = document.getElementById("userInfo");
-  const userName = document.getElementById("userName");
-  const userPhoto = document.getElementById("userPhoto");
-
-  // loading seguro
   if (loading) {
     loading.style.opacity = "0";
-    setTimeout(() => {
-      loading.style.display = "none";
-    }, 300);
+    setTimeout(() => loading.style.display = "none", 300);
   }
 
   if (user) {
-
-    // Mostrar nome e foto
-    if (userInfo) userInfo.style.display = "flex";
-
-    if (userName) {
-  userName.textContent = user.displayName || "Usuário";
-
-  const saudacao =
-  document.getElementById("saudacao");
-
-  if(saudacao){
-      saudacao.textContent =
-      `✨ Bem-vindo, ${user.displayName}`;
-  }
-}
-
-    if (userPhoto) {
-      userPhoto.src = user.photoURL || "";
-    }
-
     login?.classList.add("hidden");
-    login?.classList.remove("visible");
-
     site?.classList.add("visible");
-    site?.classList.remove("hidden");
-
-    if (logoutBtn) logoutBtn.style.display = "block";
-
   } else {
-
-    site?.classList.add("hidden");
     site?.classList.remove("visible");
-
-    login?.classList.add("visible");
     login?.classList.remove("hidden");
-
-    if (logoutBtn) logoutBtn.style.display = "none";
-
-    if (userInfo) {
-      userInfo.style.display = "none";
-    }
   }
 });
 
- /* CHAT GLOBAL */
+// ===== CHAT =====
 const DONO_EMAIL = "bruninhoedits0@gmail.com";
 let ultimoEnvio = 0;
 
+// ENVIAR MENSAGEM
 window.enviarMensagem = async function () {
   try {
     const agora = Date.now();
-
     if (agora - ultimoEnvio < 2000) return;
-
     ultimoEnvio = agora;
 
     const input = document.getElementById("mensagemInput");
@@ -896,102 +869,80 @@ window.enviarMensagem = async function () {
     const user = auth.currentUser;
     if (!user) return;
 
- await addDoc(
-  collection(db,"mensagens"),
-  {
-    nome: user.displayName,
-    foto: user.photoURL,
-    email: user.email,
-    texto: texto,
-    data: Date.now()
-  }
-);
+    await addDoc(collection(db, "mensagens"), {
+      nome: user.displayName,
+      foto: user.photoURL,
+      email: user.email,
+      texto: texto,
+      data: Date.now()
+    });
 
     input.value = "";
+    setTyping(false);
+
   } catch (e) {
     console.log("Erro ao enviar:", e);
   }
 };
 
+// LISTA MENSAGENS
 const q = query(
-  collection(db,"mensagens"),
-  orderBy("data","asc"),
+  collection(db, "mensagens"),
+  orderBy("data", "asc"),
   limit(50)
 );
 
-onSnapshot(q,(snapshot)=>{
+onSnapshot(q, (snapshot) => {
+  const chat = document.getElementById("mensagens");
+  if (!chat) return;
 
-const chat = document.getElementById("mensagens");
-if(!chat) return;
+  let html = "";
 
-const user = auth.currentUser;
+  snapshot.forEach((docSnap) => {
+    const msg = docSnap.data();
 
-const isBottom =
-chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
+    const isMine =
+      auth.currentUser &&
+      msg.email === auth.currentUser.email;
 
-chat.innerHTML="";
+    const isDono = msg.email === DONO_EMAIL;
 
-snapshot.forEach((doc)=>{
+    html += `
+      <div class="msg ${isMine ? "mine" : ""}">
+        <img src="${msg.foto || ''}">
+        <div class="msg-content">
+          <div class="msg-name">
+            ${msg.nome}
+            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
+          </div>
+          <div class="bubble">
+            ${msg.texto}
+          </div>
+        </div>
+      </div>
+    `;
+  });
 
-const msg = doc.data();
-
-const isMine =
-  auth.currentUser &&
-  msg.email === auth.currentUser.email;
-
-const isDono =
-  msg.email === DONO_EMAIL;
-    
-chat.innerHTML += `
-<div class="msg ${isMine ? "mine" : ""}">
-  <img src="${msg.foto || ''}">
-
-  <div class="msg-content">
-
-   <div class="msg-name">
-  ${msg.nome}
-
-  ${isDono ? `
-  <span class="dono-badge">
-    👑 DONO
-  </span>
-  ` : ""}
-</div>
-
-    <div class="bubble">
-      ${msg.texto}
-    </div>
-
-  </div>
-</div>
-`;
+  chat.innerHTML = html;
 });
 
-if(isBottom){
-chat.scrollTop = chat.scrollHeight;
-}
+// TYPING INDICATOR
+const typingRef = doc(db, "status", "typing");
 
-});
 onSnapshot(typingRef, (snap) => {
-
-  const typingDiv =
-    document.getElementById("typing");
-
+  const typingDiv = document.getElementById("typing");
   if (!typingDiv) return;
 
   const data = snap.data();
 
-  if (!data || !data.nome) {
+  if (!data?.nome) {
     typingDiv.textContent = "";
+    typingDiv.style.display = "none";
     return;
   }
 
-  typingDiv.textContent =
-    `⌨️ ${data.nome} está digitando...`;
-
-});
-
-  div.textContent = nome ? `⌨️ ${nome} está digitando...` : "";
+  typingDiv.style.display = "block";
+  typingDiv.textContent = `⌨️ ${data.nome} está digitando...`;
 });
 </script>
 <script>
@@ -1009,7 +960,11 @@ window.addEventListener("load",()=>{
 }
 
 });
-    
+ const input = document.getElementById("mensagemInput");
+
+if (input) {
+  input.addEventListener("input", startTyping);
+}   
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -1077,38 +1032,14 @@ document.getElementById("mensagemInput")
   }
 });    
 </script>    
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("mensagemInput");
+
+  if (!input) return;
+
+  input.addEventListener("input", startTyping);
+});
+</script>  
 </body>
 </html>
-  border:1px solid #00ffff;
-  background:rgba(0,0,0,0.3);
-  color:white;
-  outline:none;
-}
-
-.chat-input button{
-  padding:12px 16px;
-  border-radius:12px;
-  border:none;
-  background:#00ffff;
-  cursor:pointer;
-  font-weight:bold;
-}    
-
-@keyframes donoGlow{
-  0%,100%{
-    transform: scale(1);
-    box-shadow:
-      0 0 6px #ffd700,
-      0 0 12px rgba(255, 215, 0, 0.8),
-      0 0 25px rgba(255, 215, 0, 0.6);
-  }
-
-  50%{
-    transform: scale(1.08);
-    box-shadow:
-      0 0 10px #ffd700,
-      0 0 25px rgba(255, 215, 0, 0.9),
-      0 0 40px rgba(255, 215, 0, 0.8);
-  }
-}    
-</style>
