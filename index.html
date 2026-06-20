@@ -1483,7 +1483,8 @@ import {
   onSnapshot,
   limit,
   doc,
-  setDoc
+  setDoc,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     
 const firebaseConfig = {
@@ -1640,7 +1641,7 @@ window.enviarMensagem = async function () {
 
     if (!user) return;
       
-   await addDoc(
+  await addDoc(
   collection(db,"mensagens"),
   {
     nome: user.displayName,
@@ -1652,12 +1653,12 @@ window.enviarMensagem = async function () {
 );
 
 console.log("MENSAGEM ENVIADA");
-    input.value = "";
 
-  } catch (e) {
-    console.error("Erro ao enviar:", e);
-  }
-};
+// TESTE
+const chat = document.getElementById("mensagens");
+console.log("CHAT:", chat);
+
+input.value = "";
 
 const q = query(
   collection(db,"mensagens"),
