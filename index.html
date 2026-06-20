@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00ffff">   
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Portal Nebuloso ⚡</title>
+
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
@@ -161,6 +170,12 @@ body::before{
 
     backdrop-filter:blur(10px);
 }
+
+#mensagens{
+background:
+rgba(0,0,0,.35);
+backdrop-filter:blur(10px);
+}    
 
 .portal-card h2{
     color:#00ffff;
@@ -473,117 +488,6 @@ body::after{
 .hero h1{
     animation:none;
 }
-
-/* logingoogle */    
-#loginScreen{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  background:
-    radial-gradient(circle at top,
-    rgba(0,255,255,.15),
-    transparent 50%),
-    #000;
-}
-
-.login-card{
-  width:90%;
-  max-width:380px;
-
-  padding:30px;
-
-  text-align:center;
-
-  background:rgba(0,0,0,.55);
-
-  border:1px solid rgba(0,255,255,.3);
-
-  border-radius:24px;
-
-  backdrop-filter:blur(15px);
-
-  box-shadow:
-    0 0 25px rgba(0,255,255,.25);
-}
-
-.login-logo{
-  width:100px;
-  height:100px;
-  object-fit:contain;
-
-  margin-bottom:15px;
-
-  animation:floatLogo 3s infinite ease-in-out;
-}
-
-.login-card h1{
-  color:#00ffff;
-
-  margin-bottom:10px;
-
-  text-shadow:
-    0 0 10px #00ffff,
-    0 0 20px #00ffff;
-}
-
-.login-card p{
-  color:#ddd;
-  margin-bottom:20px;
-}
-
-#loginGoogle{
-  width:100%;
-  padding:14px;
-
-  border:none;
-  border-radius:14px;
-
-  font-size:16px;
-  font-weight:bold;
-
-  background:#00ffff;
-  color:black;
-
-  cursor:pointer;
-
-  transition:.3s;
-}
-
-#loginGoogle:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 20px #00ffff;
-}
-    
-#loginGithub{
-  width:100%;
-  margin-top:10px;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#24292e;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-    
-.login-info{
-  display:block;
-  margin-top:15px;
-  font-size:12px;
-  color:#aaa;
-}
-
-@keyframes floatLogo{
-  0%,100%{
-    transform:translateY(0);
-  }
-
-  50%{
-    transform:translateY(-8px);
-  }
-}
-    
 /* LOADER */
 #loader{
     position:fixed;
@@ -820,160 +724,805 @@ body::after{
     font-weight:bold;
     letter-spacing:2px;
 }    
-/* efeito chat */    
-.chat-box{
-  height:400px;
-  overflow-y:auto;
-  padding:20px; /* já inclui topo e baixo */
-  border:1px solid #00ffff;
-  border-radius:12px;
-  background:rgba(0,0,0,0.25);
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.msg{
-  display:flex;
-  gap:8px;
-  align-items:flex-end;
-  margin-bottom:6px; /* 👈 isso aqui melhora muito */
-}
-
-.mine{
-  justify-content:flex-end;
-}    
-
-/* mensagem */
-.msg{
-  display:flex;
-  gap:8px;
-  align-items:flex-end;
-}
-
-/* avatar */
-.msg img{
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid #00ffff;
-}
-
-/* bloco da mensagem */
-.msg-content{
-  display:flex;
-  flex-direction:column;
-  max-width:75%;
-}
-
-/* nome pequeno */
-.msg-name{
-  font-size:12px;
-  color:#00ffff;
-  margin-bottom:2px;
-  opacity:0.9;
-}
-
-/* BALÃO WHATSAPP */
-.bubble{
-  padding:8px 12px;
-  border-radius:12px;
-  background:rgba(255,255,255,0.08);
-  color:white;
-  word-break:break-word;
-  position:relative;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-/* MINHAS MENSAGENS (verde tipo WhatsApp) */
-.mine{
-  justify-content:flex-end;
-}
-
-.mine .msg-content{
-  align-items:flex-end;
-}
-
-.mine .bubble{
-  background:rgba(0,255,255,0.18);
-  border:1px solid #00ffff;
-}
-
-/* efeito leve hover */
-.bubble:hover{
-  transform:scale(1.01);
-  transition:.2s;
-}
-    
-/* Dono Premium */ 
-.msg-name{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-.msg-name::after{
-  content:"";
-}    
-.dono-badge{
-  margin-left:6px;
-  padding:2px 7px;
-  border-radius:6px;
-  font-size:10px;
-  font-weight:bold;
-  color:black;
-  background: linear-gradient(90deg, #ffd700, #ffec8b);
-
-  box-shadow:
-    0 0 6px #ffd700,
-    0 0 12px rgba(255, 215, 0, 0.8),
-    0 0 25px rgba(255, 215, 0, 0.6);
-
-  text-shadow: 0 0 2px rgba(0,0,0,0.4);
-
-  animation: donoGlow 1.5s infinite ease-in-out;
-}
-
-.chat-input{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-}
-
-.chat-input input{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #00ffff;
-  background:rgba(0,0,0,0.3);
-  color:white;
-  outline:none;
-}
-
-.chat-input button{
-  padding:12px 16px;
-  border-radius:12px;
-  border:none;
-  background:#00ffff;
-  cursor:pointer;
-  font-weight:bold;
-}    
-
-@keyframes donoGlow{
-  0%,100%{
-    transform: scale(1);
-    box-shadow:
-      0 0 6px #ffd700,
-      0 0 12px rgba(255, 215, 0, 0.8),
-      0 0 25px rgba(255, 215, 0, 0.6);
-  }
-
-  50%{
-    transform: scale(1.08);
-    box-shadow:
-      0 0 10px #ffd700,
-      0 0 25px rgba(255, 215, 0, 0.9),
-      0 0 40px rgba(255, 215, 0, 0.8);
-  }
-}    
 </style>
+</head>
+
+<body>
+    
+<div id="loader">
+<div class="loader-logo">NEBULOSO</div>
+</div>
+    
+<div id="userInfo" style="
+position:fixed;
+top:10px;
+left:10px;
+display:none;
+align-items:center;
+gap:10px;
+background:rgba(0,0,0,0.6);
+padding:8px 12px;
+border-radius:12px;
+color:#00ffff;
+font-weight:bold;
+z-index:10000;
+backdrop-filter:blur(5px);
+cursor:pointer;
+">
+
+<img id="userPhoto" src="" alt="Foto" style="
+width:40px;
+height:40px;
+border-radius:50%;
+border:2px solid #00ffff;
+object-fit:cover;
+">
+
+<span id="userName"></span>
+
+<!-- MENU -->
+<div id="profileMenu" style="
+display:none;
+position:absolute;
+top:60px;
+left:0;
+background:rgba(0,0,0,0.9);
+border:1px solid #00ffff;
+border-radius:12px;
+padding:10px;
+width:150px;
+z-index:99999;
+">
+
+<button onclick="logout()" style="
+width:100%;
+padding:8px;
+border:none;
+border-radius:8px;
+background:#ff3b3b;
+color:white;
+cursor:pointer;
+">
+🚪 Sair
+</button>
+    
+<button id="installBtn" onclick="triggerInstall()" style="
+width:100%;
+padding:8px;
+margin-bottom:8px;
+border:none;
+border-radius:8px;
+background:#00ffff;
+color:black;
+cursor:pointer;
+font-weight:bold;
+">
+⬇ Instalar App
+</button>
+</div>
+
+</div>
+    
+<!-- LOADING -->
+<div id="loading" style="
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:black;
+color:#00ffff;
+z-index:10000;
+font-size:18px;
+transition:opacity 0.3s ease;
+">
+Verificando login...
+</div>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="visible" style="
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:15px;
+background:black;
+color:white;
+position:fixed;
+width:100%;
+z-index:9999;
+">
+
+<h2>🔐 Entrar no Portal Nebuloso</h2>
+
+<button id="loginGoogle" onclick="window.loginGoogle()"
+style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
+  🔵 Entrar com Google
+</button>
+
+</div>
+
+<!-- SITE -->
+<div class="container hidden" id="site">
+
+<div class="tabs">
+<button onclick="mostrar(event,'inicio')">🏠 Início</button>
+<button onclick="mostrar(event,'mods')">🛒 Mods</button>
+<button onclick="mostrar(event,'dupladodia')">🏆 Hall da Fama</button>
+<button onclick="mostrar(event,'galeria')">📸 Galeria</button>    
+<button onclick="mostrar(event,'discord')">🎮 Discord</button>
+<button onclick="mostrar(event,'feedback')">💬 Feedback</button>
+<button onclick="mostrar(event,'emBreve')">🚧 tutorial</button>
+<button onclick="mostrar(event,'chat')">💬 Chat</button>    
+</div>
+
+<!-- INICIO -->
+<section id="inicio" class="pagina ativa">
+
+<div class="hero">
+
+<img src="Banner.png"
+style="
+width:100%;
+border-radius:20px;
+box-shadow:0 0 30px rgba(0,255,255,.5);
+margin-bottom:20px;
+">
+<p id="saudacao"
+style="
+margin-top:10px;
+font-size:18px;
+color:#00ffff;
+font-weight:bold;
+">
+✨ Bem-vindo ao Portal Nebuloso
+</p>
+    
+<h1>🌌 Portal Nebuloso</h1>
+
+<p style="font-size:18px;">
+Bem-vindo ao universo dos mods, eventos e da comunidade Nebulosa.
+</p>
+
+</div>
+
+<div class="portal-card">
+    
+<div style="font-size:70px;">🚀</div>
+
+<h2>Bem-vindo ao Portal Nebuloso</h2>
+
+<p>
+Explore o universo Nebuloso, descubra novos mods,
+acompanhe os destaques da comunidade e participe
+dos nossos eventos exclusivos.
+</p>
+
+</div>
+
+<br>
+
+<div class="inicio-destaque">
+
+<h2>👑 Dupla em Destaque</h2>
+
+<p>
+🏆 彡れモ乃Uㄥ口ち〄ッ & 彡丹れ刀尺口爪モ刀丹〄ッ
+</p>
+
+<span>📅 16/06/2026</span>
+
+</div>
+
+</section>
+
+<section id="chat" class="pagina">
+
+<div class="hero">
+<h1>💬 Chat Nebuloso</h1>
+<p>Converse com a comunidade</p>
+</div>
+
+<div class="hall-card">
+
+<div id="mensagens" style="
+height:400px;
+overflow-y:auto;
+text-align:left;
+padding:10px;
+border:1px solid #00ffff;
+border-radius:10px;
+margin-bottom:10px;
+"></div>
+
+<input
+id="mensagemInput"
+placeholder="Digite uma mensagem..."
+style="
+width:100%;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+">
+
+<button onclick="enviarMensagem()">
+📨 Enviar
+</button>
+
+</div>
+
+</section>    
+    
+<!-- MODS -->
+<section id="mods" class="pagina">
+
+<div class="hero">
+<h1>🛒 Mods Disponíveis</h1>
+<p id="contadorMods"></p>
+</div>
+
+<input id="pesquisa"
+type="text"
+placeholder="🔍 Pesquisar mods..."
+onkeyup="pesquisarMods()">
+
+<div class="grid">
+
+<div class="card">
+<img src="amongus.jpg">
+<h3>Among Us Mod</h3>
+<p>⭐⭐⭐⭐⭐ 4.9/5</p>
+<p>📥 download disponivel</p>
+<a href="LINK">⬇ Baixar</a>
+</div>
+
+<div class="card">
+<img src="starlight.png">
+<h3>Starlight Pack</h3>
+<p>⭐⭐⭐⭐☆ 4.4/5</p>
+<p>📥 download disponivel</p>
+<a href="LINK">⬇ Baixar</a>
+</div>
+
+</div>
+
+</section>
+    
+<section id="emBreve" class="pagina glitch-page">
+<div class="hero">
+<h1 class="hacker-title">🚧 EM BREVE</h1>
+</div>
+
+<div class="hacker-box">
+
+<img src="tela de espera.png" class="hacker-img">
+
+<p class="hacker-text">
+⚠ SISTEMA EM DESENVOLVIMENTO ⚠
+</p>
+
+</div>
+
+</section>
+    
+<section id="dupladodia" class="pagina">
+
+<div class="hero">
+<h1>🏆 Hall da Fama</h1>
+<p>A melhor dupla do dia</p>
+</div>
+
+<div class="hall-card">
+<div class="coroa">👑</div>
+
+<img src="dupla.jpg" class="hall-img">
+
+<h2>彡れモ乃Uㄥ口ち〄ッ & 彡丹れ刀尺口爪モ刀丹〄ッ</h2>
+
+<p>
+Foram os destaques do dia com jogadas incríveis.
+</p>
+
+<span>📅 16/06/2026</span>
+</div>
+
+</section>
+
+<!-- GALERIA -->
+<section id="galeria" class="pagina">
+
+<div class="hero">
+<h1>📸 Galeria 彡ΔŁĆΔŦ€ƗΔ ΔΜØŇǤッ</h1>
+<p>Os melhores momentos da comunidade</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<img src="tela de espera.png">
+<h3>🏆 Vitória Épica</h3>
+<p>Partida perfeita da equipe Nebuloso.</p>
+</div>
+
+<div class="card">
+<img src="tela de espera.png">
+<h3>👑 Dupla Lendária</h3>
+<p>Jogada incrível durante uma partida.</p>
+</div>
+
+<div class="card">
+<img src="tela de espera.png">
+<h3>🚀 Melhor Momento</h3>
+<p>Print enviado pela comunidade.</p>
+</div>
+
+<div class="card">
+<img src="tela de espera.png">
+<h3>🎮 Among Us</h3>
+<p>Uma partida inesquecível.</p>
+</div>
+
+</div>
+
+</section>
+    
+<!-- DISCORD -->
+<section id="discord" class="pagina">
+
+<div class="hero">
+<h1>🎮 Discord Oficial</h1>
+<p>Entre na comunidade do Portal Nebuloso</p>
+</div>
+
+<div class="hall-card">
+
+<img src="banner discord.jpeg"
+style="
+width:100%;
+border-radius:15px;
+margin-bottom:15px;
+">
+
+<h2>🚀 Comunidade Nebuloso</h2>
+
+<p>
+💬 Converse com outros jogadores<br>
+🎮 Participe de partidas privadas<br>
+🏆 Dispute eventos exclusivos<br>
+📢 Receba novidades em primeira mão
+</p>
+
+<a href="https://discord.gg/S9ggHtngD6"
+target="_blank"
+style="
+display:inline-block;
+padding:12px 25px;
+background:#5865F2;
+color:white;
+border-radius:12px;
+text-decoration:none;
+font-weight:bold;
+margin-top:10px;
+">
+🎮 Entrar no Discord
+</a>
+
+</div>
+
+</section>
+<!-- FEEDBACK -->
+
+<section id="feedback" class="pagina">
+
+<div class="hero">
+<h1>💬 Feedback</h1>
+<p>Ajude a melhorar o Portal Nebuloso</p>
+</div>
+
+<div class="hall-card">
+
+<div style="font-size:60px;">💬</div>
+
+<h2>⭐ Sua Opinião Importa</h2>
+
+<p>
+💡 Sugira novas funcionalidades<br>
+🐛 Reporte bugs encontrados<br>
+🎮 Recomende novos mods<br>
+⭐ Avalie sua experiência no site<br>
+🚀 Ajude o Portal Nebuloso a evoluir
+</p>
+
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSdWSvXoNvq54T-FRJXKh6CPW0cGh6_uOvE6PTpZ2XXiEthSBw/viewform"
+target="_blank"
+style="
+display:inline-block;
+padding:12px 25px;
+background:#00ffff;
+color:black;
+border-radius:12px;
+text-decoration:none;
+font-weight:bold;
+margin-top:10px;
+box-shadow:0 0 15px #00ffff;
+">
+📝 Enviar Feedback
+</a>
+
+<footer style="
+text-align:center;
+margin-top:40px;
+opacity:.7;
+font-size:14px;
+">
+
+⚡ Portal Nebuloso © 2026
+
+<br>
+
+Desenvolvido por 彡れモ乃Uㄥ口ち〄ッ
+
+</footer>    
+</div>
+
+</section>
+
+</div>
+
+<script>
+function mostrar(event,id){
+
+const paginas =
+document.querySelectorAll('.pagina');
+
+paginas.forEach(p=>{
+
+if(p.classList.contains('ativa')){
+p.style.opacity="0";
+p.style.transform="translateY(15px)";
+
+setTimeout(()=>{
+p.classList.remove('ativa');
+},200);
+
+}else{
+p.classList.remove('ativa');
+}
+
+});
+
+setTimeout(()=>{
+
+const pagina =
+document.getElementById(id);
+
+pagina.classList.add('ativa');
+pagina.style.opacity="1";
+pagina.style.transform="translateY(0)";
+
+},200);
+
+document
+.querySelectorAll('.tabs button')
+.forEach(b=>b.classList.remove('ativo'));
+
+event.currentTarget.classList.add('ativo');
+}
+
+function pesquisarMods() {
+  const texto = document.getElementById("pesquisa").value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const nome = card.querySelector("h3").innerText.toLowerCase();
+
+    card.style.display =
+      texto === "" || nome.includes(texto) ? "block" : "none";
+  });
+}
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    
+const firebaseConfig = {
+  apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
+  authDomain: "portal-nebuloso.firebaseapp.com",
+  projectId: "portal-nebuloso",
+  storageBucket: "portal-nebuloso.firebasestorage.app",
+  messagingSenderId: "755593713969",
+  appId: "1:755593713969:web:0c3a45cb65061d1457f810",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);    
+const provider = new GoogleAuthProvider();
+
+/* LOGIN */
+window.loginGoogle = async function () {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (e) {
+    console.log("Erro login:", e);
+  }
+};
+
+/* LOGOUT */
+window.logout = async function () {
+  try {
+    await signOut(auth);
+
+    const search = document.getElementById("pesquisa");
+    if (search) search.value = "";
+
+  } catch (e) {
+    console.log("Erro logout:", e);
+  }
+};
+
+/* ESTADO LOGIN */
+onAuthStateChanged(auth, (user) => {
+
+  const loading = document.getElementById("loading");
+  const login = document.getElementById("loginScreen");
+  const site = document.getElementById("site");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  const userInfo = document.getElementById("userInfo");
+  const userName = document.getElementById("userName");
+  const userPhoto = document.getElementById("userPhoto");
+
+  // loading seguro
+  if (loading) {
+    loading.style.opacity = "0";
+    setTimeout(() => {
+      loading.style.display = "none";
+    }, 300);
+  }
+
+  if (user) {
+
+    // Mostrar nome e foto
+    if (userInfo) userInfo.style.display = "flex";
+
+    if (userName) {
+  userName.textContent = user.displayName || "Usuário";
+
+  const saudacao =
+  document.getElementById("saudacao");
+
+  if(saudacao){
+      saudacao.textContent =
+      `✨ Bem-vindo, ${user.displayName}`;
+  }
+}
+
+    if (userPhoto) {
+      userPhoto.src = user.photoURL || "";
+    }
+
+    login?.classList.add("hidden");
+    login?.classList.remove("visible");
+
+    site?.classList.add("visible");
+    site?.classList.remove("hidden");
+
+    if (logoutBtn) logoutBtn.style.display = "block";
+
+  } else {
+
+    site?.classList.add("hidden");
+    site?.classList.remove("visible");
+
+    login?.classList.add("visible");
+    login?.classList.remove("hidden");
+
+    if (logoutBtn) logoutBtn.style.display = "none";
+
+    if (userInfo) {
+      userInfo.style.display = "none";
+    }
+  }
+});
+
+ /* CHAT GLOBAL */
+
+window.enviarMensagem = async function(){
+
+const input =
+document.getElementById("mensagemInput");
+
+if(!input) return;
+
+const texto = input.value;
+
+if(!texto.trim()) return;
+
+const user = auth.currentUser;
+
+if(!user){
+alert("Faça login primeiro.");
+return;
+}
+
+try{
+
+await addDoc(
+collection(db,"mensagens"),
+{
+nome:user.displayName,
+foto:user.photoURL,
+texto:texto,
+data:Date.now()
+}
+);
+
+input.value="";
+
+}catch(e){
+console.log("Erro ao enviar:",e);
+}
+
+};
+
+const q = query(
+collection(db,"mensagens"),
+orderBy("data","asc")
+);
+
+onSnapshot(q,(snapshot)=>{
+
+const chat =
+document.getElementById("mensagens");
+
+if(!chat) return;
+
+chat.innerHTML="";
+
+snapshot.forEach((doc)=>{
+
+const msg = doc.data();
+
+chat.innerHTML += `
+<div style="
+display:flex;
+gap:10px;
+margin-bottom:12px;
+align-items:flex-start;
+">
+
+<img
+src="${msg.foto}"
+style="
+width:35px;
+height:35px;
+border-radius:50%;
+border:2px solid #00ffff;
+object-fit:cover;
+">
+
+<div style="
+background:rgba(0,255,255,.08);
+padding:8px 12px;
+border-radius:10px;
+max-width:80%;
+">
+
+<b style="color:#00ffff;">
+${msg.nome}
+</b>
+
+<br>
+
+${msg.texto}
+
+</div>
+
+</div>
+`;
+
+});
+
+chat.scrollTop =
+chat.scrollHeight;
+
+});   
+</script>
+<script>
+window.addEventListener("load",()=>{
+
+    const loader =
+    document.getElementById("loader");
+
+    if(loader){
+    loader.style.opacity="0";
+
+    setTimeout(()=>{
+        loader.remove();
+    },600);
+}
+
+});
+    
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const total = 2;
+
+  document.getElementById("contadorMods").textContent =
+    `🚀 ${total} mods disponíveis para download`;
+});
+    
+</script>
+<script>
+let deferredPrompt;
+
+const btn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btn.style.display = "block";
+});
+
+btn.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+  const choice = await deferredPrompt.userChoice;
+
+  deferredPrompt = null;
+  btn.style.display = "none";
+});
+    
+</script>
+<script>
+const photo = document.getElementById("userPhoto");
+
+if (photo) {
+  photo.onclick = function () {
+    const menu = document.getElementById("profileMenu");
+
+    menu.style.display =
+      menu.style.display === "block" ? "none" : "block";
+  };
+}
+document.addEventListener("click", function (e) {
+  const userInfo = document.getElementById("userInfo");
+  const menu = document.getElementById("profileMenu");
+
+  if (
+    menu &&
+    userInfo &&
+    !userInfo.contains(e.target) &&
+    !menu.contains(e.target)
+  ) {
+    menu.style.display = "none";
+  }
+});
+    
+ if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+} 
+    
+</script>    
+</body>
+</html>
