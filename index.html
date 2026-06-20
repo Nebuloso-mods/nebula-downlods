@@ -1638,20 +1638,19 @@ window.enviarMensagem = async function () {
     console.log("USER:", user);
 
     if (!user) return;
+      
+   await addDoc(
+  collection(db,"mensagens"),
+  {
+    nome: user.displayName,
+    foto: user.photoURL,
+    email: user.email,
+    texto: texto,
+    data: Date.now()
+  }
+);
 
-    await addDoc(
-      collection(db,"mensagens"),
-      {
-        nome: user.displayName,
-        foto: user.photoURL,
-        email: user.email,
-        texto: texto,
-        data: Date.now()
-      }
-    );
-
-    console.log("MENSAGEM ENVIADA");
-
+console.log("MENSAGEM ENVIADA");
     input.value = "";
 
   } catch (e) {
@@ -1675,6 +1674,7 @@ onSnapshot(q, (snapshot) => {
   const isBottom =
     chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
+ console.log("SNAPSHOT DISPAROU");   
   chat.innerHTML = "";
 
   snapshot.forEach((docSnap) => {
@@ -1722,8 +1722,7 @@ onSnapshot(collection(db, "status"), (snapshot) => {
 
   const usersTyping = [];
 
-  snapshot.forEach((doc) => {
-    console.log("DATA:", docSnap.data().data);  
+  snapshot.forEach((doc) => {  
     const data = doc.data();
 
     if (data.nome && Date.now() - data.time < 3000) {
