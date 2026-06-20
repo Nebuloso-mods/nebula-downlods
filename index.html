@@ -1662,7 +1662,7 @@ window.enviarMensagem = async function () {
 const q = query(
   collection(db,"mensagens"),
   orderBy("data","asc"),
-  limit(50)
+  limit(100)
 );
 
 onSnapshot(q, (snapshot) => {
