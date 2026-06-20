@@ -1711,13 +1711,11 @@ onSnapshot(q, (snapshot) => {
 
   console.log("HTML FINAL:", chat.innerHTML);
 
-});
   if (isBottom) {
     chat.scrollTop = chat.scrollHeight;
   }
 
 });
-
 onSnapshot(collection(db, "status"), (snapshot) => {
   const typingDiv = document.getElementById("typing");
   if (!typingDiv) return;
