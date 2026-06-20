@@ -840,6 +840,10 @@ z-index:9999;
 style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
   🔵 Entrar com Google
 </button>
+    
+ <button id="loginGithub">
+  Entrar com GitHub
+</button>   
 
 </div>
 
@@ -1225,6 +1229,7 @@ function pesquisarMods() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 import {
   getAuth,
   GoogleAuthProvider,
@@ -1239,7 +1244,10 @@ import {
   addDoc,
   query,
   orderBy,
-  onSnapshot
+  onSnapshot,
+  limit,
+  doc,
+  setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     
 const firebaseConfig = {
@@ -1255,7 +1263,18 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);    
 const provider = new GoogleAuthProvider();
+const provider = new GithubAuthProvider();
 
+document.getElementById("loginGithub").addEventListener("click", () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      console.log("Logado com GitHub:", user);
+    })
+    .catch((error) => {
+      console.error("Erro login GitHub:", error);
+    });
+});
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
