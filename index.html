@@ -1258,23 +1258,36 @@ const firebaseConfig = {
   messagingSenderId: "755593713969",
   appId: "1:755593713969:web:0c3a45cb65061d1457f810",
 };
-
+    
+const chat = document.getElementById("mensagens");
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);    
-const provider = new GoogleAuthProvider();
-const provider = new GithubAuthProvider();
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();    
+const typingRef = (uid) => doc(db, "status", uid);
+// 👇 ISSO AQUI VOCÊ ADICIONA
+const input = document.getElementById("mensagemInput");
+let typingTimeout;    
+if (input) {
+  input.addEventListener("input", async () => {
+    const user = auth.currentUser;
+    if (!user) return;
 
-document.getElementById("loginGithub").addEventListener("click", () => {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      console.log("Logado com GitHub:", user);
-    })
-    .catch((error) => {
-      console.error("Erro login GitHub:", error);
+    await setDoc(typingRef(user.uid), {
+      nome: user.displayName,
+      time: Date.now()
     });
-});
+
+    clearTimeout(typingTimeout);
+
+    typingTimeout = setTimeout(async () => {
+      await setDoc(typingRef(user.uid), {
+        nome: "",
+        time: 0
+      });
+    }, 2000);
+  });
+}    
 /* LOGIN */
 window.loginGoogle = async function () {
   try {
@@ -1363,107 +1376,117 @@ onAuthStateChanged(auth, (user) => {
 });
 
  /* CHAT GLOBAL */
+const DONO_EMAIL = "bruninhoedits0@gmail.com";
+let ultimoEnvio = 0;
 
-window.enviarMensagem = async function(){
+window.enviarMensagem = async function () {
+  try {
+    const agora = Date.now();
 
-const input =
-document.getElementById("mensagemInput");
+    if (agora - ultimoEnvio < 2000) return;
 
-if(!input) return;
+    ultimoEnvio = agora;
 
-const texto = input.value;
+    const input = document.getElementById("mensagemInput");
+    if (!input) return;
 
-if(!texto.trim()) return;
+    const texto = input.value;
+    if (!texto.trim()) return;
 
-const user = auth.currentUser;
+    const user = auth.currentUser;
+    if (!user) return;
 
-if(!user){
-alert("Faça login primeiro.");
-return;
-}
-
-try{
-
-await addDoc(
-collection(db,"mensagens"),
-{
-nome:user.displayName,
-foto:user.photoURL,
-texto:texto,
-data:Date.now()
-}
+ await addDoc(
+  collection(db,"mensagens"),
+  {
+    nome: user.displayName,
+    foto: user.photoURL,
+    email: user.email,
+    texto: texto,
+    data: Date.now()
+  }
 );
 
-input.value="";
-
-}catch(e){
-console.log("Erro ao enviar:",e);
-}
-
+    input.value = "";
+  } catch (e) {
+    console.log("Erro ao enviar:", e);
+  }
 };
 
 const q = query(
-collection(db,"mensagens"),
-orderBy("data","asc")
+  collection(db,"mensagens"),
+  orderBy("data","asc"),
+  limit(50)
 );
 
-onSnapshot(q,(snapshot)=>{
+onSnapshot(q, (snapshot) => {
 
-const chat =
-document.getElementById("mensagens");
+  const chat = document.getElementById("mensagens");
+  if (!chat) return;
 
-if(!chat) return;
+  const isBottom =
+    chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 80;
 
-chat.innerHTML="";
+  chat.innerHTML = "";
 
-snapshot.forEach((doc)=>{
+  snapshot.forEach((docSnap) => {
+    const msg = docSnap.data();
 
-const msg = doc.data();
+    const isMine =
+      auth.currentUser &&
+      msg.email === auth.currentUser.email;
 
-chat.innerHTML += `
-<div style="
-display:flex;
-gap:10px;
-margin-bottom:12px;
-align-items:flex-start;
-">
+    const isDono = msg.email === DONO_EMAIL;
 
-<img
-src="${msg.foto}"
-style="
-width:35px;
-height:35px;
-border-radius:50%;
-border:2px solid #00ffff;
-object-fit:cover;
-">
+    chat.innerHTML += `
+      <div class="msg ${isMine ? "mine" : ""}">
+        <img src="${msg.foto || ''}">
 
-<div style="
-background:rgba(0,255,255,.08);
-padding:8px 12px;
-border-radius:10px;
-max-width:80%;
-">
+        <div class="msg-content">
 
-<b style="color:#00ffff;">
-${msg.nome}
-</b>
+          <div class="msg-name">
+            ${msg.nome}
+            ${isDono ? `<span class="dono-badge">👑 DONO</span>` : ""}
+          </div>
 
-<br>
+          <div class="bubble">
+            ${msg.texto}
+          </div>
 
-${msg.texto}
+        </div>
+      </div>
+    `;
+  });
 
-</div>
-
-</div>
-`;
+  if (isBottom) {
+    chat.scrollTop = chat.scrollHeight;
+  }
 
 });
 
-chat.scrollTop =
-chat.scrollHeight;
+onSnapshot(collection(db, "status"), (snapshot) => {
+  const typingDiv = document.getElementById("typing");
+  if (!typingDiv) return;
 
-});   
+  const usersTyping = [];
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+
+    if (data.nome && Date.now() - data.time < 3000) {
+      usersTyping.push(data.nome);
+    }
+  });
+
+  if (usersTyping.length === 0) {
+    typingDiv.textContent = "";
+  } else if (usersTyping.length === 1) {
+    typingDiv.textContent = `⌨️ ${usersTyping[0]} está digitando...`;
+  } else {
+    typingDiv.textContent = `⌨️ ${usersTyping.join(" e ")} estão digitando...`;
+  }
+});
+    
 </script>
 <script>
 window.addEventListener("load",()=>{
@@ -1541,7 +1564,12 @@ document.addEventListener("click", function (e) {
  if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 } 
-    
+document.getElementById("mensagemInput")
+.addEventListener("keypress",(e)=>{
+  if(e.key === "Enter"){
+    enviarMensagem();
+  }
+});    
 </script>    
 </body>
 </html>
