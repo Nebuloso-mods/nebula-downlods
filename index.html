@@ -1616,7 +1616,11 @@ const DONO_EMAIL = "bruninhoedits0@gmail.com";
 let ultimoEnvio = 0;
 
 window.enviarMensagem = async function () {
+
+  console.log("BOTÃO FUNCIONOU");
+
   try {
+
     const agora = Date.now();
 
     if (agora - ultimoEnvio < 2000) return;
@@ -1630,22 +1634,28 @@ window.enviarMensagem = async function () {
     if (!texto.trim()) return;
 
     const user = auth.currentUser;
+
+    console.log("USER:", user);
+
     if (!user) return;
 
- await addDoc(
-  collection(db,"mensagens"),
-  {
-    nome: user.displayName,
-    foto: user.photoURL,
-    email: user.email,
-    texto: texto,
-    data: Date.now()
-  }
-);
+    await addDoc(
+      collection(db,"mensagens"),
+      {
+        nome: user.displayName,
+        foto: user.photoURL,
+        email: user.email,
+        texto: texto,
+        data: Date.now()
+      }
+    );
+
+    console.log("MENSAGEM ENVIADA");
 
     input.value = "";
+
   } catch (e) {
-    console.log("Erro ao enviar:", e);
+    console.error("Erro ao enviar:", e);
   }
 };
 
