@@ -1350,10 +1350,12 @@ window.logout = async function () {
 
 window.apagarTodasMsg = async function () {
 
-  if (auth.currentUser?.email !== DONO_EMAIL) {
-    alert("Sem permissão");
-    return;
-  }
+  const user = auth.currentUser;
+
+if (!user || user.email !== DONO_EMAIL) {
+  alert("Sem permissão");
+  return;
+}
 
   const q = query(collection(db, "mensagens"));
   const snapshot = await getDocs(q);
