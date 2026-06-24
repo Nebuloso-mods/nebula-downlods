@@ -1354,7 +1354,7 @@ window.apagarTodasMsg = async function () {
   const user = auth.currentUser;
 
   if (!user || user.email !== DONO_EMAIL) {
-    alert("Sem permissão");
+    alert("Apenas donos e vips👑");
     return;
   }
 
