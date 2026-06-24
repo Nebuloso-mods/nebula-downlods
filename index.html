@@ -1353,18 +1353,20 @@ window.apagarTodasMsg = async function () {
 
   const user = auth.currentUser;
 
-if (!user || user.email !== DONO_EMAIL) {
-  alert("Sem permissão");
-  return;
-}
+  if (!user || user.email !== DONO_EMAIL) {
+    alert("Sem permissão");
+    return;
+  }
 
-  const q = query(collection(db, "mensagens"));
-  const snapshot = await getDocs(q);
+  if (!confirm("Apagar todas as mensagens?")) return;
 
-  snapshot.forEach(async (docSnap) => {
+  const snapshot = await getDocs(collection(db, "mensagens"));
+
+  for (const docSnap of snapshot.docs) {
     await deleteDoc(doc(db, "mensagens", docSnap.id));
-  });
+  }
 
+  alert("Mensagens apagadas!");
 };
 /* ESTADO LOGIN */
 onAuthStateChanged(auth, (user) => {
