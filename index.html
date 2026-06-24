@@ -1002,6 +1002,23 @@ placeholder="Digite uma mensagem..."
 <button onclick="enviarMensagem()">
 📨
 </button>
+
+<button id="limparChatBtn"
+onclick="limparChat()"
+style="
+display:none;
+background:#ff3b3b;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+margin-bottom:10px;
+cursor:pointer;
+font-weight:bold;
+">
+🗑️ Limpar Chat
+</button>
+    
 </div>
 
 </div>
@@ -1301,7 +1318,10 @@ import {
   addDoc,
   query,
   orderBy,
-  onSnapshot
+  onSnapshot,
+  deleteDoc,
+  doc,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     
 const firebaseConfig = {
@@ -1340,6 +1360,21 @@ window.logout = async function () {
   }
 };
 
+window.apagarTodasMsg = async function () {
+
+  if (auth.currentUser?.email !== DONO_EMAIL) {
+    alert("Sem permissão");
+    return;
+  }
+
+  const q = query(collection(db, "mensagens"));
+  const snapshot = await getDocs(q);
+
+  snapshot.forEach(async (docSnap) => {
+    await deleteDoc(doc(db, "mensagens", docSnap.id));
+  });
+
+};
 /* ESTADO LOGIN */
 onAuthStateChanged(auth, (user) => {
 
