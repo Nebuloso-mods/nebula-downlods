@@ -1194,12 +1194,20 @@ p.classList.remove('ativa');
 
 setTimeout(()=>{
 
-const pagina =
-document.getElementById(id);
+const pagina = document.getElementById(id);
 
 pagina.classList.add('ativa');
 pagina.style.opacity="1";
 pagina.style.transform="translateY(0)";
+
+if(id === "chat"){
+  setTimeout(()=>{
+    const chat = document.getElementById("mensagens");
+    if(chat){
+      chat.scrollTop = chat.scrollHeight;
+    }
+  },300);
+}
 
 },200);
 
