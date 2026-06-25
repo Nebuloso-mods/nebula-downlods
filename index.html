@@ -788,6 +788,20 @@ border-radius:10px;
 .chat-box::-webkit-scrollbar-track{
 background:rgba(255,255,255,.05);
 }  
+
+@keyframes pulseDono{
+  0%,100%{
+    transform:scale(1);
+    box-shadow:0 0 5px #FFD700;
+  }
+
+  50%{
+    transform:scale(1.08);
+    box-shadow:
+      0 0 10px #FFD700,
+      0 0 20px #FFD700;
+  }
+}
     
 </style>
 </head>
@@ -1538,13 +1552,20 @@ ${msg.nome}
 
 ${msg.email === DONO_EMAIL
 ? `<span style="
+display:inline-block;
+margin-left:6px;
+padding:2px 8px;
+border-radius:999px;
+background:rgba(255,215,0,.15);
+border:1px solid #FFD700;
 color:#FFD700;
-text-shadow:
-0 0 5px #FFD700,
-0 0 10px #FFD700,
-0 0 20px #FFD700,
-0 0 35px #FFD700;
-"> 👑 DONO</span>`
+font-size:10px;
+font-weight:bold;
+text-shadow:0 0 8px #FFD700;
+animation:pulseDono 1.5s infinite;
+">
+👑 DONO
+</span>`
 : ""}
 </b>
 
