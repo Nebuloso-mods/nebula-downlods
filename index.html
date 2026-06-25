@@ -172,11 +172,10 @@ body::before{
 }
 
 #mensagens{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  align-items:flex-start;
-}
+background:
+rgba(0,0,0,.35);
+backdrop-filter:blur(10px);
+}    
 
 .portal-card h2{
     color:#00ffff;
@@ -790,18 +789,6 @@ border-radius:10px;
 background:rgba(255,255,255,.05);
 }  
 
-#chat .hall-card{
-    text-align:left;
-}   
-#mensagens{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-}
-
-#mensagens *{
-  text-align:left;
-}
 @keyframes pulseDono{
   0%{
     transform:scale(1);
@@ -1526,11 +1513,10 @@ const msg = doc.data();
 
 chat.innerHTML += `
 <div style="
-<div style="
 display:flex;
-align-items:flex-start;
 gap:10px;
-width:auto;
+margin-bottom:12px;
+align-items:flex-start;
 ">
 
 <img
@@ -1545,31 +1531,55 @@ object-fit:cover;
 
 <div style="
 background:rgba(0,255,255,.08);
-padding:8px 12px;
+padding:6px 10px;
 border-radius:18px;
 max-width:75%;
+min-width:120px;
 display:flex;
 flex-direction:column;
 align-items:flex-start;
-text-align:left;
 border-left:3px solid #00ffff;
-word-break:break-word;
+backdrop-filter:blur(4px);
 ">
 
 <b style="
-margin-bottom:4px;
+display:flex;
+align-items:center;
+gap:6px;
+flex-wrap:wrap;
 ${
 msg.email === DONO_EMAIL
-? "color:#FFD700;font-weight:bold;text-shadow:0 0 5px #FFD700;"
+? "color:#FFD700;font-weight:bold;text-shadow:0 0 5px #FFD700,0 0 10px #FFD700,0 0 20px #FFD700;"
 : "color:#00ffff;"
 }
 ">
+
+<span style="font-size:14px;">
 ${msg.nome}
+</span>
+
+${msg.email === DONO_EMAIL
+? `<span style="
+padding:2px 8px;
+border-radius:999px;
+background:rgba(255,215,0,.15);
+border:1px solid #FFD700;
+color:#FFD700;
+font-size:10px;
+font-weight:bold;
+white-space:nowrap;
+box-shadow:0 0 8px #FFD700;
+animation:pulseDono 1.5s infinite;
+">
+👑 DONO
+</span>`
+: ""}
+
 </b>
 
-<div>
+<br>
+
 ${msg.texto}
-</div>
 
 </div>
 
