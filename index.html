@@ -172,14 +172,10 @@ body::before{
 }
 
 #mensagens{
-  background: rgba(0,0,0,.35);
-  backdrop-filter: blur(10px);
-
   display:flex;
   flex-direction:column;
   gap:12px;
-
-  align-items:flex-start; /* 🔥 ESSENCIAL */
+  align-items:flex-start;
 }
 
 .portal-card h2{
@@ -1520,8 +1516,9 @@ chat.innerHTML += `
 <div style="
 display:flex;
 gap:10px;
-margin-bottom:12px;
 align-items:flex-start;
+width:fit-content;
+max-width:100%;
 ">
 
 <img
@@ -1548,8 +1545,6 @@ backdrop-filter:blur(4px);
 
 word-break:break-word;
 overflow-wrap:break-word;
-
-align-self:flex-start;
 ">
 
 <b style="
