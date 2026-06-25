@@ -172,10 +172,15 @@ body::before{
 }
 
 #mensagens{
-background:
-rgba(0,0,0,.35);
-backdrop-filter:blur(10px);
-}    
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(10px);
+
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+
+  align-items:flex-start; /* 🔥 ESSENCIAL */
+}
 
 .portal-card h2{
     color:#00ffff;
