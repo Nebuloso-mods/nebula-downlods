@@ -1518,10 +1518,11 @@ const msg = doc.data();
 
 chat.innerHTML += `
 <div style="
+<div style="
 display:flex;
 align-items:flex-start;
 gap:10px;
-width:100%;
+width:auto;
 ">
 
 <img
@@ -1535,51 +1536,32 @@ object-fit:cover;
 ">
 
 <div style="
-background:red;
-padding:5px;
-display:inline-block;
+background:rgba(0,255,255,.08);
+padding:8px 12px;
+border-radius:18px;
+max-width:75%;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+text-align:left;
+border-left:3px solid #00ffff;
+word-break:break-word;
 ">
-${msg.texto}
-</div>
 
 <b style="
-display:flex;
-align-items:center;
-gap:6px;
-flex-wrap:wrap;
+margin-bottom:4px;
 ${
 msg.email === DONO_EMAIL
-? "color:#FFD700;font-weight:bold;text-shadow:0 0 5px #FFD700,0 0 10px #FFD700,0 0 20px #FFD700;"
+? "color:#FFD700;font-weight:bold;text-shadow:0 0 5px #FFD700;"
 : "color:#00ffff;"
 }
 ">
-
-<span style="font-size:14px;">
 ${msg.nome}
-</span>
-
-${msg.email === DONO_EMAIL
-? `<span style="
-padding:2px 8px;
-border-radius:999px;
-background:rgba(255,215,0,.15);
-border:1px solid #FFD700;
-color:#FFD700;
-font-size:10px;
-font-weight:bold;
-white-space:nowrap;
-box-shadow:0 0 8px #FFD700;
-animation:pulseDono 1.5s infinite;
-">
-👑 DONO
-</span>`
-: ""}
-
 </b>
 
-<br>
-
+<div>
 ${msg.texto}
+</div>
 
 </div>
 
