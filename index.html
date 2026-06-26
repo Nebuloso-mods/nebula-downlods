@@ -1541,35 +1541,34 @@ const msg = doc.data();
 chat.innerHTML += `
 <div style="
 display:flex;
-gap:15px;
-margin-bottom:30px;
+gap:10px;
+margin-bottom:12px;
 align-items:flex-start;
-padding:0 12px;
 ">
 
 <img
 src="${msg.foto}"
 style="
-width:45px;
-height:45px;
+width:35px;
+height:35px;
 border-radius:50%;
 border:2px solid #00ffff;
 object-fit:cover;
-flex-shrink:0;
 ">
 
 <div style="
-padding:10px 14px;
+background:rgba(0,255,255,.08);
+padding:6px 10px;
 border-radius:18px;
+max-width:75%;
 width:fit-content;
-max-width:65%;
 display:flex;
 flex-direction:column;
 align-items:flex-start;
 border-left:3px solid #00ffff;
 backdrop-filter:blur(4px);
+flex:0 1 auto;
 word-break:break-word;
-box-sizing:border-box;
 ">
 
 <b style="
