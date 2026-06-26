@@ -21,10 +21,6 @@ body{
     min-height:100vh;
 }
 
-body::after{
-    animation:starsMove 60s linear infinite;
-}
-
 .hero h1,
 .hall-card{
     will-change:transform,opacity;
@@ -412,17 +408,6 @@ backdrop-filter:blur(10px);
 }
 
 /* 🌌 PARTÍCULAS */
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background-image:
-        radial-gradient(circle, rgba(0,255,255,.8) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,.5) 1px, transparent 1px);
-    background-size:250px 250px,350px 350px;
-    pointer-events:none;
-    z-index:0;
-}
 
 .tabs button.ativo{
     background:#00ffff;
@@ -436,14 +421,6 @@ body::after{
     0 0 40px #00ffff;
 }
 
-@keyframes starsMove{
-    from{
-        transform:translateY(0);
-    }
-    to{
-        transform:translateY(-120px);
-    }
-}
 /* ⬇ DOWNLOAD PREMIUM */
 .card a{
     display:inline-block;
@@ -1536,6 +1513,7 @@ chat.innerHTML="";
 snapshot.forEach((doc)=>{
 
 const msg = doc.data();
+const minhaMsg = auth.currentUser?.email === msg.email;
 
 chat.innerHTML += `
 <div style="
@@ -1543,8 +1521,10 @@ display:flex;
 gap:10px;
 margin-bottom:12px;
 align-items:flex-start;
+justify-content:${minhaMsg ? "flex-end" : "flex-start"};
 ">
 
+${!minhaMsg ? `
 <img
 src="${msg.foto}"
 style="
@@ -1554,9 +1534,10 @@ border-radius:50%;
 border:2px solid #00ffff;
 object-fit:cover;
 ">
+` : ""}
 
 <div style="
-background:rgba(0,255,255,.08);
+background:${minhaMsg ? "rgba(0,255,255,.18)" : "rgba(0,255,255,.08)"};
 padding:6px 10px;
 border-radius:18px;
 max-width:75%;
@@ -1564,7 +1545,8 @@ width:fit-content;
 display:flex;
 flex-direction:column;
 align-items:flex-start;
-border-left:3px solid #00ffff;
+border-left:${minhaMsg ? "none" : "3px solid #00ffff"};
+border-right:${minhaMsg ? "3px solid #00ffff" : "none"};
 backdrop-filter:blur(4px);
 flex:0 1 auto;
 word-break:break-word;
