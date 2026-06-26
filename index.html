@@ -294,7 +294,25 @@ backdrop-filter:blur(10px);
         margin-top:10px;
     }
 }
+@media (max-width:600px){
 
+    .hall-card{
+        width:100%;
+        max-width:100%;
+        padding:8px;
+        border-radius:15px;
+    }
+
+    .chat-box{
+        padding:8px;
+        height:450px;
+    }
+
+    .container{
+        width:100%;
+        padding:8px;
+    }
+}
 /* DIMUNUIÇAO DE EFEITOS */
 @keyframes hallGlow{
     from{
@@ -548,8 +566,7 @@ body::after{
 }
 
 .hall-card{
-    width:100%;
-    max-width:100%;
+    max-width:600px;
     margin:auto;
     text-align:center;
 
@@ -557,7 +574,13 @@ body::after{
     border:2px solid #ffd700;
 
     border-radius:20px;
-    padding:10px;
+    padding:25px;
+
+    box-shadow:
+    0 0 15px #ffd700,
+    0 0 30px rgba(255,215,0,.5);
+
+   animation:none;
 }
 
 .hall-img{
@@ -737,6 +760,10 @@ box-shadow:
 scroll-behavior:smooth;
 }
 
+.chat-box div {
+  text-align: left;
+}
+
 .chat-input{
 display:flex;
 gap:10px;
@@ -773,6 +800,11 @@ box-shadow:0 0 15px #00ffff;
 
 .chat-box::-webkit-scrollbar{
 width:8px;
+}
+
+#mensagens > div {
+  width: fit-content;
+  max-width: 100%;
 }
 
 .chat-box::-webkit-scrollbar-thumb{
