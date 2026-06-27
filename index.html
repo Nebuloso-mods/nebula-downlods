@@ -843,8 +843,6 @@ border:2px solid #00ffff;
 object-fit:cover;
 ">
 
-<span id="userName"></span>
-
 <!-- MENU -->
 <div id="profileMenu" style="
 display:none;
@@ -924,6 +922,18 @@ z-index:9999;
 <button id="loginGoogle" onclick="window.loginGoogle()"
 style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
   🔵 Entrar com Google
+</button>
+
+<button onclick="window.loginAnonimo()" style="
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#555;
+color:white;
+font-weight:bold;
+cursor:pointer;
+">
+👤 Entrar como visitante
 </button>
 
 </div>
@@ -1318,6 +1328,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInAnonymously,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -1355,6 +1366,13 @@ window.loginGoogle = async function () {
     await signInWithPopup(auth, provider);
   } catch (e) {
     console.log("Erro login:", e);
+  }
+};
+window.loginAnonimo = async function () {
+  try {
+    await signInAnonymously(auth);
+  } catch (e) {
+    console.log("Erro:", e);
   }
 };
 
@@ -1410,49 +1428,40 @@ onAuthStateChanged(auth, (user) => {
     }, 300);
   }
 
-  if (user) {
+if (user) {
 
-    // Mostrar nome e foto
-    if (userInfo) userInfo.style.display = "flex";
+  // Mostrar foto do usuário
+  if (userInfo) userInfo.style.display = "flex";
 
-    if (userName) {
-  userName.textContent = user.displayName || "Usuário";
-
-  const saudacao =
-  document.getElementById("saudacao");
-
-  if(saudacao){
-      saudacao.textContent =
-      `✨ Bem-vindo, ${user.displayName}`;
+  // Saudação na página inicial
+  const saudacao = document.getElementById("saudacao");
+  if (saudacao) {
+    saudacao.textContent = `✨ Bem-vindo, ${user.displayName || "Usuário"}`;
   }
-}
 
-    if (userPhoto) {
-      userPhoto.src = user.photoURL || "";
-    }
-
-    login?.classList.add("hidden");
-    login?.classList.remove("visible");
-
-    site?.classList.add("visible");
-    site?.classList.remove("hidden");
-
-    if (logoutBtn) logoutBtn.style.display = "block";
-
-  } else {
-
-    site?.classList.add("hidden");
-    site?.classList.remove("visible");
-
-    login?.classList.add("visible");
-    login?.classList.remove("hidden");
-
-    if (logoutBtn) logoutBtn.style.display = "none";
-
-    if (userInfo) {
-      userInfo.style.display = "none";
-    }
+  // Foto do perfil
+  if (userPhoto) {
+    userPhoto.src = user.photoURL || "";
   }
+
+  login?.classList.add("hidden");
+  login?.classList.remove("visible");
+
+  site?.classList.add("visible");
+  site?.classList.remove("hidden");
+
+} else {
+
+  site?.classList.add("hidden");
+  site?.classList.remove("visible");
+
+  login?.classList.add("visible");
+  login?.classList.remove("hidden");
+
+  if (userInfo) {
+    userInfo.style.display = "none";
+  }
+ }
 });
 
  /* CHAT GLOBAL */
@@ -1470,9 +1479,14 @@ if(!texto.trim()) return;
 
 const user = auth.currentUser;
 
-if(!user){
-alert("Faça login primeiro.");
-return;
+if (!user) {
+  alert("Faça login primeiro.");
+  return;
+}
+
+if (user.isAnonymous) {
+  alert("Visitantes não podem enviar mensagens. Entre com Google para usar o chat.");
+  return;
 }
 
 try{
@@ -1480,9 +1494,11 @@ try{
 await addDoc(
 collection(db,"mensagens"),
 {
-nome:user.displayName,
+nome: user.isAnonymous
+  ? "👤 Visitante"
+  : user.displayName,
 email:user.email,
-foto:user.photoURL,
+foto: user.photoURL || "https://ui-avatars.com/api/?name=Visitante&background=555555&color=ffffff",
 texto:texto,
 data:Date.now()
 }
