@@ -869,7 +869,7 @@ cursor:pointer;
 🚪 Sair
 </button>
     
-<button id="installBtn" onclick="triggerInstall()" style="
+<button id="installBtn" style="
 width:100%;
 padding:8px;
 margin-bottom:8px;
@@ -1430,6 +1430,10 @@ onAuthStateChanged(auth, (user) => {
 
 if (user) {
 
+if (userName) {
+  userName.textContent = user.displayName || "Visitante";
+}
+
   // Mostrar foto do usuário
   if (userInfo) userInfo.style.display = "flex";
 
@@ -1440,9 +1444,11 @@ if (user) {
   }
 
   // Foto do perfil
-  if (userPhoto) {
-    userPhoto.src = user.photoURL || "";
-  }
+if (user.photoURL) {
+    userPhoto.src = user.photoURL;
+} else {
+    userPhoto.src = "https://ui-avatars.com/api/?name=User";
+}
 
   login?.classList.add("hidden");
   login?.classList.remove("visible");
@@ -1653,18 +1659,23 @@ const btn = document.getElementById("installBtn");
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  btn.style.display = "block";
+
+  if (btn) {
+    btn.style.display = "block";
+  }
 });
 
-btn.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
+if (btn) {
+  btn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
 
-  deferredPrompt.prompt();
-  const choice = await deferredPrompt.userChoice;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
 
-  deferredPrompt = null;
-  btn.style.display = "none";
-});
+    deferredPrompt = null;
+    btn.style.display = "none";
+  });
+}
     
 </script>
 <script>
