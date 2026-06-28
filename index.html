@@ -8,807 +8,360 @@
 <title>⚡ Portal Nebuloso ⚡</title>
 
 <style>
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-
-body{
-    background-image:url('Fundo Nebuloso.png');
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    color:white;
-    min-height:100vh;
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.hero h1,
-.hall-card{
-    will-change:transform,opacity;
-}
+/* =========================
+   BODY
+========================= */
+body {
+  background-image: url('Fundo Nebuloso.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
-.card{
-    transform:translateZ(0);
-}
-
-.pagina{
-    display:none;
-    opacity:0;
-    transform:translateY(15px);
-    transition:all .4s ease;
+  color: white;
+  min-height: 100vh;
 }
 
 /* overlay */
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.55);
-    z-index:1;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1;
 }
 
-/* LOGIN */
-#loginScreen{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    background:black;
+/* =========================
+   CONTAINER
+========================= */
+.container {
+  position: relative;
+  z-index: 2;
+  width: 95%;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  padding-top: 70px;
+
+  animation: fadeUp 0.8s ease;
 }
 
-#loginGoogle{
-    padding:12px 20px;
-    border:none;
-    border-radius:10px;
-    background:#00ffff;
-    font-weight:bold;
-    cursor:pointer;
+/* =========================
+   PÁGINAS
+========================= */
+.pagina {
+  display: none;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.4s ease;
 }
 
-/* OTIMIZAÇAO */
-.hero h1,
-.hall-card,
-.card,
-.pagina{
-    will-change: transform, opacity;
-}
-    
-/* SITE */
-.container{
-    position:relative;
-    z-index:2;
-    width:95%;
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-    padding-top:70px;
-    animation:fadeUp 0.8s ease;
+.pagina.ativa {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* BOTÃO SAIR */
-#logoutBtn{
-    position:fixed;
-    top:10px;
-    right:10px;
-    padding:10px 15px;
-    border:none;
-    border-radius:10px;
-    background:#ff3b3b;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:10001;
-    display:none;
-}
-/* TABS */
-.tabs{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:20px;
-    flex-wrap:wrap;
-}
-    
-#installBtn{
-  display:block;
-}    
-    
-.tabs button{
-    padding:10px 15px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-
-    background:rgba(28,35,51,0.8);
-    color:white;
-    border:1px solid rgba(0,255,255,0.25);
-    backdrop-filter:blur(6px);
+/* =========================
+   HERO
+========================= */
+.hero {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.tabs button:hover{
-    background:#00ffff;
-    color:black;
-}
-    
-.discord-card{
-    max-width:600px;
-    margin:auto;
-    text-align:center;
-}
-/* páginas */
-.pagina{display:none;}
-.pagina.ativa{display:block;}
-
-.hero{text-align:center;margin-bottom:20px;}
-.hero h1{
-    color:#00ffff;
-    text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff;
-}
-
-.portal-card{
-    max-width:600px;
-    margin:auto;
-    text-align:center;
-
-    background:rgba(0,255,255,0.08);
-    border:2px solid #00ffff;
-
-    border-radius:20px;
-    padding:25px;
-
-    box-shadow:
-    0 0 15px rgba(0,255,255,.4);
-
-    backdrop-filter:blur(10px);
-}
-
-#mensagens{
-background:
-rgba(0,0,0,.35);
-backdrop-filter:blur(10px);
-}    
-
-.portal-card h2{
-    color:#00ffff;
-    margin-bottom:10px;
-}
-
-.portal-card p{
-    color:white;
-}    
-
-/* GRID MODS */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-}
-
-.card{
-    background:#151c2b;
-    padding:15px;
-    border-radius:15px;
-    text-align:center;
-}
-
-.card img{
-    width:100%;
-    height:150px;
-    object-fit:cover;
-    border-radius:10px;
-}
-
-.card h3{color:#00ffff;}
-
-#pesquisa{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    margin:10px 0;
-    border:1px solid rgba(0,255,255,0.3);
-    outline:none;
-    background:rgba(21,28,43,0.85);
-    color:white;
-    backdrop-filter:blur(5px);
-}
-
-#pesquisa:focus{
-    box-shadow:0 0 15px rgba(0,255,255,0.5);
-}
-    
-#loginScreen,
-#site {
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-/* estado oculto */
-.hidden {
-    opacity: 0;
-    transform: scale(1.02);
-    pointer-events: none;
-}
-
-/* estado visível */
-.visible {
-    opacity: 1;
-    transform: scale(1);
-} 
-
-/* PERFIL GOOGLE */
-#userInfo{
-    position:fixed;
-    top:10px;
-    left:10px;
-    display:none;
-    align-items:center;
-    gap:10px;
-    background:rgba(0,0,0,0.7);
-    padding:8px 12px;
-    border-radius:12px;
-    color:#00ffff;
-    font-weight:bold;
-    z-index:10001;
-    max-width:220px;
-    backdrop-filter:blur(5px);
-}
-
-#userPhoto{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid #00ffff;
-}
-    
-#profileMenu{
-  position:absolute;
-  top:60px;
-  left:0;
-}
-    
-/* 📱 MOBILE */
-@media (max-width:600px){
-
-    #userInfo{
-        transform:scale(0.9);
-        transform-origin:left top;
-    }
-
-    #logoutBtn{
-        top:10px;
-        right:10px;
-        font-size:12px;
-        padding:8px 10px;
-    }
-
-    .tabs{
-        margin-top:10px;
-    }
-}
-@media (max-width:600px){
-
-    .hall-card{
-        width:100%;
-        max-width:100%;
-        padding:8px;
-        border-radius:15px;
-    }
-
-    .chat-box{
-        padding:8px;
-        height:450px;
-    }
-
-    .container{
-        width:100%;
-        padding:8px;
-    }
-}
-/* DIMUNUIÇAO DE EFEITOS */
-@keyframes hallGlow{
-    from{
-        filter:brightness(1);
-    }
-    to{
-        filter:brightness(1.08);
-    }
-}
-    
-/* ✨ ANIMAÇÃO DE ENTRADA */
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.pagina{
-    display:none;
-    opacity:0;
-    transform:translateY(15px);
-    transition:all .4s ease;
-}
-
-.pagina.ativa{
-    display:block;
-    opacity:1;
-    transform:translateY(0);
-    animation:none;
-}
-
-@keyframes trocarAba{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}    
-
-/* 💎 CARDS PREMIUM */
-.card{
-    background:rgba(21,28,43,0.9);
-    backdrop-filter:blur(10px);
-    border:1px solid rgba(0,255,255,0.2);
-    transition:all 0.3s ease;
-    overflow:hidden;
-}
-
-/* 🚀 HOVER CARD */
-.card:hover{
-    transform: scale(1.02);
-}
-
-/* 🖼️ ZOOM NA IMAGEM */
-.card img{
-    transition:transform 0.4s ease;
-}
-
-.card:hover img{
-    transform:scale(1.08);
-}
-
-/* 🔵 BOTÕES COM BRILHO */
-.tabs button,
-#loginGoogle,
-#logoutBtn{
-    transition:all 0.3s ease;
-}
-
- .galeria .card img,
-#galeria .card img{
-    height:220px;
-    object-fit:cover;
-}   
-
-.tabs button:hover,
-#loginGoogle:hover{
-    box-shadow:0 0 15px #00ffff;
-}
-
-#logoutBtn:hover{
-    box-shadow:0 0 15px #ff3b3b;
-}
-
-/* 👤 PERFIL GOOGLE COM NEON */
-#userInfo{
-    box-shadow:0 0 15px rgba(0,255,255,0.4);
-}
-
-/* 🌌 PARTÍCULAS */
-
-.tabs button.ativo{
-    background:#00ffff;
-    color:black;
-
-    transform:scale(1.05);
-
-    box-shadow:
+.hero h1 {
+  color: #00ffff;
+  text-shadow:
     0 0 10px #00ffff,
     0 0 20px #00ffff,
     0 0 40px #00ffff;
 }
 
-/* ⬇ DOWNLOAD PREMIUM */
-.card a{
-    display:inline-block;
-    margin-top:10px;
-    padding:8px 14px;
-    border-radius:10px;
-    background:#00ffff;
-    color:black;
-    text-decoration:none;
-    font-weight:bold;
-    transition:all 0.3s ease;
+/* =========================
+   LOGIN
+========================= */
+#loginScreen {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: black;
+  z-index: 9999;
 }
 
-.card a:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 15px #00ffff;
-}
-/* ✨ REFLEXO PREMIUM */
-.card{
-    position:relative;
-}
+#loginGoogle {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
 
-.card::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-120%;
-    width:60%;
-    height:100%;
-    background:linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.15),
-        transparent
-    );
-    transform:skewX(-25deg);
-    transition:0.8s;
-    pointer-events:none;
+  background: #00ffff;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.card:hover::before{
-    left:150%;
-}
-@keyframes neonPulse{
-    0%,100%{
-        text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff;
-    }
+/* =========================
+   LOGOUT
+========================= */
+#logoutBtn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
 
-    50%{
-        text-shadow:
-        0 0 20px #00ffff,
-        0 0 40px #00ffff,
-        0 0 70px #00ffff;
-    }
-}
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
 
-.hero h1{
-    animation:none;
-}
-/* LOADER */
-#loader{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:99999;
-    transition:opacity .6s ease;
+  background: #ff3b3b;
+  color: white;
+  font-weight: bold;
+
+  z-index: 10001;
+  display: none;
 }
 
-.loader-logo{
-    font-size:40px;
-    font-weight:bold;
-    color:#00ffff;
-    letter-spacing:5px;
+/* =========================
+   USER INFO
+========================= */
+#userInfo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
 
-    text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff;
+  display: none;
+  align-items: center;
+  gap: 10px;
 
-   animation:none;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 12px;
+  border-radius: 12px;
+
+  color: #00ffff;
+  font-weight: bold;
+
+  z-index: 10001;
+
+  backdrop-filter: blur(5px);
+  max-width: 220px;
 }
 
-@keyframes pulseLoader{
-    0%,100%{
-        transform:scale(1);
-    }
-    50%{
-        transform:scale(1.15);
-    }
+#userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00ffff;
 }
 
-.inicio-destaque{
-    max-width:450px;
-    margin:auto;
-
-    background:linear-gradient(
-        180deg,
-        rgba(30,40,60,.95),
-        rgba(21,28,43,.95)
-    );
-
-    border:2px solid #ffd700;
-    border-radius:20px;
-    padding:25px;
-
-    backdrop-filter:blur(10px);
-
-    box-shadow:
-    0 0 20px rgba(255,215,0,.5),
-    0 0 40px rgba(255,215,0,.25);
-
-    transition:.3s;
-   animation:none;
+/* =========================
+   TABS
+========================= */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-.hall-card{
-    max-width:600px;
-    margin:auto;
-    text-align:center;
+.tabs button {
+  padding: 10px 15px;
+  border-radius: 10px;
 
-    background:rgba(21,28,43,0.95);
-    border:2px solid #ffd700;
+  border: 1px solid rgba(0,255,255,0.25);
+  background: rgba(28,35,51,0.8);
+  color: white;
 
-    border-radius:20px;
-    padding:25px;
-
-    box-shadow:
-    0 0 15px #ffd700,
-    0 0 30px rgba(255,215,0,.5);
-
-   animation:none;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.hall-img{
-    width:100%;
-    max-height:350px;
-    object-fit:cover;
-
-    border-radius:15px;
-    border:3px solid #ffd700;
-
-    margin-bottom:15px;
+.tabs button:hover {
+  background: #00ffff;
+  color: black;
 }
 
-.hall-card h2{
-    color:#ffd700;
-    margin-bottom:10px;
-
-    text-shadow:
-    0 0 10px #ffd700,
-    0 0 20px #ffd700;
+.tabs button.ativo {
+  background: #00ffff;
+  color: black;
+  transform: scale(1.05);
 }
 
-.hall-card p{
-    color:white;
-    margin-bottom:15px;
-}
-.coroa{
-    font-size:50px;
-    margin-bottom:10px;
-    animation:none;
-}
+/* =========================
+   CARDS (UNIFICADO)
+========================= */
+.card {
+  background: rgba(21,28,43,0.9);
+  border: 1px solid rgba(0,255,255,0.2);
 
-@keyframes flutuar{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-8px);
-    }
+  padding: 15px;
+  border-radius: 15px;
+
+  text-align: center;
+  overflow: hidden;
+
+  transition: 0.3s ease;
 }
 
-@keyframes hallGlow{
-    from{
-        box-shadow:
-        0 0 15px #ffd700;
-    }
-
-    to{
-        box-shadow:
-        0 0 30px #ffd700,
-        0 0 50px rgba(255,215,0,.7);
-    }
-}
-/* 🔥 HACKER STYLE */
-.glitch-page{
-    position:relative;
-    overflow:hidden;
-    animation:glitchMove .12s infinite;
+.card:hover {
+  transform: scale(1.02);
 }
 
-/* camada vermelha */
-.glitch-page::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(255,0,0,.08);
-    mix-blend-mode:screen;
-    pointer-events:none;
-    animation:redGlitch .08s infinite;
+/* imagem */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+
+  transition: 0.4s;
 }
 
-/* camada azul */
-.glitch-page::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(0,255,255,.08);
-    mix-blend-mode:screen;
-    pointer-events:none;
-    animation:blueGlitch .08s infinite;
+.card:hover img {
+  transform: scale(1.08);
 }
 
-/* linhas horizontais */
-.glitch-page{
-    background-image:
-    repeating-linear-gradient(
-        transparent 0px,
-        transparent 3px,
-        rgba(255,255,255,.03) 4px
-    );
+/* link */
+.card a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+
+  background: #00ffff;
+  color: black;
+
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-@keyframes glitchMove{
-    0%,100%{
-        transform:translate(0);
-    }
-
-    20%{
-        transform:translate(-3px,2px);
-    }
-
-    40%{
-        transform:translate(3px,-2px);
-    }
-
-    60%{
-        transform:translate(-2px,-1px);
-    }
-
-    80%{
-        transform:translate(2px,1px);
-    }
+.card a:hover {
+  transform: scale(1.05);
 }
 
-@keyframes redGlitch{
-    50%{
-        transform:translate(-6px,0);
-    }
+/* efeito brilho leve (único, sem duplicação) */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: skewX(-25deg);
+  transition: 0.8s;
+  pointer-events: none;
 }
 
-@keyframes blueGlitch{
-    50%{
-        transform:translate(6px,0);
-    }
-}
-.hacker-title{
-    color:#00ffff;
-    position:relative;
-
-    text-shadow:
-    -3px 0 red,
-     3px 0 cyan,
-     0 0 20px #00ffff;
-
-    animation:titleGlitch .08s infinite;
+.card:hover::before {
+  left: 150%;
 }
 
-@keyframes titleGlitch{
-    0%,100%{
-        transform:translate(0);
-    }
-
-    50%{
-        transform:translate(2px,-1px);
-    }
+/* =========================
+   GRID
+========================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
 }
 
-.hacker-box{
-    text-align:center;
+/* =========================
+   CHAT
+========================= */
+.chat-box {
+  height: 400px;
+  overflow-y: auto;
+
+  padding: 15px;
+  border: 1px solid #00ffff;
+  border-radius: 15px;
+
+  background: rgba(0,0,0,0.35);
 }
 
-.hacker-img{
-    width:280px;
-    max-width:80%;
+.chat-input {
+  display: flex;
+  gap: 10px;
 }
 
-.hacker-text{
-    color:#00ffff;
-    font-weight:bold;
-    letter-spacing:2px;
-}    
+.chat-input input {
+  flex: 1;
+  padding: 12px;
 
-.chat-box{
-height:400px;
-overflow-y:auto;
-padding:15px;
-border:1px solid #00ffff;
-border-radius:15px;
-margin-bottom:12px;
+  border-radius: 12px;
+  border: 1px solid #00ffff;
 
-background:rgba(0,0,0,.35);
-backdrop-filter:blur(10px);
-
-box-shadow:
-0 0 15px rgba(0,255,255,.25);
-
-scroll-behavior:smooth;
+  background: rgba(0,0,0,0.4);
+  color: white;
 }
 
-.chat-box div {
-  text-align: left;
+.chat-input button {
+  width: 55px;
+  border: none;
+  border-radius: 12px;
+
+  background: #00ffff;
+  cursor: pointer;
 }
 
-.chat-input{
-display:flex;
-gap:10px;
+/* scrollbar */
+.chat-box::-webkit-scrollbar {
+  width: 8px;
 }
 
-.chat-input input{
-flex:1;
-padding:12px;
-border-radius:12px;
-border:1px solid #00ffff;
-background:rgba(0,0,0,.4);
-color:white;
-outline:none;
+.chat-box::-webkit-scrollbar-thumb {
+  background: #00ffff;
+  border-radius: 10px;
 }
 
-.chat-input input:focus{
-box-shadow:0 0 15px rgba(0,255,255,.5);
+/* =========================
+   ANIMAÇÕES (SÓ AS USADAS)
+========================= */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.chat-input button{
-width:55px;
-border:none;
-border-radius:12px;
-background:#00ffff;
-font-size:20px;
-cursor:pointer;
-transition:.2s;
-}
-
-.chat-input button:hover{
-transform:scale(1.05);
-box-shadow:0 0 15px #00ffff;
-}
-
-.chat-box::-webkit-scrollbar{
-width:8px;
-}
-
-.chat-box::-webkit-scrollbar-thumb{
-background:#00ffff;
-border-radius:10px;
-}
-
-.chat-box::-webkit-scrollbar-track{
-background:rgba(255,255,255,.05);
-}  
-
-#userName{
-    font-size:13px;
-}
-
-@keyframes pulseDono{
-  0%{
-    transform:scale(1);
-    box-shadow:0 0 5px #FFD700;
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 600px) {
+  #userInfo {
+    transform: scale(0.9);
+    transform-origin: left top;
   }
 
-  50%{
-    transform:scale(1.08);
-    box-shadow:0 0 15px #FFD700;
+  #logoutBtn {
+    font-size: 12px;
+    padding: 8px 10px;
   }
 
-  100%{
-    transform:scale(1);
-    box-shadow:0 0 5px #FFD700;
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .card {
+    width: 100%;
   }
 }
-    
 </style>
 </head>
 
@@ -1344,7 +897,7 @@ import {
   doc,
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    
+
 const firebaseConfig = {
   apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
   authDomain: "portal-nebuloso.firebaseapp.com",
@@ -1356,11 +909,47 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);    
+function mostrarSite() {
+  const login = document.getElementById("loginScreen");
+  const site = document.getElementById("site");
+
+  if (login) {
+    login.style.display = "none";
+    login.classList.remove("visible");
+  }
+
+  if (site) {
+    site.style.display = "block";
+    site.classList.add("visible");
+    site.classList.remove("hidden");
+  }
+}
+
+function mostrarLogin() {
+  const login = document.getElementById("loginScreen");
+  const site = document.getElementById("site");
+
+  if (site) {
+    site.style.display = "none";
+    site.classList.remove("visible");
+  }
+
+  if (login) {
+    login.style.display = "flex";
+    login.classList.add("visible");
+  }
+}
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
-    
-const DONO_EMAIL = "bruninhoedits0@gmail.com";
-/* LOGIN */
+
+/* 👑 DONOS */
+const DONOS = [
+  "bruninhoedits0@gmail.com",
+  "grazielesantos643@gmail.com"
+];
+
+/* ================= LOGIN ================= */
+
 window.loginGoogle = async function () {
   try {
     await signInWithPopup(auth, provider);
@@ -1368,6 +957,7 @@ window.loginGoogle = async function () {
     console.log("Erro login:", e);
   }
 };
+
 window.loginAnonimo = async function () {
   try {
     await signInAnonymously(auth);
@@ -1376,25 +966,21 @@ window.loginAnonimo = async function () {
   }
 };
 
-/* LOGOUT */
 window.logout = async function () {
   try {
     await signOut(auth);
-
-    const search = document.getElementById("pesquisa");
-    if (search) search.value = "";
-
   } catch (e) {
     console.log("Erro logout:", e);
   }
 };
 
-window.apagarTodasMsg = async function () {
+/* ================= APAGAR MENSAGENS ================= */
 
+window.apagarTodasMsg = async function () {
   const user = auth.currentUser;
 
-  if (!user || user.email !== DONO_EMAIL) {
-    alert("Apenas donos e vips👑");
+  if (!user || !DONOS.includes(user.email)) {
+    alert("Apenas donos podem apagar mensagens 👑");
     return;
   }
 
@@ -1408,222 +994,183 @@ window.apagarTodasMsg = async function () {
 
   alert("Mensagens apagadas!");
 };
-/* ESTADO LOGIN */
+
+/* ================= LOGIN STATE ================= */
+
 onAuthStateChanged(auth, (user) => {
 
   const loading = document.getElementById("loading");
-  const login = document.getElementById("loginScreen");
-  const site = document.getElementById("site");
-  const logoutBtn = document.getElementById("logoutBtn");
-
   const userInfo = document.getElementById("userInfo");
   const userName = document.getElementById("userName");
   const userPhoto = document.getElementById("userPhoto");
 
-  // loading seguro
   if (loading) {
     loading.style.opacity = "0";
-    setTimeout(() => {
-      loading.style.display = "none";
-    }, 300);
+    setTimeout(() => loading.style.display = "none", 300);
   }
 
-if (user) {
+  if (user) {
 
-if (userName) {
-  userName.textContent = user.displayName || "Visitante";
-}
+    mostrarSite(); // 🔥 GARANTE QUE SAI DO LOGIN
 
-  // Mostrar foto do usuário
-  if (userInfo) userInfo.style.display = "flex";
+    if (userName) {
+      userName.textContent = user.displayName || "Visitante";
+    }
 
-  // Saudação na página inicial
-  const saudacao = document.getElementById("saudacao");
-  if (saudacao) {
-    saudacao.textContent = `✨ Bem-vindo, ${user.displayName || "Usuário"}`;
+    if (userInfo) userInfo.style.display = "flex";
+
+    const saudacao = document.getElementById("saudacao");
+    if (saudacao) {
+      saudacao.textContent = `✨ Bem-vindo, ${user.displayName || "Usuário"}`;
+    }
+
+    if (userPhoto) {
+      userPhoto.src = user.photoURL ||
+        "https://ui-avatars.com/api/?name=User";
+    }
+
+  } else {
+
+    mostrarLogin(); // 🔥 GARANTE VOLTA PRO LOGIN
+
+    if (userInfo) userInfo.style.display = "none";
   }
-
-  // Foto do perfil
-if (user.photoURL) {
-    userPhoto.src = user.photoURL;
-} else {
-    userPhoto.src = "https://ui-avatars.com/api/?name=User";
-}
-
-  login?.classList.add("hidden");
-  login?.classList.remove("visible");
-
-  site?.classList.add("visible");
-  site?.classList.remove("hidden");
-
-} else {
-
-  site?.classList.add("hidden");
-  site?.classList.remove("visible");
-
-  login?.classList.add("visible");
-  login?.classList.remove("hidden");
-
-  if (userInfo) {
-    userInfo.style.display = "none";
-  }
- }
 });
+/* ================= CHAT ================= */
 
- /* CHAT GLOBAL */
+window.enviarMensagem = async function () {
 
-window.enviarMensagem = async function(){
+  const input = document.getElementById("mensagemInput");
+  if (!input) return;
 
-const input =
-document.getElementById("mensagemInput");
+  const texto = input.value;
+  if (!texto.trim()) return;
 
-if(!input) return;
+  const user = auth.currentUser;
 
-const texto = input.value;
+  if (!user) {
+    alert("Faça login primeiro.");
+    return;
+  }
 
-if(!texto.trim()) return;
+  if (user.isAnonymous) {
+    alert("Visitantes não podem enviar mensagens.");
+    return;
+  }
 
-const user = auth.currentUser;
+  await addDoc(collection(db, "mensagens"), {
+    nome: user.displayName,
+    email: user.email,
+    foto: user.photoURL || "https://ui-avatars.com/api/?name=User",
+    texto: texto,
+    data: Date.now()
+  });
 
-if (!user) {
-  alert("Faça login primeiro.");
-  return;
-}
-
-if (user.isAnonymous) {
-  alert("Visitantes não podem enviar mensagens. Entre com Google para usar o chat.");
-  return;
-}
-
-try{
-
-await addDoc(
-collection(db,"mensagens"),
-{
-nome: user.isAnonymous
-  ? "👤 Visitante"
-  : user.displayName,
-email:user.email,
-foto: user.photoURL || "https://ui-avatars.com/api/?name=Visitante&background=555555&color=ffffff",
-texto:texto,
-data:Date.now()
-}
-);
-
-input.value="";
-
-}catch(e){
-console.log("Erro ao enviar:",e);
-}
-
+  input.value = "";
 };
 
+/* ================= ONSNAPSHOT CHAT ================= */
+
 const q = query(
-collection(db,"mensagens"),
-orderBy("data","asc")
+  collection(db, "mensagens"),
+  orderBy("data", "asc")
 );
 
-onSnapshot(q,(snapshot)=>{
+onSnapshot(q, (snapshot) => {
 
-const chat =
-document.getElementById("mensagens");
+  const chat = document.getElementById("mensagens");
+  if (!chat) return;
 
-if(!chat) return;
+  chat.innerHTML = "";
 
-chat.innerHTML="";
+  const fragment = document.createDocumentFragment();
 
-snapshot.forEach((doc)=>{
+  snapshot.forEach((docSnap) => {
 
-const msg = doc.data();
-const minhaMsg = auth.currentUser?.email === msg.email;
+    const msg = docSnap.data();
+    const minhaMsg = auth.currentUser?.email === msg.email;
 
-chat.innerHTML += `
-<div style="
-display:flex;
-gap:10px;
-margin-bottom:12px;
-align-items:flex-start;
-justify-content:${minhaMsg ? "flex-end" : "flex-start"};
-">
+    const isDono = DONOS.includes(msg.email);
 
-${!minhaMsg ? `
-<img
-src="${msg.foto}"
-style="
-width:35px;
-height:35px;
-border-radius:50%;
-border:2px solid #00ffff;
-object-fit:cover;
-">
-` : ""}
+    const div = document.createElement("div");
 
-<div style="
-background:${minhaMsg ? "rgba(0,255,255,.18)" : "rgba(0,255,255,.08)"};
-padding:6px 10px;
-border-radius:18px;
-max-width:75%;
-width:fit-content;
-display:flex;
-flex-direction:column;
-align-items:flex-start;
-border-left:${minhaMsg ? "none" : "3px solid #00ffff"};
-border-right:${minhaMsg ? "3px solid #00ffff" : "none"};
-backdrop-filter:blur(4px);
-flex:0 1 auto;
-word-break:break-word;
-">
+    div.style.cssText = `
+      display:flex;
+      gap:10px;
+      margin-bottom:12px;
+      justify-content:${minhaMsg ? "flex-end" : "flex-start"};
+      align-items:flex-start;
+    `;
 
-<b style="
-display:flex;
-flex-direction:column;
-align-items:flex-start;
-gap:2px;
-${
-msg.email === DONO_EMAIL
-? "color:#FFD700;font-weight:bold;text-shadow:0 0 5px #FFD700,0 0 10px #FFD700,0 0 20px #FFD700;"
-: "color:#00ffff;"
-}
-">
+    const donoTag = isDono
+  ? `
+    <span style="
+      display:inline-block;
+      align-self:flex-start;
+      padding:1px 5px;
+      border-radius:999px;
+      background:rgba(255,215,0,.12);
+      border:1px solid #FFD700;
+      color:#FFD700;
+      font-size:8px;
+      font-weight:bold;
+      line-height:1.1;
+      white-space:nowrap;
+      width:auto;
+      animation:pulseDono 1.5s ease-in-out infinite;
+      box-shadow:0 0 8px #FFD700;
+    ">
+      👑 DONO
+    </span>
+  `
+  : "";
 
-${msg.email === DONO_EMAIL
-? `<span style="
-padding:1px 6px;
-border-radius:999px;
-background:rgba(255,215,0,.15);
-border:1px solid #FFD700;
-color:#FFD700;
-font-size:8px;
-font-weight:bold;
-white-space:nowrap;
-box-shadow:0 0 8px #FFD700;
-animation:pulseDono 1.5s infinite;
-">
-👑 DONO
-</span>`
-: ""}
+    div.innerHTML = `
+      ${!minhaMsg ? `
+        <img src="${msg.foto}" style="
+          width:35px;
+          height:35px;
+          border-radius:50%;
+          border:2px solid #00ffff;
+          object-fit:cover;
+        ">
+      ` : ""}
 
-<span style="font-size:11px;">
-${msg.nome}
-</span>
+      <div style="
+        background:${minhaMsg ? "rgba(0,255,255,.18)" : "rgba(0,255,255,.08)"};
+        padding:6px 10px;
+        border-radius:18px;
+        max-width:75%;
+        word-break:break-word;
+        backdrop-filter:blur(4px);
+      ">
 
-</b>
+        <b style="display:flex;flex-direction:column;gap:2px;">
 
-<br>
+          ${donoTag}
 
-${msg.texto}
+          <span style="
+            font-size:11px;
+            color:${isDono ? "#FFD700" : "#00ffff"};
+            font-weight:${isDono ? "bold" : "normal"};
+          ">
+            ${msg.nome}
+          </span>
 
-</div>
+        </b>
 
-</div>
-`;
+        <br>
 
+        ${msg.texto}
+      </div>
+    `;
+
+    fragment.appendChild(div);
+  });
+
+  chat.appendChild(fragment);
+  chat.scrollTop = chat.scrollHeight;
 });
-
-chat.scrollTop =
-chat.scrollHeight;
-
-});   
 </script>
 <script>
 window.addEventListener("load",()=>{
