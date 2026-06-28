@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#00ffff">
+  <meta name="theme-color" content="#00ffff">   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>⚡ Portal Nebuloso ⚡</title>
@@ -120,6 +120,18 @@ z-index:9999;
 <button id="loginGoogle" onclick="window.loginGoogle()"
 style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
   🔵 Entrar com Google
+</button>
+
+<button id="loginFacebook" onclick="window.loginFacebook()" style="
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#1877f2;
+color:white;
+font-weight:bold;
+cursor:pointer;
+">
+🔵 Entrar com Facebook
 </button>
 
 <button onclick="window.loginAnonimo()" style="
@@ -525,6 +537,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getAuth,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signInWithPopup,
   signInAnonymously,
   onAuthStateChanged,
@@ -586,7 +599,7 @@ function mostrarLogin() {
 }
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
-
+const facebookProvider = new FacebookAuthProvider();
 /* 👑 DONOS */
 const DONOS = [
   "bruninhoedits0@gmail.com",
@@ -600,6 +613,14 @@ window.loginGoogle = async function () {
     await signInWithPopup(auth, provider);
   } catch (e) {
     console.log("Erro login:", e);
+  }
+};
+
+window.loginFacebook = async function () {
+  try {
+    await signInWithPopup(auth, facebookProvider);
+  } catch (e) {
+    console.log("Erro login Facebook:", e);
   }
 };
 
