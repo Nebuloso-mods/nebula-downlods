@@ -36,25 +36,102 @@ body::before{
     z-index:1;
 }
 
-/* LOGIN */
+/* ===== LOGIN FUTURISTA ===== */
+
 #loginScreen{
-    height:100vh;
+    position:fixed;
+    inset:0;
     display:flex;
     justify-content:center;
     align-items:center;
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    background:black;
+    background:
+        linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+        url("Fundo Nebuloso.png");
+    background-size:cover;
+    background-position:center;
+    z-index:99999;
+}
+
+.login-card{
+    width:90%;
+    max-width:420px;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(15,20,35,.65);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(0,255,255,.4);
+    text-align:center;
+    box-shadow:
+        0 0 20px rgba(0,255,255,.3),
+        0 0 60px rgba(0,255,255,.15);
+    animation:fadeUp .7s ease;
+}
+
+.login-logo{
+    font-size:70px;
+    margin-bottom:15px;
+    text-shadow:0 0 20px #00ffff;
+}
+
+.login-card h1{
+    color:#00ffff;
+    letter-spacing:3px;
+    text-shadow:0 0 20px #00ffff;
+}
+
+.login-sub{
+    color:#ccc;
+    margin:15px 0;
+}
+
+.status{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    color:#00ff88;
+    margin-bottom:20px;
+}
+
+.status-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#00ff88;
+    box-shadow:0 0 10px #00ff88;
+}
+
+.login-card button{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
 }
 
 #loginGoogle{
-    padding:12px 20px;
-    border:none;
-    border-radius:10px;
     background:#00ffff;
-    font-weight:bold;
-    cursor:pointer;
+    color:black;
+}
+
+.login-card button:last-child{
+    background:#2d3448;
+    color:white;
+}
+
+.login-card button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 20px #00ffff;
+}
+
+.login-card small{
+    display:block;
+    margin-top:20px;
+    color:#888;
 }
 
 /* OTIMIZAÇAO */
