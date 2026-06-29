@@ -16,7 +16,7 @@ body{
     min-height:100vh;
 }
 
-/* overlay escuro */
+/* overlay */
 body::before{
     content:"";
     position:fixed;
@@ -29,7 +29,8 @@ body::before{
 .hero h1,
 .hall-card,
 .card,
-.pagina{
+.pagina,
+.chat-box{
     will-change: transform, opacity;
 }
 
@@ -49,23 +50,117 @@ body::before{
 
 /* ===== LOGIN ===== */
 #loginScreen{
-    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     position:fixed;
     inset:0;
     z-index:99999;
-    background:black;
+
+    background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+    url("Fundo Nebuloso.png");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.login-card{
+    width:90%;
+    max-width:420px;
+
+    padding:30px;
+    border-radius:25px;
+
+    background:rgba(20,25,40,.75);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(0,255,255,.35);
+
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    box-shadow:
+    0 0 25px rgba(0,255,255,.25),
+    0 0 60px rgba(0,255,255,.15);
+}
+
+.login-banner{
+    width:100%;
+    max-height:120px;
+    object-fit:contain;
+    margin-bottom:20px;
+}
+
+.login-icon{
+    font-size:60px;
+    margin-bottom:10px;
+}
+
+.login-card h1{
+    color:#00ffff;
+    letter-spacing:4px;
+    text-shadow:0 0 12px #00ffff, 0 0 30px #00ffff;
+}
+
+.login-desc{
+    margin:15px 0;
+    color:#ddd;
+}
+
+.status-online{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
+    color:#00ff88;
+    font-weight:bold;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#00ff88;
+    box-shadow:0 0 12px #00ff88;
+}
+
+.login-card button{
+    width:100%;
+    padding:15px;
+    margin-top:12px;
+
+    border:none;
+    border-radius:14px;
+
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
 }
 
 #loginGoogle{
-    padding:12px 20px;
-    border:none;
-    border-radius:10px;
     background:#00ffff;
-    font-weight:bold;
-    cursor:pointer;
+    color:#000;
+}
+
+.visitante{
+    background:#2c3347;
+    color:#fff;
+}
+
+.login-card button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 20px #00ffff;
+}
+
+.versao{
+    margin-top:20px;
+    color:#888;
+    font-size:13px;
 }
 
 /* ===== SITE ===== */
@@ -105,20 +200,17 @@ body::before{
     flex-wrap:wrap;
 }
 
-#installBtn{
-    display:block;
-}
-
 .tabs button{
     padding:10px 15px;
     border:none;
     border-radius:10px;
     cursor:pointer;
+
     background:rgba(28,35,51,0.8);
     color:white;
     border:1px solid rgba(0,255,255,0.25);
     backdrop-filter:blur(6px);
-    transition:all .3s ease;
+    transition:.3s;
 }
 
 .tabs button:hover{
@@ -153,7 +245,7 @@ body::before{
     padding:15px;
     text-align:center;
     overflow:hidden;
-    transition:all .3s ease;
+    transition:.3s;
 }
 
 .card:hover{
@@ -176,6 +268,23 @@ body::before{
     color:#00ffff;
 }
 
+.card a{
+    display:inline-block;
+    margin-top:10px;
+    padding:8px 14px;
+    border-radius:10px;
+    background:#00ffff;
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.card a:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #00ffff;
+}
+
 /* brilho card */
 .card::before{
     content:"";
@@ -186,58 +295,91 @@ body::before{
     height:100%;
     background:linear-gradient(120deg,transparent,rgba(255,255,255,0.15),transparent);
     transform:skewX(-25deg);
-    transition:0.8s;
-    pointer-events:none;
+    transition:.8s;
 }
 
 .card:hover::before{
     left:150%;
 }
 
-/* botão card */
-.card a{
-    display:inline-block;
-    margin-top:10px;
-    padding:8px 14px;
-    border-radius:10px;
-    background:#00ffff;
-    color:black;
-    text-decoration:none;
-    font-weight:bold;
-    transition:all 0.3s ease;
+/* ===== CHAT ===== */
+.chat-box{
+    height:400px;
+    overflow-y:auto;
+    padding:15px;
+    border:1px solid #00ffff;
+    border-radius:15px;
+    margin-bottom:12px;
+
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 15px rgba(0,255,255,.25);
+    scroll-behavior:smooth;
 }
 
-.card a:hover{
+/* mensagens */
+.chat-box div{
+    text-align:left;
+    padding:6px 10px;
+    margin:6px 0;
+    border-radius:10px;
+    background:rgba(0,255,255,0.06);
+    border:1px solid rgba(0,255,255,0.15);
+}
+
+/* input chat */
+.chat-input{
+    display:flex;
+    gap:10px;
+}
+
+.chat-input input{
+    flex:1;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #00ffff;
+    background:rgba(0,0,0,.4);
+    color:white;
+    outline:none;
+}
+
+.chat-input input:focus{
+    box-shadow:0 0 15px rgba(0,255,255,.5);
+}
+
+.chat-input button{
+    width:55px;
+    border:none;
+    border-radius:12px;
+    background:#00ffff;
+    font-size:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.chat-input button:hover{
     transform:scale(1.05);
     box-shadow:0 0 15px #00ffff;
 }
 
-/* ===== PORTAL ===== */
-.portal-card{
-    max-width:600px;
-    margin:auto;
-    text-align:center;
-    background:rgba(0,255,255,0.08);
-    border:2px solid #00ffff;
-    border-radius:20px;
-    padding:25px;
-    backdrop-filter:blur(10px);
+/* ===== DONO PULSO ===== */
+.dono{
+    animation:pulseDono 1.5s infinite;
 }
 
-/* ===== INPUT ===== */
-#pesquisa{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    margin:10px 0;
-    border:1px solid rgba(0,255,255,0.3);
-    outline:none;
-    background:rgba(21,28,43,0.85);
-    color:white;
-}
-
-#pesquisa:focus{
-    box-shadow:0 0 15px rgba(0,255,255,0.5);
+@keyframes pulseDono{
+    0%{
+        transform:scale(1);
+        box-shadow:0 0 5px #FFD700;
+    }
+    50%{
+        transform:scale(1.08);
+        box-shadow:0 0 15px #FFD700;
+    }
+    100%{
+        transform:scale(1);
+        box-shadow:0 0 5px #FFD700;
+    }
 }
 
 /* ===== PERFIL ===== */
@@ -275,67 +417,6 @@ body::before{
     z-index:99999;
 }
 
-/* ===== CHAT (MANTIDO) ===== */
-.chat-box{
-    height:400px;
-    overflow-y:auto;
-    padding:15px;
-    border:1px solid #00ffff;
-    border-radius:15px;
-    background:rgba(0,0,0,.35);
-    backdrop-filter:blur(10px);
-    box-shadow:0 0 15px rgba(0,255,255,.25);
-    scroll-behavior:smooth;
-}
-
-.chat-box div{
-    text-align:left;
-}
-
-.chat-input{
-    display:flex;
-    gap:10px;
-}
-
-.chat-input input{
-    flex:1;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid #00ffff;
-    background:rgba(0,0,0,.4);
-    color:white;
-    outline:none;
-}
-
-.chat-input button{
-    width:55px;
-    border:none;
-    border-radius:12px;
-    background:#00ffff;
-    font-size:20px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.chat-input button:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 15px #00ffff;
-}
-
-/* scrollbar chat */
-.chat-box::-webkit-scrollbar{
-    width:8px;
-}
-
-.chat-box::-webkit-scrollbar-thumb{
-    background:#00ffff;
-    border-radius:10px;
-}
-
-.chat-box::-webkit-scrollbar-track{
-    background:rgba(255,255,255,.05);
-}
-
 /* ===== ANIMAÇÃO ===== */
 @keyframes fadeUp{
     from{opacity:0; transform:translateY(20px);}
@@ -346,6 +427,11 @@ body::before{
 @media (max-width:600px){
     .container{
         width:100%;
+        padding:8px;
+    }
+
+    .chat-box{
+        height:450px;
         padding:8px;
     }
 
