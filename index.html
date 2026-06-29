@@ -122,18 +122,6 @@ style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-
   🔵 Entrar com Google
 </button>
 
-<button id="loginFacebook" onclick="window.loginFacebook()" style="
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:#1877f2;
-color:white;
-font-weight:bold;
-cursor:pointer;
-">
-🔵 Entrar com Facebook
-</button>
-
 <button onclick="window.loginAnonimo()" style="
 padding:12px 20px;
 border:none;
@@ -537,7 +525,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getAuth,
   GoogleAuthProvider,
-  FacebookAuthProvider,
   signInWithPopup,
   signInAnonymously,
   onAuthStateChanged,
@@ -599,7 +586,6 @@ function mostrarLogin() {
 }
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
 /* 👑 DONOS */
 const DONOS = [
   "bruninhoedits0@gmail.com",
@@ -613,14 +599,6 @@ window.loginGoogle = async function () {
     await signInWithPopup(auth, provider);
   } catch (e) {
     console.log("Erro login:", e);
-  }
-};
-
-window.loginFacebook = async function () {
-  try {
-    await signInWithPopup(auth, facebookProvider);
-  } catch (e) {
-    console.log("Erro login Facebook:", e);
   }
 };
 
