@@ -38,102 +38,129 @@ body::before{
 
 /* ===== LOGIN FUTURISTA ===== */
 
+/* ===== LOGIN FUTURISTA ===== */
+
 #loginScreen{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:
-        linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
-        url("Fundo Nebuloso.png");
-    background-size:cover;
-    background-position:center;
-    z-index:99999;
+display:flex;
+justify-content:center;
+align-items:center;
+position:fixed;
+inset:0;
+z-index:99999;
+
+background:
+linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+url("Fundo Nebuloso.png");
+
+background-size:cover;
+background-position:center;
 }
 
 .login-card{
-    width:90%;
-    max-width:420px;
-    padding:35px;
-    border-radius:25px;
-    background:rgba(15,20,35,.65);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(0,255,255,.4);
-    text-align:center;
-    box-shadow:
-        0 0 20px rgba(0,255,255,.3),
-        0 0 60px rgba(0,255,255,.15);
-    animation:fadeUp .7s ease;
+width:90%;
+max-width:420px;
+
+padding:30px;
+
+border-radius:25px;
+
+background:rgba(20,25,40,.75);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(0,255,255,.35);
+
+text-align:center;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
+box-shadow:
+0 0 25px rgba(0,255,255,.25),
+0 0 60px rgba(0,255,255,.15);
 }
 
-.login-logo{
-    font-size:70px;
-    margin-bottom:15px;
-    text-shadow:0 0 20px #00ffff;
+.login-banner{
+width:100%;
+border-radius:18px;
+margin-bottom:20px;
+box-shadow:0 0 25px rgba(0,255,255,.35);
+}
+
+.login-icon{
+font-size:60px;
+margin-bottom:10px;
 }
 
 .login-card h1{
-    color:#00ffff;
-    letter-spacing:3px;
-    text-shadow:0 0 20px #00ffff;
+color:#00ffff;
+letter-spacing:4px;
+
+text-shadow:
+0 0 12px #00ffff,
+0 0 30px #00ffff;
 }
 
-.login-sub{
-    color:#ccc;
-    margin:15px 0;
+.login-desc{
+margin:15px 0;
+color:#ddd;
 }
 
-.status{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-    color:#00ff88;
-    margin-bottom:20px;
+.status-online{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+margin-bottom:20px;
+color:#00ff88;
+font-weight:bold;
 }
 
-.status-dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#00ff88;
-    box-shadow:0 0 10px #00ff88;
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#00ff88;
+box-shadow:0 0 12px #00ff88;
 }
 
 .login-card button{
-    width:100%;
-    padding:14px;
-    margin-top:12px;
-    border:none;
-    border-radius:12px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
+width:100%;
+padding:15px;
+margin-top:12px;
+
+border:none;
+border-radius:14px;
+
+font-size:16px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.25s;
 }
 
 #loginGoogle{
-    background:#00ffff;
-    color:black;
+background:#00ffff;
+color:#000;
 }
 
-.login-card button:last-child{
-    background:#2d3448;
-    color:white;
+.visitante{
+background:#2c3347;
+color:#fff;
 }
 
 .login-card button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 20px #00ffff;
+transform:translateY(-3px);
+box-shadow:0 0 20px #00ffff;
 }
 
-.login-card small{
-    display:block;
-    margin-top:20px;
-    color:#888;
+.versao{
+margin-top:20px;
+color:#888;
+font-size:13px;
 }
-
 /* OTIMIZAÇAO */
 .hero h1,
 .hall-card,
