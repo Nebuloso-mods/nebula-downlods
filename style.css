@@ -563,26 +563,52 @@ backdrop-filter:blur(10px);
 #loader{
     position:fixed;
     inset:0;
-    background:#000;
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction:column;
+    gap:18px;
+
+    background:
+    radial-gradient(circle at center,#092133,#000);
+
     z-index:99999;
     transition:opacity .6s ease;
 }
 
 .loader-logo{
-    font-size:40px;
+    font-size:42px;
     font-weight:bold;
+    letter-spacing:6px;
     color:#00ffff;
-    letter-spacing:5px;
 
     text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff;
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 40px #00ffff;
 
-   animation:none;
+    animation:pulseLoader 1.8s ease-in-out infinite;
+}
+
+#loader::after{
+    content:"";
+    width:180px;
+    height:5px;
+    border-radius:999px;
+    background:rgba(255,255,255,.12);
+    overflow:hidden;
+}
+
+#loader::before{
+    content:"";
+    position:absolute;
+    bottom:calc(50% - 3px);
+    width:0;
+    height:5px;
+    border-radius:999px;
+    background:#00ffff;
+    box-shadow:0 0 15px #00ffff;
+    animation:loadingBar 2.2s linear infinite;
 }
 
 @keyframes pulseLoader{
@@ -590,7 +616,16 @@ backdrop-filter:blur(10px);
         transform:scale(1);
     }
     50%{
-        transform:scale(1.15);
+        transform:scale(1.08);
+    }
+}
+
+@keyframes loadingBar{
+    from{
+        width:0;
+    }
+    to{
+        width:180px;
     }
 }
 
