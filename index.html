@@ -101,38 +101,32 @@ Verificando login...
 </div>
 
 <!-- LOGIN -->
-<div id="loginScreen" class="visible" style="
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-gap:15px;
-background:black;
-color:white;
-position:fixed;
-width:100%;
-z-index:9999;
-">
+<div id="loginScreen">
 
-<h2>🔐 Entrar no Portal Nebuloso</h2>
+<div class="login-card">
 
-<button id="loginGoogle" onclick="window.loginGoogle()"
-style="padding:12px 20px;border:none;border-radius:10px;background:#00ffff;font-weight:bold;cursor:pointer;">
-  🔵 Entrar com Google
+<img src="Banner.png" class="login-banner">
+
+<h1>PORTAL NEBULOSO</h1>
+
+<p class="login-desc">
+Entre no universo Nebuloso e faça parte da comunidade.
+</p>
+
+<div class="status-online">
+<span class="dot"></span>
+Servidor Online
+</div>
+
+<button id="loginGoogle" onclick="window.loginGoogle()">
+🔵 Entrar com Google
 </button>
 
-<button onclick="window.loginAnonimo()" style="
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:#555;
-color:white;
-font-weight:bold;
-cursor:pointer;
-">
-👤 Entrar como visitante
+<button class="visitante" onclick="window.loginAnonimo()">
+👤 Entrar como Visitante
 </button>
+
+</div>
 
 </div>
 
