@@ -586,18 +586,23 @@ function mostrarSite() {
 }
 
 function mostrarLogin() {
+
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
 
   if (site) {
-    site.style.display = "none";
     site.classList.remove("visible");
+    site.classList.add("hidden");
+    site.style.display = "none";
   }
 
   if (login) {
     login.style.display = "flex";
-    login.classList.add("visible");
+    login.style.opacity = "1";
+    login.style.transform = "scale(1)";
+    login.style.pointerEvents = "auto";
   }
+
 }
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
@@ -659,42 +664,65 @@ window.apagarTodasMsg = async function () {
 
 onAuthStateChanged(auth, (user) => {
 
+  const loader = document.getElementById("loader");
   const loading = document.getElementById("loading");
   const userInfo = document.getElementById("userInfo");
   const userName = document.getElementById("userName");
   const userPhoto = document.getElementById("userPhoto");
 
+  /* Esconde o loader somente após o Firebase terminar a verificação */
+  if (loader) {
+    loader.style.opacity = "0";
+
+    setTimeout(() => {
+      loader.remove();
+    }, 600);
+  }
+
+  /* Caso ainda exista a tela "Verificando login..." */
   if (loading) {
     loading.style.opacity = "0";
-    setTimeout(() => loading.style.display = "none", 300);
+
+    setTimeout(() => {
+      loading.style.display = "none";
+    }, 300);
   }
 
   if (user) {
 
-    mostrarSite(); // 🔥 GARANTE QUE SAI DO LOGIN
+    mostrarSite();
 
     if (userName) {
       userName.textContent = user.displayName || "Visitante";
     }
 
-    if (userInfo) userInfo.style.display = "flex";
+    if (userInfo) {
+      userInfo.style.display = "flex";
+    }
 
     const saudacao = document.getElementById("saudacao");
+
     if (saudacao) {
-      saudacao.textContent = `✨ Bem-vindo, ${user.displayName || "Usuário"}`;
+      saudacao.textContent =
+        `✨ Bem-vindo, ${user.displayName || "Usuário"}`;
     }
 
     if (userPhoto) {
-      userPhoto.src = user.photoURL ||
+      userPhoto.src =
+        user.photoURL ||
         "https://ui-avatars.com/api/?name=User";
     }
 
   } else {
 
-    mostrarLogin(); // 🔥 GARANTE VOLTA PRO LOGIN
+    mostrarLogin();
 
-    if (userInfo) userInfo.style.display = "none";
+    if (userInfo) {
+      userInfo.style.display = "none";
+    }
+
   }
+
 });
 /* ================= CHAT ================= */
 
@@ -832,23 +860,7 @@ onSnapshot(q, (snapshot) => {
   chat.scrollTop = chat.scrollHeight;
 });
 </script>
-<script>
-window.addEventListener("load",()=>{
 
-    const loader =
-    document.getElementById("loader");
-
-    if(loader){
-    loader.style.opacity="0";
-
-    setTimeout(()=>{
-        loader.remove();
-    },600);
-}
-
-});
-    
-</script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const total = 2;
