@@ -1,3 +1,4 @@
+
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
 body{
@@ -562,64 +563,66 @@ backdrop-filter:blur(10px);
     flex-direction:column;
     gap:18px;
 
-    background:
-    radial-gradient(circle at center,#092133,#000);
+    background:radial-gradient(circle at center,#061a28,#000);
 
     z-index:99999;
-    transition:opacity .6s ease;
+    transition:opacity .6s ease, transform .6s ease;
+}
+
+/* efeito de “entrada” */
+.loader-box{
+    text-align:center;
+    animation:loaderIn .5s ease;
 }
 
 .loader-logo{
-    font-size:42px;
-    font-weight:bold;
-    letter-spacing:6px;
+    font-size:55px;
     color:#00ffff;
-
-    text-shadow:
-    0 0 10px #00ffff,
-    0 0 20px #00ffff,
-    0 0 40px #00ffff;
-
-    animation:pulseLoader 1.8s ease-in-out infinite;
+    text-shadow:0 0 20px #00ffff,0 0 40px #00ffff;
+    animation:pulse 1.6s infinite ease-in-out;
 }
 
-#loader::after{
-    content:"";
-    width:180px;
-    height:5px;
+.loader-text{
+    margin-top:8px;
+    color:#00ffff;
+    opacity:0.8;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+/* barra mais real */
+.loader-bar{
+    width:240px;
+    height:6px;
+    background:rgba(255,255,255,0.08);
     border-radius:999px;
-    background:rgba(255,255,255,.12);
     overflow:hidden;
+    margin-top:15px;
+    border:1px solid rgba(0,255,255,0.2);
 }
 
-#loader::before{
-    content:"";
-    position:absolute;
-    bottom:calc(50% - 3px);
-    width:0;
-    height:5px;
-    border-radius:999px;
+.loader-fill{
+    height:100%;
+    width:0%;
     background:#00ffff;
-    box-shadow:0 0 15px #00ffff;
-    animation:loadingBar 2.2s linear infinite;
+    box-shadow:0 0 10px #00ffff;
+    animation:loading 2.2s ease forwards;
 }
 
-@keyframes pulseLoader{
-    0%,100%{
-        transform:scale(1);
-    }
-    50%{
-        transform:scale(1.08);
-    }
+/* animações */
+@keyframes loading{
+    from{width:0%;}
+    to{width:100%;}
 }
 
-@keyframes loadingBar{
-    from{
-        width:0;
-    }
-    to{
-        width:180px;
-    }
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.08);}
+}
+
+@keyframes loaderIn{
+    from{opacity:0; transform:scale(1.05);}
+    to{opacity:1; transform:scale(1);}
 }
 
 .inicio-destaque{
