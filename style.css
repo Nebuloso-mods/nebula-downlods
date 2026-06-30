@@ -1,4 +1,3 @@
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
 body{
@@ -20,12 +19,6 @@ body{
     transform:translateZ(0);
 }
 
-.pagina{
-    display:none;
-    opacity:0;
-    transform:translateY(15px);
-    transition:all .4s ease;
-}
 
 /* overlay */
 body::before{
@@ -52,6 +45,7 @@ body::before{
     background-position:center;
 
     z-index:99999;
+    transition:opacity .5s ease, transform .5s ease;
 }
 
 .login-card{
@@ -297,7 +291,6 @@ backdrop-filter:blur(10px);
     box-shadow:0 0 15px rgba(0,255,255,0.5);
 }
     
-#loginScreen,
 #site {
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
@@ -920,11 +913,6 @@ background:rgba(255,255,255,.05);
   }
 }
 /* animação suave de entrada de site*/
-#loginScreen{
-    transition:
-        opacity .5s ease,
-        transform .5s ease;
-}
 
 #site{
     opacity:0;
