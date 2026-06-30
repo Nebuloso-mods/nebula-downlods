@@ -884,3 +884,27 @@ background:rgba(255,255,255,.05);
     box-shadow:0 0 5px #FFD700;
   }
 }
+/* animação suave de entrada de site*/
+#loginScreen{
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+}
+
+#site{
+    opacity:0;
+    transform:translateY(20px);
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+}
+
+#site.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+#site.hidden{
+    opacity:0;
+    transform:translateY(20px);
+}
