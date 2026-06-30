@@ -38,23 +38,109 @@ body::before{
 
 /* LOGIN */
 #loginScreen{
-    height:100vh;
+    position:fixed;
+    inset:0;
     display:flex;
     justify-content:center;
     align-items:center;
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    background:black;
+
+    background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+    url("Fundo Nebuloso.png");
+
+    background-size:cover;
+    background-position:center;
+
+    z-index:99999;
+}
+
+.login-card{
+    width:90%;
+    max-width:420px;
+
+    padding:30px;
+
+    background:rgba(20,25,40,.75);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(0,255,255,.3);
+    border-radius:25px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+
+    box-shadow:
+    0 0 25px rgba(0,255,255,.25),
+    0 0 60px rgba(0,255,255,.15);
+}
+
+.login-banner{
+    width:100%;
+    max-width:340px;
+    border-radius:18px;
+    margin-bottom:20px;
+    box-shadow:0 0 20px rgba(0,255,255,.35);
+}
+
+.login-card h1{
+    color:#00ffff;
+    letter-spacing:3px;
+
+    text-shadow:
+    0 0 10px #00ffff,
+    0 0 20px #00ffff;
+}
+
+.login-desc{
+    color:#ddd;
+    margin:15px 0;
+}
+
+.status-online{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
+    color:#00ff88;
+    font-weight:bold;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#00ff88;
+    box-shadow:0 0 12px #00ff88;
+}
+
+.login-card button{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+
+    border:none;
+    border-radius:14px;
+
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
 }
 
 #loginGoogle{
-    padding:12px 20px;
-    border:none;
-    border-radius:10px;
     background:#00ffff;
-    font-weight:bold;
-    cursor:pointer;
+    color:black;
+}
+
+.visitante{
+    background:#2b3247;
+    color:white;
+}
+
+.login-card button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 20px #00ffff;
 }
 
 /* OTIMIZAÇAO */
