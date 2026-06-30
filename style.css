@@ -560,69 +560,122 @@ backdrop-filter:blur(10px);
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-    gap:18px;
-
-    background:radial-gradient(circle at center,#061a28,#000);
-
-    z-index:99999;
-    transition:opacity .6s ease, transform .6s ease;
+    background:
+    radial-gradient(circle at center,#06233a,#000);
+    z-index:999999;
+    overflow:hidden;
 }
 
-/* efeito de “entrada” */
+#loader::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    radial-gradient(#00ffff22 2px,transparent 2px);
+    background-size:45px 45px;
+    animation:stars 12s linear infinite;
+    opacity:.35;
+}
+
 .loader-box{
+    position:relative;
+    z-index:2;
     text-align:center;
-    animation:loaderIn .5s ease;
+}
+
+.loader-circle{
+    width:110px;
+    height:110px;
+    margin:auto;
+    border-radius:50%;
+    border:2px solid #00ffff55;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:55px;
+
+    box-shadow:
+    0 0 20px #00ffff,
+    inset 0 0 20px #00ffff55;
+
+    animation:
+    pulse 2s infinite,
+    rotate 8s linear infinite;
 }
 
 .loader-logo{
-    font-size:55px;
+    margin-top:25px;
     color:#00ffff;
-    text-shadow:0 0 20px #00ffff,0 0 40px #00ffff;
-    animation:pulse 1.6s infinite ease-in-out;
+    letter-spacing:4px;
+
+    text-shadow:
+    0 0 15px #00ffff,
+    0 0 35px #00ffff;
 }
 
 .loader-text{
-    margin-top:8px;
-    color:#00ffff;
-    opacity:0.8;
-    font-weight:bold;
+    margin-top:12px;
+    color:#ddd;
     letter-spacing:2px;
 }
 
-/* barra mais real */
 .loader-bar{
-    width:240px;
-    height:6px;
-    background:rgba(255,255,255,0.08);
+    width:280px;
+    height:8px;
+    margin-top:25px;
     border-radius:999px;
     overflow:hidden;
-    margin-top:15px;
-    border:1px solid rgba(0,255,255,0.2);
+    background:#122;
 }
 
 .loader-fill{
+    position:relative;
+    width:100%;
     height:100%;
-    width:0%;
     background:#00ffff;
-    box-shadow:0 0 10px #00ffff;
-    animation:loading 2.2s ease forwards;
+    transform-origin:left;
+    animation:loading 2.3s ease forwards;
 }
 
-/* animações */
+.loader-shine{
+    position:absolute;
+    top:0;
+    left:-60px;
+    width:60px;
+    height:100%;
+    background:rgba(255,255,255,.8);
+    filter:blur(4px);
+    animation:shine 1s linear infinite;
+}
+
 @keyframes loading{
-    from{width:0%;}
-    to{width:100%;}
+    from{transform:scaleX(0);}
+    to{transform:scaleX(1);}
+}
+
+@keyframes shine{
+    from{left:-60px;}
+    to{left:320px;}
+}
+
+@keyframes rotate{
+    from{transform:rotate(0);}
+    to{transform:rotate(360deg);}
 }
 
 @keyframes pulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.08);}
+    50%{
+        transform:scale(1.08);
+    }
 }
 
-@keyframes loaderIn{
-    from{opacity:0; transform:scale(1.05);}
-    to{opacity:1; transform:scale(1);}
+@keyframes stars{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(45px);
+    }
 }
 
 .inicio-destaque{
