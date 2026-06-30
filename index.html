@@ -12,21 +12,29 @@
   
 <body>  
       
-<div id="loader">  
-  <div class="loader-box">  
-  
-    <div class="loader-logo">⚡</div>  
-  
-    <h2>Portal Nebuloso</h2>  
-  
-    <div class="loader-text">Carregando universo...</div>  
-  
-    <div class="loader-bar">  
-      <div class="loader-fill"></div>  
-    </div>  
-  
-  </div>  
-</div>  
+<div id="loader">
+  <div class="loader-box">
+
+    <div class="loader-circle">
+      ⚡
+    </div>
+
+    <h1 class="loader-logo">
+      PORTAL NEBULOSO
+    </h1>
+
+    <p id="loaderStatus" class="loader-text">
+      Conectando ao universo...
+    </p>
+
+    <div class="loader-bar">
+      <div class="loader-fill">
+        <span class="loader-shine"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
       
 <div id="userInfo" style="  
 position:fixed;  
@@ -881,35 +889,58 @@ if (btn) {
 }  
       
 </script>  
-<script>  
-const photo = document.getElementById("userPhoto");  
-  
-if (photo) {  
-  photo.onclick = function () {  
-    const menu = document.getElementById("profileMenu");  
-  
-    menu.style.display =  
-      menu.style.display === "block" ? "none" : "block";  
-  };  
-}  
-document.addEventListener("click", function (e) {  
-  const userInfo = document.getElementById("userInfo");  
-  const menu = document.getElementById("profileMenu");  
-  
-  if (  
-    menu &&  
-    userInfo &&  
-    !userInfo.contains(e.target) &&  
-    !menu.contains(e.target)  
-  ) {  
-    menu.style.display = "none";  
-  }  
-});  
-      
- if ("serviceWorker" in navigator) {  
-  navigator.serviceWorker.register("sw.js");  
-}   
-      
-</script>      
+<script>
+const photo = document.getElementById("userPhoto");
+
+if (photo) {
+  photo.onclick = function () {
+    const menu = document.getElementById("profileMenu");
+
+    menu.style.display =
+      menu.style.display === "block" ? "none" : "block";
+  };
+}
+
+document.addEventListener("click", function (e) {
+  const userInfo = document.getElementById("userInfo");
+  const menu = document.getElementById("profileMenu");
+
+  if (
+    menu &&
+    userInfo &&
+    !userInfo.contains(e.target) &&
+    !menu.contains(e.target)
+  ) {
+    menu.style.display = "none";
+  }
+});
+
+/* LOADER */
+
+const textos = [
+  "Conectando ao universo...",
+  "Carregando mods...",
+  "Sincronizando dados...",
+  "Preparando Portal Nebuloso...",
+  "Quase pronto..."
+];
+
+let i = 0;
+
+setInterval(() => {
+  const t = document.getElementById("loaderStatus");
+  if (!t) return;
+
+  i = (i + 1) % textos.length;
+  t.textContent = textos[i];
+}, 450);
+
+/* SERVICE WORKER */
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+
+</script>
 </body>  
 </html>
