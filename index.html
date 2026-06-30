@@ -549,19 +549,28 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 function mostrarSite() {
+
   const login = document.getElementById("loginScreen");
   const site = document.getElementById("site");
 
-  if (login) {
-    login.style.display = "none";
-    login.classList.remove("visible");
-  }
+  // mostra o site atrás
+  site.style.display = "block";
 
-  if (site) {
-    site.style.display = "block";
-    site.classList.add("visible");
+  // pequena espera para iniciar animação
+  setTimeout(() => {
     site.classList.remove("hidden");
-  }
+    site.classList.add("visible");
+
+    login.style.opacity = "0";
+    login.style.transform = "scale(1.08)";
+    login.style.pointerEvents = "none";
+  }, 80);
+
+  // remove o login após a animação
+  setTimeout(() => {
+    login.style.display = "none";
+  }, 500);
+
 }
 
 function mostrarLogin() {
