@@ -1,0 +1,23 @@
+#loginScreen{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+    url("Fundo Nebuloso.png");
+    background-size:cover;
+    background-position:center;
+    z-index:99999;
+}
+
+.login-card{
+    width:90%;
+    max-width:420px;
+    padding:30px;
+    background:rgba(20,25,40,.75);
+    backdrop-filter:blur(18px);
+    border-radius:25px;
+    text-align:center;
+}
