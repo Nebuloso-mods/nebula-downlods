@@ -1,9 +1,0 @@
-#loader{
-position:fixed;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-background:radial-gradient(circle,#06233a,#000);
-z-index:999999;
-}
