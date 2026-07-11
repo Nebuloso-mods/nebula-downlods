@@ -8,7 +8,7 @@
 
 /* BODY */
 body{
-    background-image:url('Fundo Nebuloso.png');
+    background-image: url("../assets/banners/Fundo Nebuloso.png");
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
