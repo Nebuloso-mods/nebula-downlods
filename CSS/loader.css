@@ -1,0 +1,22 @@
+#loader{
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:radial-gradient(circle,#06233a,#000);
+z-index:999999;
+}
+.loader-logo{
+    font-size:40px;
+    font-weight:bold;
+    color:#00ffff;
+    letter-spacing:5px;
+
+    text-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #00ffff;
+
+   animation:none;
+}

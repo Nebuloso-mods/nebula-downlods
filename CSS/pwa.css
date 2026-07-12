@@ -1,0 +1,17 @@
+#installBtn{
+    display:none;
+    width:100%;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    background:#00ffff;
+    color:black;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+#installBtn:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 10px #00ffff;
+}
