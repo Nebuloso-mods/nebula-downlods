@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00ffff">   
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Portal Nebuloso ⚡</title>
+
+</head>  
+  
+<body>  
+      
+<div id="loader">
+  <div class="loader-box">
+
+    <div class="loader-circle">
+      ⚡
+    </div>
+
+    <h1 class="loader-logo">
+      PORTAL NEBULOSO
+    </h1>
+
+    <p id="loaderStatus" class="loader-text">
+      Conectando ao universo...
+    </p>
+
+    <div class="loader-bar">
+      <div class="loader-fill">
+        <span class="loader-shine"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+      
+<div id="userInfo" style="  
+position:fixed;  
+top:10px;  
+left:10px;  
+display:none;  
+align-items:center;  
+gap:10px;  
+background:rgba(0,0,0,0.6);  
+padding:8px 12px;  
+border-radius:12px;  
+color:#00ffff;  
+font-weight:bold;  
+z-index:10000;  
+backdrop-filter:blur(5px);  
+cursor:pointer;  
+">  
+  
+<img id="userPhoto" src="" alt="Foto" style="  
+width:40px;  
+height:40px;  
+border-radius:50%;  
+border:2px solid #00ffff;  
+object-fit:cover;  
+">  
+  
+<!-- MENU -->  
+<div id="profileMenu" style="  
+display:none;  
+position:absolute;  
+top:60px;  
+left:0;  
+background:rgba(0,0,0,0.9);  
+border:1px solid #00ffff;  
+border-radius:12px;  
+padding:10px;  
+width:150px;  
+z-index:99999;  
+">  
+  
+<button onclick="logout()" style="  
+width:100%;  
+padding:8px;  
+border:none;  
+border-radius:8px;  
+background:#ff3b3b;  
+color:white;  
+cursor:pointer;  
+">  
+🚪 Sair  
+</button>  
+      
+<button id="installBtn" style="  
+width:100%;  
+padding:8px;  
+margin-bottom:8px;  
+border:none;  
+border-radius:8px;  
+background:#00ffff;  
+color:black;  
+cursor:pointer;  
+font-weight:bold;  
+">  
+⬇ Instalar App  
+</button>  
+</div>  
+  
+</div>  
+      
+<!-- LOGIN -->  
+<div id="loginScreen" style="display:none;">
+  
+<div class="login-card">  
+  
+<img src="Banner.png" class="login-banner">  
+  
+<h1>PORTAL NEBULOSO</h1>  
+  
+<p class="login-desc">  
+Entre no universo Nebuloso e faça parte da comunidade.  
+</p>  
+  
+<div class="status-online">  
+<span class="dot"></span>  
+Servidor Online  
+</div>  
+  
+<button id="loginGoogle" onclick="window.loginGoogle()">  
+🔵 Entrar com Google  
+</button>  
+  
+<button class="visitante" onclick="window.loginAnonimo()">  
+👤 Entrar como Visitante  
+</button>  
+  
+</div>  
+  
+</div>  
+  
+<!-- SITE -->  
+<div class="container hidden" id="site">  
+  
+<div class="tabs">  
+<button onclick="mostrar(event,'inicio')">🏠 Início</button>  
+<button onclick="mostrar(event,'mods')">🛒 Mods</button>  
+<button onclick="mostrar(event,'dupladodia')">🏆 Hall da Fama</button>  
+<button onclick="mostrar(event,'galeria')">📸 Galeria</button>      
+<button onclick="mostrar(event,'discord')">🎮 Discord</button>  
+<button onclick="mostrar(event,'feedback')">💬 Feedback</button>  
+<button onclick="mostrar(event,'emBreve')">🚧 tutorial</button>  
+<button onclick="mostrar(event,'chat')">💬 Chat</button>      
+</div>  
+  
+<!-- INICIO -->  
+<section id="inicio" class="pagina ativa">  
+  
+<div class="hero">  
+  
+<img src="Banner.png"  
+style="  
+width:100%;  
+border-radius:20px;  
+box-shadow:0 0 30px rgba(0,255,255,.5);  
+margin-bottom:20px;  
+">  
+<p id="saudacao"  
+style="  
+margin-top:10px;  
+font-size:18px;  
+color:#00ffff;  
+font-weight:bold;  
+">  
+✨ Bem-vindo ao Portal Nebuloso  
+</p>  
+      
+<h1>🌌 Portal Nebuloso</h1>  
+  
+<p style="font-size:18px;">  
+Bem-vindo ao universo dos mods, eventos e da comunidade Nebulosa.  
+</p>  
+  
+</div>  
+  
+<div class="portal-card">  
+      
+<div style="font-size:70px;">🚀</div>  
+  
+<h2>Bem-vindo ao Portal Nebuloso</h2>  
+  
+<p>  
+Explore o universo Nebuloso, descubra novos mods,  
+acompanhe os destaques da comunidade e participe  
+dos nossos eventos exclusivos.  
+</p>  
+  
+</div>  
+  
+<br>  
+  
+<div class="inicio-destaque">  
+  
+<h2>👑 Dupla em Destaque</h2>  
+  
+<p>  
+🏆 彡れモ乃Uㄥ口ち〄ッ & 彡丹れ刀尺口爪モ刀丹〄ッ  
+</p>  
+  
+<span>📅 16/06/2026</span>  
+  
+</div>  
+  
+</section>  
+  
+<section id="chat" class="pagina">  
+  
+<div class="hero">  
+<h1>💬 Chat Nebuloso</h1>  
+<p>Converse com a comunidade</p>  
+</div>  
+  
+<div class="hall-card">  
+  
+<div id="mensagens" class="chat-box"></div>  
+  
+<div class="chat-input">  
+<input  
+id="mensagemInput"  
+placeholder="Digite uma mensagem..."  
+>  
+  
+<button onclick="enviarMensagem()">  
+📨  
+</button>  
+  
+<button onclick="apagarTodasMsg()">  
+🧹  
+</button>  
+      
+</div>  
+  
+</div>  
+  
+</section>      
+      
+<!-- MODS -->  
+<section id="mods" class="pagina">  
+  
+<div class="hero">  
+<h1>🛒 Mods Disponíveis</h1>  
+<p id="contadorMods"></p>  
+</div>  
+  
+<input id="pesquisa"  
+type="text"  
+placeholder="🔍 Pesquisar mods..."  
+onkeyup="pesquisarMods()">  
+  
+<div class="grid">  
+  
+<div class="card">  
+<img src="amongus.jpg">  
+<h3>Among Us Mod</h3>  
+<p>⭐⭐⭐⭐⭐ 4.9/5</p>  
+<p>📥 download disponivel</p>  
+<a href="https://www.mediafire.com/file/a5drvko5ofwkgbf/among-us-mod-Nebuloso.com.apk/file">⬇ Baixar</a>  
+</div>  
+  
+<div class="card">  
+<img src="starlight.png">  
+<h3>Starlight Pack</h3>  
+<p>⭐⭐⭐⭐☆ 4.4/5</p>  
+<p>📥 download disponivel</p>  
+<a href="https://play.google.com/store/apps/details?id=dev.allofus.starlight">⬇ Baixar</a>  
+</div>  
+  
+</div>  
+  
+</section>  
+      
+<section id="emBreve" class="pagina glitch-page">  
+<div class="hero">  
+<h1 class="hacker-title">Tutorial 🔥</h1>  
+</div>  
+  
+<div class="hacker-box">  
+  
+<a href="https://youtu.be/r19lEwP40JU?is=AtjQT-mfbmUV53Sk" target="_blank">  
+  <img src="Tutorial among-Starlight.jpg" class="hacker-img" style="cursor:pointer;">  
+</a>  
+  
+<p class="hacker-text">  
+acesse a pagina🔥  
+</p>  
+  
+</div>  
+  
+</section>  
+      
+<section id="dupladodia" class="pagina">  
+  
+<div class="hero">  
+<h1>🏆 Hall da Fama</h1>  
+<p>A melhor dupla do dia</p>  
+</div>  
+  
+<div class="hall-card">  
+<div class="coroa">👑</div>  
+  
+<img src="dupla.jpg" class="hall-img">  
+  
+<h2>彡れモ乃Uㄥ口ち〄ッ & 彡丹れ刀尺口爪モ刀丹〄ッ</h2>  
+  
+<p>  
+Foram os destaques do dia com jogadas incríveis.  
+</p>  
+  
+<span>📅 16/06/2026</span>  
+</div>  
+  
+</section>  
+  
+<!-- GALERIA -->  
+<section id="galeria" class="pagina">  
+  
+<div class="hero">  
+<h1>📸 Galeria 彡ΔŁĆΔŦ€ƗΔ ΔΜØŇǤッ</h1>  
+<p>Os melhores momentos da comunidade</p>  
+</div>  
+  
+<div class="grid">  
+  
+<div class="card">  
+<img src="tela de espera.png">  
+<h3>🏆 Vitória Épica</h3>  
+<p>Partida perfeita da equipe Nebuloso.</p>  
+</div>  
+  
+<div class="card">  
+<img src="tela de espera.png">  
+<h3>👑 Dupla Lendária</h3>  
+<p>Jogada incrível durante uma partida.</p>  
+</div>  
+  
+<div class="card">  
+<img src="tela de espera.png">  
+<h3>🚀 Melhor Momento</h3>  
+<p>Print enviado pela comunidade.</p>  
+</div>  
+  
+<div class="card">  
+<img src="tela de espera.png">  
+<h3>🎮 Among Us</h3>  
+<p>Uma partida inesquecível.</p>  
+</div>  
+  
+</div>  
+  
+</section>  
+      
+<!-- DISCORD -->  
+<section id="discord" class="pagina">  
+  
+<div class="hero">  
+<h1>🎮 Discord Oficial</h1>  
+<p>Entre na comunidade do Portal Nebuloso</p>  
+</div>  
+  
+<div class="hall-card">  
+  
+<img src="banner discord.jpeg"  
+style="  
+width:100%;  
+border-radius:15px;  
+margin-bottom:15px;  
+">  
+  
+<h2>🚀 Comunidade Nebuloso</h2>  
+  
+<p>  
+💬 Converse com outros jogadores<br>  
+🎮 Participe de partidas privadas<br>  
+🏆 Dispute eventos exclusivos<br>  
+📢 Receba novidades em primeira mão  
+</p>  
+  
+<a href="https://discord.gg/S9ggHtngD6"  
+target="_blank"  
+style="  
+display:inline-block;  
+padding:12px 25px;  
+background:#5865F2;  
+color:white;  
+border-radius:12px;  
+text-decoration:none;  
+font-weight:bold;  
+margin-top:10px;  
+">  
+🎮 Entrar no Discord  
+</a>  
+  
+</div>  
+  
+</section>  
+<!-- FEEDBACK -->  
+  
+<section id="feedback" class="pagina">  
+  
+<div class="hero">  
+<h1>💬 Feedback</h1>  
+<p>Ajude a melhorar o Portal Nebuloso</p>  
+</div>  
+  
+<div class="hall-card">  
+  
+<div style="font-size:60px;">💬</div>  
+  
+<h2>⭐ Sua Opinião Importa</h2>  
+  
+<p>  
+💡 Sugira novas funcionalidades<br>  
+🐛 Reporte bugs encontrados<br>  
+🎮 Recomende novos mods<br>  
+⭐ Avalie sua experiência no site<br>  
+🚀 Ajude o Portal Nebuloso a evoluir  
+</p>  
+  
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSdWSvXoNvq54T-FRJXKh6CPW0cGh6_uOvE6PTpZ2XXiEthSBw/viewform"  
+target="_blank"  
+style="  
+display:inline-block;  
+padding:12px 25px;  
+background:#00ffff;  
+color:black;  
+border-radius:12px;  
+text-decoration:none;  
+font-weight:bold;  
+margin-top:10px;  
+box-shadow:0 0 15px #00ffff;  
+">  
+📝 Enviar Feedback  
+</a>  
+  
+<footer style="  
+text-align:center;  
+margin-top:40px;  
+opacity:.7;  
+font-size:14px;  
+">  
+  
+⚡ Portal Nebuloso © 2026  
+  
+<br>  
+  
+Desenvolvido por 彡れモ乃Uㄥ口ち〄ッ  
+  
+</footer>      
+</div>  
+  
+</section>  
+  
+</div>  
+  
+<script>  
+function mostrar(event,id){  
+  
+const paginas =  
+document.querySelectorAll('.pagina');  
+  
+paginas.forEach(p=>{  
+  
+if(p.classList.contains('ativa')){  
+p.style.opacity="0";  
+p.style.transform="translateY(15px)";  
+  
+setTimeout(()=>{  
+p.classList.remove('ativa');  
+},200);  
+  
+}else{  
+p.classList.remove('ativa');  
+}  
+  
+});  
+  
+setTimeout(()=>{  
+  
+const pagina = document.getElementById(id);  
+  
+pagina.classList.add('ativa');  
+pagina.style.opacity="1";  
+pagina.style.transform="translateY(0)";  
+  
+if(id === "chat"){  
+  setTimeout(()=>{  
+    const chat = document.getElementById("mensagens");  
+    if(chat){  
+      chat.scrollTop = chat.scrollHeight;  
+    }  
+  },300);  
+}  
+  
+},200);  
+  
+document  
+.querySelectorAll('.tabs button')  
+.forEach(b=>b.classList.remove('ativo'));  
+  
+event.currentTarget.classList.add('ativo');  
+}  
+  
+function pesquisarMods() {  
+  const texto = document.getElementById("pesquisa").value.toLowerCase();  
+  const cards = document.querySelectorAll(".card");  
+  
+  cards.forEach(card => {  
+    const nome = card.querySelector("h3").innerText.toLowerCase();  
+  
+    card.style.display =  
+      texto === "" || nome.includes(texto) ? "block" : "none";  
+  });  
+}  
+</script>  
+  
+<script type="module">  
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";  
+import {  
+  getAuth,  
+  GoogleAuthProvider,  
+  signInWithPopup,  
+  signInAnonymously,  
+  onAuthStateChanged,  
+  signOut  
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";  
+  
+import {  
+  getFirestore,  
+  collection,  
+  addDoc,  
+  query,  
+  orderBy,  
+  onSnapshot,  
+  deleteDoc,  
+  doc,  
+  getDocs  
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";  
+  
+const firebaseConfig = {  
+  apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",  
+  authDomain: "portal-nebuloso.firebaseapp.com",  
+  projectId: "portal-nebuloso",  
+  storageBucket: "portal-nebuloso.firebasestorage.app",  
+  messagingSenderId: "755593713969",  
+  appId: "1:755593713969:web:0c3a45cb65061d1457f810",  
+};  
+  
+const app = initializeApp(firebaseConfig);  
+const auth = getAuth(app);  
+function mostrarSite() {  
+  
+  const login = document.getElementById("loginScreen");  
+  const site = document.getElementById("site");  
+  
+  // mostra o site atrás  
+  site.style.display = "block";  
+  
+  // pequena espera para iniciar animação  
+  setTimeout(() => {  
+    site.classList.remove("hidden");  
+    site.classList.add("visible");  
+  
+    login.style.opacity = "0";  
+    login.style.transform = "scale(1.08)";  
+    login.style.pointerEvents = "none";  
+  }, 80);  
+  
+  // remove o login após a animação  
+  setTimeout(() => {  
+    login.style.display = "none";  
+  }, 500);  
+  
+}  
+  
+function mostrarLogin() {  
+  
+  const login = document.getElementById("loginScreen");  
+  const site = document.getElementById("site");  
+  
+  if (site) {  
+    site.classList.remove("visible");  
+    site.classList.add("hidden");  
+    site.style.display = "none";  
+  }  
+  
+  if (login) {  
+    login.style.display = "flex";  
+    login.style.opacity = "1";  
+    login.style.transform = "scale(1)";  
+    login.style.pointerEvents = "auto";  
+  }  
+  
+}  
+const db = getFirestore(app);  
+const provider = new GoogleAuthProvider();  
+  
+/* 👑 DONOS */  
+const DONOS = [  
+  "bruninhoedits0@gmail.com",  
+  "grazielesantos643@gmail.com"  
+];  
+  
+/* ================= LOGIN ================= */  
+  
+window.loginGoogle = async function () {  
+  try {  
+    await signInWithPopup(auth, provider);  
+  } catch (e) {  
+    console.log("Erro login:", e);  
+  }  
+};  
+  
+window.loginAnonimo = async function () {  
+  try {  
+    await signInAnonymously(auth);  
+  } catch (e) {  
+    console.log("Erro:", e);  
+  }  
+};  
+  
+window.logout = async function () {  
+  try {  
+    await signOut(auth);  
+  } catch (e) {  
+    console.log("Erro logout:", e);  
+  }  
+};  
+  
+/* ================= APAGAR MENSAGENS ================= */  
+  
+window.apagarTodasMsg = async function () {  
+  const user = auth.currentUser;  
+  
+  if (!user || !DONOS.includes(user.email)) {  
+    alert("Apenas donos podem apagar mensagens 👑");  
+    return;  
+  }  
+  
+  if (!confirm("Apagar todas as mensagens?")) return;  
+  
+  const snapshot = await getDocs(collection(db, "mensagens"));  
+  
+  for (const docSnap of snapshot.docs) {  
+    await deleteDoc(doc(db, "mensagens", docSnap.id));  
+  }  
+  
+  alert("Mensagens apagadas!");  
+};  
+  
+/* ================= LOGIN STATE ================= */  
+  
+onAuthStateChanged(auth, (user) => {  
+  
+  const loader = document.getElementById("loader");  
+  const loading = document.getElementById("loading");  
+  const userInfo = document.getElementById("userInfo");  
+  const userName = document.getElementById("userName");  
+  const userPhoto = document.getElementById("userPhoto");  
+  
+  /* Esconde o loader somente após o Firebase terminar a verificação */  
+  if (loader) {  
+    loader.style.opacity = "0";  
+  
+    setTimeout(() => {  
+      loader.remove();  
+    }, 600);  
+  }  
+  
+  /* Caso ainda exista a tela "Verificando login..." */  
+  if (loading) {  
+    loading.style.opacity = "0";  
+  
+    setTimeout(() => {  
+      loading.style.display = "none";  
+    }, 300);  
+  }  
+  
+  if (user) {  
+  
+    mostrarSite();  
+  
+    if (userName) {  
+      userName.textContent = user.displayName || "Visitante";  
+    }  
+  
+    if (userInfo) {  
+      userInfo.style.display = "flex";  
+    }  
+  
+    const saudacao = document.getElementById("saudacao");  
+  
+    if (saudacao) {  
+      saudacao.textContent =  
+        `✨ Bem-vindo, ${user.displayName || "Usuário"}`;  
+    }  
+  
+    if (userPhoto) {  
+      userPhoto.src =  
+        user.photoURL ||  
+        "https://ui-avatars.com/api/?name=User";  
+    }  
+  
+  } else {  
+  
+    mostrarLogin();  
+  
+    if (userInfo) {  
+      userInfo.style.display = "none";  
+    }  
+  
+  }  
+  
+});  
+/* ================= CHAT ================= */  
+  
+window.enviarMensagem = async function () {  
+  
+  const input = document.getElementById("mensagemInput");  
+  if (!input) return;  
+  
+  const texto = input.value;  
+  if (!texto.trim()) return;  
+  
+  const user = auth.currentUser;  
+  
+  if (!user) {  
+    alert("Faça login primeiro.");  
+    return;  
+  }  
+  
+  if (user.isAnonymous) {  
+    alert("Visitantes não podem enviar mensagens.");  
+    return;  
+  }  
+  
+  await addDoc(collection(db, "mensagens"), {  
+    nome: user.displayName,  
+    email: user.email,  
+    foto: user.photoURL || "https://ui-avatars.com/api/?name=User",  
+    texto: texto,  
+    data: Date.now()  
+  });  
+  
+  input.value = "";  
+};  
+  
+/* ================= ONSNAPSHOT CHAT ================= */  
+  
+const q = query(  
+  collection(db, "mensagens"),  
+  orderBy("data", "asc")  
+);  
+  
+onSnapshot(q, (snapshot) => {  
+  
+  const chat = document.getElementById("mensagens");  
+  if (!chat) return;  
+  
+  chat.innerHTML = "";  
+  
+  const fragment = document.createDocumentFragment();  
+  
+  snapshot.forEach((docSnap) => {  
+  
+    const msg = docSnap.data();  
+    const minhaMsg = auth.currentUser?.email === msg.email;  
+  
+    const isDono = DONOS.includes(msg.email);  
+  
+    const div = document.createElement("div");  
+  
+    div.style.cssText = `  
+      display:flex;  
+      gap:10px;  
+      margin-bottom:12px;  
+      justify-content:${minhaMsg ? "flex-end" : "flex-start"};  
+      align-items:flex-start;  
+    `;  
+  
+    const donoTag = isDono  
+  ? `  
+    <span style="  
+      display:inline-block;  
+      align-self:flex-start;  
+      padding:1px 5px;  
+      border-radius:999px;  
+      background:rgba(255,215,0,.12);  
+      border:1px solid #FFD700;  
+      color:#FFD700;  
+      font-size:8px;  
+      font-weight:bold;  
+      line-height:1.1;  
+      white-space:nowrap;  
+      width:auto;  
+      animation:pulseDono 1.5s ease-in-out infinite;  
+      box-shadow:0 0 8px #FFD700;  
+    ">  
+      👑 DONO  
+    </span>  
+  `  
+  : "";  
+  
+    div.innerHTML = `  
+      ${!minhaMsg ? `  
+        <img src="${msg.foto}" style="  
+          width:35px;  
+          height:35px;  
+          border-radius:50%;  
+          border:2px solid #00ffff;  
+          object-fit:cover;  
+        ">  
+      ` : ""}  
+  
+      <div style="  
+        background:${minhaMsg ? "rgba(0,255,255,.18)" : "rgba(0,255,255,.08)"};  
+        padding:6px 10px;  
+        border-radius:18px;  
+        max-width:75%;  
+        word-break:break-word;  
+        backdrop-filter:blur(4px);  
+      ">  
+  
+        <b style="display:flex;flex-direction:column;gap:2px;">  
+  
+          ${donoTag}  
+  
+          <span style="  
+            font-size:11px;  
+            color:${isDono ? "#FFD700" : "#00ffff"};  
+            font-weight:${isDono ? "bold" : "normal"};  
+          ">  
+            ${msg.nome}  
+          </span>  
+  
+        </b>  
+  
+        <br>  
+  
+        ${msg.texto}  
+      </div>  
+    `;  
+  
+    fragment.appendChild(div);  
+  });  
+  
+  chat.appendChild(fragment);  
+  chat.scrollTop = chat.scrollHeight;  
+});  
+</script>  
+  
+<script>  
+document.addEventListener("DOMContentLoaded", () => {  
+  const total = 2;  
+  
+  document.getElementById("contadorMods").textContent =  
+    `🚀 ${total} mods disponíveis para download`;  
+});  
+      
+</script>  
+<script>  
+let deferredPrompt;  
+  
+const btn = document.getElementById("installBtn");  
+  
+window.addEventListener("beforeinstallprompt", (e) => {  
+  e.preventDefault();  
+  deferredPrompt = e;  
+  
+  if (btn) {  
+    btn.style.display = "block";  
+  }  
+});  
+  
+if (btn) {  
+  btn.addEventListener("click", async () => {  
+    if (!deferredPrompt) return;  
+  
+    deferredPrompt.prompt();  
+    await deferredPrompt.userChoice;  
+  
+    deferredPrompt = null;  
+    btn.style.display = "none";  
+  });  
+}  
+      
+</script>  
+<script>
+const photo = document.getElementById("userPhoto");
+
+if (photo) {
+  photo.onclick = function () {
+    const menu = document.getElementById("profileMenu");
+
+    menu.style.display =
+      menu.style.display === "block" ? "none" : "block";
+  };
+}
+
+document.addEventListener("click", function (e) {
+  const userInfo = document.getElementById("userInfo");
+  const menu = document.getElementById("profileMenu");
+
+  if (
+    menu &&
+    userInfo &&
+    !userInfo.contains(e.target) &&
+    !menu.contains(e.target)
+  ) {
+    menu.style.display = "none";
+  }
+});
+
+/* LOADER */
+
+const textos = [
+  "Conectando ao universo...",
+  "Carregando mods...",
+  "Sincronizando dados...",
+  "Preparando Portal Nebuloso...",
+  "Quase pronto..."
+];
+
+let i = 0;
+
+setInterval(() => {
+  const t = document.getElementById("loaderStatus");
+  if (!t) return;
+
+  i = (i + 1) % textos.length;
+  t.textContent = textos[i];
+}, 450);
+
+/* SERVICE WORKER */
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+
+</script>
+</body>  
+</html>
