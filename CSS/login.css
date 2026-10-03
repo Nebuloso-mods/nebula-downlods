@@ -1,3 +1,4 @@
+```css
 #loginScreen{
     position:fixed;
     inset:0;
@@ -5,10 +6,11 @@
     justify-content:center;
     align-items:center;
     background:
-    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
-    url("Fundo Nebuloso.png");
+        linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+        url("../Ativos/imagens/Fundo Nebuloso.png");
     background-size:cover;
     background-position:center;
+    background-repeat:no-repeat;
     z-index:99999;
 }
 
@@ -21,3 +23,14 @@
     border-radius:25px;
     text-align:center;
 }
+
+.login-banner{
+    width:100%;
+    max-width:360px;
+    height:auto;
+    display:block;
+    object-fit:contain;
+    margin:0 auto 20px;
+    border-radius:15px;
+}
+```
