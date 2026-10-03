@@ -29,4 +29,12 @@
     height:auto;
     margin:20px auto;
 }
+#emBreve .hacker-box .hacker-img{
+    display:block;
+    width:60% !important;
+    max-width:500px;
+    height:auto !important;
+    margin:20px auto !important;
+    object-fit:contain;
+}
 ```
