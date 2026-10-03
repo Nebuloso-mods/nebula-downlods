@@ -10,19 +10,24 @@
 
   <title>⚡ Portal Nebuloso ⚡</title>
 
-  <link rel="manifest" href="Portal%20Nebuloso/manifest.json">
+  <link rel="manifest" href="manifest.json">
 
   <meta name="theme-color" content="#00ffff">
 
-<link rel="stylesheet" href="CSS/base.css">
-<link rel="stylesheet" href="CSS/chat.css">
-<link rel="stylesheet" href="CSS/components.css">
-<link rel="stylesheet" href="CSS/layout.css">
-<link rel="stylesheet" href="CSS/loader.css">
-<link rel="stylesheet" href="CSS/login.css">
-<link rel="stylesheet" href="CSS/profile.css">
-<link rel="stylesheet" href="CSS/pwa.css">
-  
+  <!-- CSS -->
+
+  <link rel="stylesheet" href="css/Base.css">
+
+  <link rel="stylesheet" href="css/Layout.css">
+
+  <link rel="stylesheet" href="css/Componentes.css">
+
+  <link rel="stylesheet" href="css/Loader.css">
+
+  <link rel="stylesheet" href="css/Login.css">
+
+  <link rel="stylesheet" href="css/Chat.css">
+
 </head>
   
 <body>  
@@ -124,7 +129,7 @@ font-weight:bold;
   
 <div class="login-card">  
   
-<img src="Ativos/imagens/Banner.png" class="login-banner">  
+<img src="Assets/banners/Banner.png" class="login-banner">  
   
 <h1>PORTAL NEBULOSO</h1>  
   
@@ -168,7 +173,7 @@ Servidor Online
   
 <div class="hero">  
   
-<img src="Assets/imagens/Banner.png"  
+<img src="Assets/banners/Banner.png"  
 style="  
 width:100%;  
 border-radius:20px;  
@@ -270,7 +275,7 @@ onkeyup="pesquisarMods()">
 <div class="grid">  
   
 <div class="card">  
-<img src="Assets/Ícones/amongus.jpg">  
+<img src="Assets/icons/amongus.jpg">  
 <h3>Among Us Mod</h3>  
 <p>⭐⭐⭐⭐⭐ 4.9/5</p>  
 <p>📥 download disponivel</p>  
@@ -278,7 +283,7 @@ onkeyup="pesquisarMods()">
 </div>  
   
 <div class="card">  
-<img src="Assets/Ícones/starlight.png">  
+<img src="Assets/icons/starlight.png">  
 <h3>Starlight Pack</h3>  
 <p>⭐⭐⭐⭐☆ 4.4/5</p>  
 <p>📥 download disponivel</p>  
@@ -297,10 +302,7 @@ onkeyup="pesquisarMods()">
 <div class="hacker-box">  
   
 <a href="https://youtu.be/r19lEwP40JU?is=AtjQT-mfbmUV53Sk" target="_blank">  
- <img src="Ativos/imagens/Tutorial-among-Starlight.png"
-     class="hacker-img"
-     style="cursor:pointer;"
-     alt="Tutorial Among Us Starlight">
+  <img src="Assets/imagens/Tutorial among-Starlight.png" class="hacker-img" style="cursor:pointer;">  
 </a>  
   
 <p class="hacker-text">  
@@ -321,7 +323,7 @@ acesse a pagina🔥
 <div class="hall-card">  
 <div class="coroa">👑</div>  
   
-<img src="Ativos/imagens/dupla.jpg" class="hall-img">  
+<img src="Assets/imagens/dupla.jpg" class="hall-img">  
   
 <h2>彡れモ乃Uㄥ口ち〄ッ & 彡丹れ刀尺口爪モ刀丹〄ッ</h2>  
   
@@ -345,25 +347,25 @@ Foram os destaques do dia com jogadas incríveis.
 <div class="grid">  
   
 <div class="card">  
-<img src="Ativos/imagens/Tela de espera.png">  
+<img src="Assets/banners/tela de espera.png">  
 <h3>🏆 Vitória Épica</h3>  
 <p>Partida perfeita da equipe Nebuloso.</p>  
 </div>  
   
 <div class="card">  
-<img src="Ativos/imagens/Tela de espera.png">  
+<img src="Assets/banners/tela de espera.png">  
 <h3>👑 Dupla Lendária</h3>  
 <p>Jogada incrível durante uma partida.</p>  
 </div>  
   
 <div class="card">  
-<img src="Ativos/imagens/Tela de espera.png">  
+<img src="Assets/banners/tela de espera.png">  
 <h3>🚀 Melhor Momento</h3>  
 <p>Print enviado pela comunidade.</p>  
 </div>  
   
 <div class="card">  
-<img src="Ativos/imagens/Tela de espera.png">  
+<img src="Assets/banners/tela de espera.png">  
 <h3>🎮 Among Us</h3>  
 <p>Uma partida inesquecível.</p>  
 </div>  
@@ -382,7 +384,7 @@ Foram os destaques do dia com jogadas incríveis.
   
 <div class="hall-card">  
   
-<img src="Ativos/imagens/Banner discord.jpeg"  
+<img src="Assets/banners/banner discord.jpeg"  
 style="  
 width:100%;  
 border-radius:15px;  
@@ -956,7 +958,7 @@ setInterval(() => {
 /* SERVICE WORKER */
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("Portal%20Nebuloso/sw.js");
+  navigator.serviceWorker.register("sw.js");
 }
 
 </script>
