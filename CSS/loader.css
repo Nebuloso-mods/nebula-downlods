@@ -22,19 +22,13 @@
 
     animation:none;
 }
-.hacker-img{
+
+#emBreve .hacker-img{
     display:block;
-    width:70%;
+    width:60%;
     max-width:500px;
     height:auto;
     margin:20px auto;
-}
-#emBreve .hacker-box .hacker-img{
-    display:block;
-    width:60% !important;
-    max-width:500px;
-    height:auto !important;
-    margin:20px auto !important;
     object-fit:contain;
 }
 ```
