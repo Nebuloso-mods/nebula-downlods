@@ -22,13 +22,4 @@
 
     animation:none;
 }
-
-#emBreve .hacker-img{
-    display:block;
-    width:60%;
-    max-width:500px;
-    height:auto;
-    margin:20px auto;
-    object-fit:contain;
-}
 ```
