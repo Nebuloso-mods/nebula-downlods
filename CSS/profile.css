@@ -1,3 +1,4 @@
+```css
 #userInfo{
     position:fixed;
     top:10px;
@@ -21,6 +22,7 @@
     border-radius:50%;
     border:2px solid #00ffff;
     object-fit:cover;
+    display:block;
 }
 
 #profileMenu{
@@ -55,3 +57,4 @@
         transform-origin:left top;
     }
 }
+```
