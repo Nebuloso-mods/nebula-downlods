@@ -26,3 +26,9 @@ background:rgba(0,0,0,0.55);
 z-index:1;
 pointer-events:none;
 }
+
+img {
+max-width: 100%;
+height: auto;
+object-fit: contain;
+}
