@@ -1,53 +1,43 @@
-.card{
-background:rgba(21,28,43,0.9);
-border:1px solid rgba(0,255,255,0.2);
-padding:15px;
-border-radius:15px;
-text-align:center;
-overflow:hidden;
-transition:.3s;
+/* IMAGENS GERAIS */
+img{
+max-width:100%;
+height:auto;
+display:block;
 }
 
-.card:hover{
-transform:scale(1.02);
-}
-
+/* IMAGENS DENTRO DOS CARDS */
 .card img{
 width:100%;
-height:auto;
+max-width:450px;
 max-height:300px;
+height:auto;
 object-fit:contain;
-display:block;
 margin:0 auto;
-border-radius:10px;
-transition:.4s;
 }
 
-.card:hover img{
-transform:scale(1.03);
+/* IMAGEM DO TUTORIAL */
+#emBreve .hacker-img{
+width:100%;
+max-width:500px;
+height:auto;
+object-fit:contain;
+margin:20px auto;
+border-radius:15px;
 }
 
-.card h3{
-color:#00ffff;
-}
+/* CELULAR */
+@media (max-width:600px){
 
-.card a{
-display:inline-block;
-margin-top:10px;
-padding:8px 14px;
-border-radius:10px;
-background:#00ffff;
-color:black;
-text-decoration:none;
-font-weight:bold;
+```
+.card img{
+    max-width:100%;
+    max-height:220px;
 }
 
 #emBreve .hacker-img{
-    display:block;
-    width:100%;
-    max-width:500px;
-    height:auto;
-    margin:20px auto;
-    object-fit:contain;
-    border-radius:15px;
+    width:90%;
+    max-width:400px;
+}
+```
+
 }
