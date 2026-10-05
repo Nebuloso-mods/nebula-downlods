@@ -41,13 +41,3 @@ color:black;
 text-decoration:none;
 font-weight:bold;
 }
-
-/* IMAGEM DO TUTORIAL */
-#emBreve .hacker-img{
-display:block;
-width:90%;
-max-width:500px;
-height:auto;
-margin:20px auto;
-border-radius:15px;
-}
