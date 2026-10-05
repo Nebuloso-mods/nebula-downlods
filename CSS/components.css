@@ -41,3 +41,13 @@ color:black;
 text-decoration:none;
 font-weight:bold;
 }
+
+#emBreve .hacker-img{
+    display:block;
+    width:100%;
+    max-width:500px;
+    height:auto;
+    margin:20px auto;
+    object-fit:contain;
+    border-radius:15px;
+}
