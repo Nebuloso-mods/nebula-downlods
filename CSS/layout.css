@@ -19,13 +19,11 @@
 .pagina{
     display:none;
     opacity:0;
-    transform:translateY(15px);
     transition:.4s;
 }
 
 .pagina.ativa{
     display:block;
     opacity:1;
-    transform:translateY(0);
 }
 ```
