@@ -1,36 +1,9 @@
-.card{
-    position:relative;
-    z-index:1;
-
-    background:rgba(21,28,43,0.9);
-    border:1px solid rgba(0,255,255,0.2);
-
-    padding:15px;
-    border-radius:15px;
-
-    text-align:center;
-    overflow:hidden;
-}
-
-
+```css
 /* ========================================
-   ÁREA DA IMAGEM
+   IMAGEM DO CARD
 ======================================== */
 
-.imagem-reflexo{
-    position:relative;
-
-    width:100%;
-
-    overflow:hidden;
-
-    border-radius:10px;
-}
-
-
-/* IMAGEM */
-
-.imagem-reflexo img{
+.card img{
     width:100%;
     height:auto;
     max-height:300px;
@@ -48,26 +21,31 @@
 
 
 /* ========================================
-   REFLEXO
+   EFEITO DE REFLEXO
 ======================================== */
 
-.imagem-reflexo::after{
+.card{
+    position:relative;
+}
+
+.card::after{
     content:"";
 
     position:absolute;
 
-    top:-20%;
-    left:-80%;
+    top:0;
+    left:-120%;
 
-    width:35%;
-    height:140%;
+    width:45%;
+    height:100%;
 
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.45),
-        transparent
-    );
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
 
     transform:skewX(-20deg);
 
@@ -77,11 +55,12 @@
 }
 
 
-/* Reflexo somente dentro da imagem */
+/* Ativa o reflexo quando passa
+   o mouse sobre o card/imagem */
 
-.imagem-reflexo:hover::after{
-    left:140%;
+.card:hover::after{
     opacity:1;
+    left:130%;
 
     transition:
         left .65s ease,
@@ -89,42 +68,12 @@
 }
 
 
-/* Zoom e brilho somente na imagem */
+/* Zoom + brilho somente na imagem */
 
-.imagem-reflexo:hover img{
+.card:hover img{
     transform:scale(1.025);
 
-    filter:drop-shadow(
-        0 0 6px rgba(0,255,255,.45)
-    );
+    filter:
+        drop-shadow(0 0 6px rgba(0,255,255,.45));
 }
-
-
-/* TÍTULO */
-
-.card h3{
-    color:#00ffff;
-}
-
-
-/* BOTÃO */
-
-.card a{
-    position:relative;
-    z-index:11;
-
-    display:inline-block;
-
-    margin-top:10px;
-    padding:8px 14px;
-
-    border-radius:10px;
-
-    background:#00ffff;
-    color:black;
-
-    text-decoration:none;
-    font-weight:bold;
-
-    cursor:pointer;
-}
+```
