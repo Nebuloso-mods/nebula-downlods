@@ -1,36 +1,20 @@
+```css
 .card{
     position:relative;
     z-index:1;
 
-    background:rgba(21,28,43,0.90);
+    background:rgba(21,28,43,0.9);
+    border:1px solid rgba(0,255,255,0.2);
 
-    border:1px solid rgba(0,255,255,0.20);
     padding:15px;
     border-radius:15px;
 
     text-align:center;
     overflow:hidden;
-
-    transition:
-        border-color .3s ease,
-        box-shadow .3s ease,
-        transform .3s ease;
-}
-
-.card:hover{
-    z-index:10;
-
-    border-color:rgba(0,255,255,.65);
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 0 8px rgba(0,255,255,.25),
-        0 0 18px rgba(0,255,255,.12);
 }
 
 
-/* IMAGEM / ÍCONE */
+/* IMAGEM */
 
 .card img{
     width:100%;
@@ -48,11 +32,14 @@
         filter .3s ease;
 }
 
+
+/* EFEITO SOMENTE NA IMAGEM */
+
 .card:hover img{
     transform:scale(1.025);
 
     filter:
-        drop-shadow(0 0 5px rgba(0,255,255,.35));
+        drop-shadow(0 0 6px rgba(0,255,255,.45));
 }
 
 
@@ -60,18 +47,10 @@
 
 .card h3{
     color:#00ffff;
-
-    transition:
-        text-shadow .3s ease;
-}
-
-.card:hover h3{
-    text-shadow:
-        0 0 6px rgba(0,255,255,.5);
 }
 
 
-/* BOTÃO */
+/* LINK / BOTÃO */
 
 .card a{
     position:relative;
@@ -91,16 +70,5 @@
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
 }
-
-.card a:hover{
-    transform:translateY(-1px);
-
-    box-shadow:
-        0 0 8px rgba(0,255,255,.45),
-        0 0 16px rgba(0,255,255,.18);
-}
+```
