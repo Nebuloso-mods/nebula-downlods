@@ -1,9 +1,36 @@
-```css
+.card{
+    position:relative;
+    z-index:1;
+
+    background:rgba(21,28,43,0.9);
+    border:1px solid rgba(0,255,255,0.2);
+
+    padding:15px;
+    border-radius:15px;
+
+    text-align:center;
+    overflow:hidden;
+}
+
+
 /* ========================================
-   IMAGEM DO CARD
+   ÁREA DA IMAGEM
 ======================================== */
 
-.card img{
+.imagem-reflexo{
+    position:relative;
+
+    width:100%;
+
+    overflow:hidden;
+
+    border-radius:10px;
+}
+
+
+/* IMAGEM */
+
+.imagem-reflexo img{
     width:100%;
     height:auto;
     max-height:300px;
@@ -21,31 +48,26 @@
 
 
 /* ========================================
-   EFEITO DE REFLEXO
+   REFLEXO
 ======================================== */
 
-.card{
-    position:relative;
-}
-
-.card::after{
+.imagem-reflexo::after{
     content:"";
 
     position:absolute;
 
-    top:0;
-    left:-120%;
+    top:-20%;
+    left:-80%;
 
-    width:45%;
-    height:100%;
+    width:35%;
+    height:140%;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.35),
-            transparent
-        );
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.45),
+        transparent
+    );
 
     transform:skewX(-20deg);
 
@@ -55,12 +77,11 @@
 }
 
 
-/* Ativa o reflexo quando passa
-   o mouse sobre o card/imagem */
+/* Reflexo somente dentro da imagem */
 
-.card:hover::after{
+.imagem-reflexo:hover::after{
+    left:140%;
     opacity:1;
-    left:130%;
 
     transition:
         left .65s ease,
@@ -68,12 +89,42 @@
 }
 
 
-/* Zoom + brilho somente na imagem */
+/* Zoom e brilho somente na imagem */
 
-.card:hover img{
+.imagem-reflexo:hover img{
     transform:scale(1.025);
 
-    filter:
-        drop-shadow(0 0 6px rgba(0,255,255,.45));
+    filter:drop-shadow(
+        0 0 6px rgba(0,255,255,.45)
+    );
 }
-```
+
+
+/* TÍTULO */
+
+.card h3{
+    color:#00ffff;
+}
+
+
+/* BOTÃO */
+
+.card a{
+    position:relative;
+    z-index:11;
+
+    display:inline-block;
+
+    margin-top:10px;
+    padding:8px 14px;
+
+    border-radius:10px;
+
+    background:#00ffff;
+    color:black;
+
+    text-decoration:none;
+    font-weight:bold;
+
+    cursor:pointer;
+}
