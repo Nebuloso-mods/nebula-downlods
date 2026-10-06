@@ -1,24 +1,69 @@
 ```css
-/* RESET */
+/* ========================================
+   RESET GLOBAL
+======================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:Arial, sans-serif;
 }
 
-/* BODY */
+html{
+    width:100%;
+    min-height:100%;
+    scroll-behavior:smooth;
+}
+
 body{
+    width:100%;
+    min-height:100vh;
+
     background-image:url("../Assets/imagens/Fundo Nebuloso.png");
     background-size:cover;
-    background-position:center;
+    background-position:center center;
     background-repeat:no-repeat;
     background-attachment:fixed;
-    color:white;
-    min-height:100vh;
+
+    color:#ffffff;
+    background-color:#050812;
+
+    overflow-x:hidden;
 }
 
-/* OVERLAY GLOBAL DESATIVADO */
+/* ========================================
+   ELEMENTOS BÁSICOS
+======================================== */
+
+img{
+    max-width:100%;
+    height:auto;
+    display:block;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* ========================================
+   OVERLAY GLOBAL
+   Mantido desativado para preservar
+   o brilho original da nebulosa.
+======================================== */
+
 body::before{
     display:none;
 }
