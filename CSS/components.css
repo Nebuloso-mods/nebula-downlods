@@ -1,97 +1,36 @@
-```css
-/* ========================================
-   CARDS — PORTAL NEBULOSO
-======================================== */
-
 .card{
     position:relative;
     z-index:1;
 
-    width:100%;
+    background:rgba(21,28,43,0.90);
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(20,30,48,.88),
-            rgba(5,12,24,.78)
-        );
-
-    border:1px solid rgba(0,255,255,.22);
-    border-radius:16px;
-
+    border:1px solid rgba(0,255,255,0.20);
     padding:15px;
+    border-radius:15px;
 
     text-align:center;
-
     overflow:hidden;
 
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.18),
-        inset 0 0 18px rgba(0,255,255,.025);
-
     transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease,
-        background .25s ease;
+        border-color .3s ease,
+        box-shadow .3s ease,
+        transform .3s ease;
 }
-
-
-/* ========================================
-   BRILHO INTERNO
-======================================== */
-
-.card::before{
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(0,255,255,.06),
-            transparent 35%,
-            transparent 65%,
-            rgba(0,255,255,.025)
-        );
-
-    pointer-events:none;
-}
-
-
-/* ========================================
-   HOVER
-======================================== */
 
 .card:hover{
     z-index:10;
 
-    transform:translateY(-3px);
+    border-color:rgba(0,255,255,.65);
 
-    border-color:rgba(0,255,255,.75);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(20,35,55,.94),
-            rgba(5,14,27,.88)
-        );
+    transform:translateY(-2px);
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.3),
-        0 0 10px rgba(0,255,255,.22),
-        0 0 22px rgba(0,255,255,.12),
-        inset 0 0 18px rgba(0,255,255,.05);
+        0 0 8px rgba(0,255,255,.25),
+        0 0 18px rgba(0,255,255,.12);
 }
 
 
-/* ========================================
-   IMAGENS
-======================================== */
+/* IMAGEM / ÍCONE */
 
 .card img{
     width:100%;
@@ -99,44 +38,40 @@
     max-height:300px;
 
     object-fit:contain;
-
     display:block;
     margin:0 auto;
 
-    border-radius:11px;
+    border-radius:10px;
 
     transition:
         transform .3s ease,
-        opacity .3s ease,
         filter .3s ease;
 }
 
 .card:hover img{
-    opacity:.96;
-    transform:scale(1.015);
+    transform:scale(1.025);
+
+    filter:
+        drop-shadow(0 0 5px rgba(0,255,255,.35));
 }
 
 
-/* ========================================
-   TÍTULO
-======================================== */
+/* TÍTULO */
 
 .card h3{
-    position:relative;
-    z-index:2;
-
-    margin-top:10px;
-
     color:#00ffff;
 
+    transition:
+        text-shadow .3s ease;
+}
+
+.card:hover h3{
     text-shadow:
-        0 0 8px rgba(0,255,255,.35);
+        0 0 6px rgba(0,255,255,.5);
 }
 
 
-/* ========================================
-   LINKS / BOTÕES DO CARD
-======================================== */
+/* BOTÃO */
 
 .card a{
     position:relative;
@@ -147,11 +82,10 @@
     margin-top:10px;
     padding:8px 14px;
 
-    border:1px solid rgba(0,0,0,.15);
     border-radius:10px;
 
     background:#00ffff;
-    color:#001014;
+    color:black;
 
     text-decoration:none;
     font-weight:bold;
@@ -160,45 +94,13 @@
 
     transition:
         transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+        box-shadow .2s ease;
 }
 
 .card a:hover{
-    background:#65ffff;
-
     transform:translateY(-1px);
 
     box-shadow:
-        0 0 12px rgba(0,255,255,.35);
+        0 0 8px rgba(0,255,255,.45),
+        0 0 16px rgba(0,255,255,.18);
 }
-
-.card a:active{
-    transform:scale(.97);
-}
-
-
-/* ========================================
-   CELULAR
-======================================== */
-
-@media(max-width:600px){
-
-    .card{
-        padding:12px;
-        border-radius:14px;
-    }
-
-    .card img{
-        max-height:240px;
-    }
-
-    .card h3{
-        font-size:17px;
-    }
-
-    .card a{
-        padding:8px 12px;
-    }
-}
-```
