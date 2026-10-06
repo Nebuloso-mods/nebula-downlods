@@ -1,25 +1,90 @@
-```css
+/* ========================================
+   LOADER — PORTAL NEBULOSO
+======================================== */
+
 #loader{
     position:fixed;
     inset:0;
+
     display:flex;
     justify-content:center;
     align-items:center;
-    background:radial-gradient(circle,#06233a,#000);
+
+    background:
+        radial-gradient(
+            circle at center,
+            #06233a 0%,
+            #020914 55%,
+            #000 100%
+        );
+
     z-index:999999;
 }
+
+
+/* ========================================
+   LOGO
+======================================== */
 
 .loader-logo{
     font-size:40px;
     font-weight:bold;
+
     color:#00ffff;
+
     letter-spacing:5px;
 
     text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff;
+        0 0 8px #00ffff,
+        0 0 18px #00ffff,
+        0 0 35px rgba(0,255,255,.8);
 
-    animation:none;
+    animation:
+        loaderPulse 1.8s ease-in-out infinite;
 }
-```
+
+
+/* ========================================
+   ANIMAÇÃO DO NEON
+======================================== */
+
+@keyframes loaderPulse{
+
+    0%,
+    100%{
+        opacity:.75;
+
+        transform:scale(1);
+
+        text-shadow:
+            0 0 8px #00ffff,
+            0 0 18px #00ffff,
+            0 0 35px rgba(0,255,255,.7);
+    }
+
+    50%{
+        opacity:1;
+
+        transform:scale(1.04);
+
+        text-shadow:
+            0 0 12px #00ffff,
+            0 0 25px #00ffff,
+            0 0 50px rgba(0,255,255,.95);
+    }
+
+}
+
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media(max-width:500px){
+
+    .loader-logo{
+        font-size:30px;
+        letter-spacing:3px;
+    }
+
+}
