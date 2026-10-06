@@ -1,36 +1,111 @@
-```css
+/* ========================================
+   LOGIN — PORTAL NEBULOSO
+======================================== */
+
 #loginScreen{
     position:fixed;
     inset:0;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
+    padding:20px;
+
     background:
-        linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
-        url("../Ativos/imagens/Fundo Nebuloso.png");
+        linear-gradient(
+            rgba(0,0,0,.72),
+            rgba(0,0,0,.72)
+        ),
+        url("../Assets/imagens/Fundo Nebuloso.png");
+
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
+
     z-index:99999;
 }
+
+
+/* ========================================
+   CARD DE LOGIN
+======================================== */
 
 .login-card{
     width:90%;
     max-width:420px;
+
     padding:30px;
-    background:rgba(20,25,40,.75);
-    backdrop-filter:blur(18px);
+
+    background:rgba(20,25,40,.82);
+
+    border:1px solid rgba(0,255,255,.25);
+
     border-radius:25px;
+
     text-align:center;
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,.08);
+
+    overflow:hidden;
 }
+
+
+/* ========================================
+   BANNER
+======================================== */
 
 .login-banner{
     width:100%;
     max-width:360px;
+
     height:auto;
+
     display:block;
+
     object-fit:contain;
+
     margin:0 auto 20px;
+
     border-radius:15px;
+
+    transition:
+        transform .3s ease,
+        filter .3s ease;
 }
-```
+
+
+/* Efeito somente no banner */
+
+.login-banner:hover{
+    transform:scale(1.015);
+
+    filter:
+        drop-shadow(0 0 7px rgba(0,255,255,.45));
+}
+
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media(max-width:500px){
+
+    #loginScreen{
+        padding:15px;
+    }
+
+    .login-card{
+        width:100%;
+        padding:22px;
+
+        border-radius:20px;
+    }
+
+    .login-banner{
+        max-width:100%;
+        margin-bottom:16px;
+    }
+
+}
