@@ -127,6 +127,48 @@ img{
         max-width:100%;
     }
 }
+
+/* REFLEXO SOMENTE NAS IMAGENS DOS CARDS */
+.imagem-reflexo{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    border-radius:10px;
+}
+
+.imagem-reflexo::after{
+    content:"";
+    position:absolute;
+    top:-20%;
+    left:-80%;
+    width:35%;
+    height:140%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.42),
+        transparent
+    );
+    transform:skewX(-20deg);
+    pointer-events:none;
+    opacity:0;
+}
+
+.imagem-reflexo:hover::after{
+    left:140%;
+    opacity:1;
+    transition:left .65s ease, opacity .1s ease;
+}
+
+.imagem-reflexo img{
+    transition:transform .3s ease, filter .3s ease;
+}
+
+.imagem-reflexo:hover img{
+    transform:scale(1.025);
+    filter:drop-shadow(0 0 6px rgba(0,255,255,.45));
+}
+
 </style>
 </head>
   
@@ -371,7 +413,7 @@ onkeyup="pesquisarMods()">
 <div class="grid">  
   
 <div class="card">  
-<img src="Assets/icons/amongus.jpg">  
+<div class="imagem-reflexo"><img src="Assets/icons/amongus.jpg"></div>  
 <h3>Among Us Mod</h3>  
 <p>⭐⭐⭐⭐⭐ 4.9/5</p>  
 <p>📥 download disponivel</p>  
@@ -379,7 +421,7 @@ onkeyup="pesquisarMods()">
 </div>  
   
 <div class="card">  
-<img src="Assets/icons/starlight.png">  
+<div class="imagem-reflexo"><img src="Assets/icons/starlight.png"></div>  
 <h3>Starlight Pack</h3>  
 <p>⭐⭐⭐⭐☆ 4.4/5</p>  
 <p>📥 download disponivel</p>  
@@ -445,25 +487,25 @@ Foram os destaques do dia com jogadas incríveis.
 <div class="grid">  
   
 <div class="card">  
-<img src="Assets/imagens/tela de espera.png">  
+<div class="imagem-reflexo"><img src="Assets/imagens/tela de espera.png"></div>  
 <h3>🏆 Vitória Épica</h3>  
 <p>Partida perfeita da equipe Nebuloso.</p>  
 </div>  
   
 <div class="card">  
-<img src="Assets/imagens/tela de espera.png">  
+<div class="imagem-reflexo"><img src="Assets/imagens/tela de espera.png"></div>  
 <h3>👑 Dupla Lendária</h3>  
 <p>Jogada incrível durante uma partida.</p>  
 </div>  
   
 <div class="card">  
-<img src="Assets/imagens/tela de espera.png">  
+<div class="imagem-reflexo"><img src="Assets/imagens/tela de espera.png"></div>  
 <h3>🚀 Melhor Momento</h3>  
 <p>Print enviado pela comunidade.</p>  
 </div>  
   
 <div class="card">  
-<img src="Assets/imagens/tela de espera.png">  
+<div class="imagem-reflexo"><img src="Assets/imagens/tela de espera.png"></div>  
 <h3>🎮 Among Us</h3>  
 <p>Uma partida inesquecível.</p>  
 </div>  
