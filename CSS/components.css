@@ -129,58 +129,13 @@
     cursor:pointer;
 }
 
-```css id="q4lq0r"
-@media screen and (min-width: 701px) {
-
-    /* MODS + GALERIA */
-    .imagem-reflexo {
-        max-width: 650px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .imagem-reflexo img {
-        max-height: 220px !important;
-        width: auto !important;
-        max-width: 100% !important;
-        object-fit: contain !important;
-    }
-
-    /* HALL DA FAMA */
-    .hall-img {
-        max-width: 650px;
-        max-height: 400px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-    }
-
-    /* TUTORIAL */
-    .hacker-img {
-        max-width: 650px;
-        max-height: 400px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-    }
-
-    /* DISCORD */
-    .discord-banner {
-        max-width: 650px;
-        max-height: 300px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-    }
-
-}
 
 /* ========================================
    TAMANHO DAS IMAGENS — PC
    CELULAR NÃO ALTERA
 ======================================== */
 
-@media screen and (min-width: 701px){
+@media screen and (min-width:701px){
 
     /* Banner do início */
     .portal-banner{
@@ -221,5 +176,6 @@
         height:auto !important;
         max-height:220px !important;
         margin:0 auto !important;
+        object-fit:contain !important;
     }
 }
