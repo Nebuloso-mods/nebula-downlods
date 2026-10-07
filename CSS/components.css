@@ -128,3 +128,22 @@
 
     cursor:pointer;
 }
+
+```css
+/* ========================================
+   AJUSTE DAS IMAGENS — DESKTOP
+   Não altera o tamanho no celular
+======================================== */
+
+@media (min-width: 769px){
+
+    .imagem-reflexo img{
+        width: auto;
+        max-width: 100%;
+        max-height: 220px;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+}
+```
