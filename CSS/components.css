@@ -179,3 +179,35 @@
         object-fit:contain !important;
     }
 }
+
+/* ========================================
+   TÍTULOS DAS PÁGINAS — NEON
+======================================== */
+
+.pagina .hero h1{
+    color:#00ffff;
+    text-shadow:
+        0 0 5px rgba(0,255,255,.7),
+        0 0 12px rgba(0,255,255,.5),
+        0 0 24px rgba(0,255,255,.3);
+
+    transition:
+        text-shadow .3s ease,
+        transform .3s ease;
+}
+
+
+/* Brilho ao passar o mouse no título */
+
+@media (hover:hover) and (pointer:fine){
+
+    .pagina .hero h1:hover{
+        text-shadow:
+            0 0 6px rgba(0,255,255,.9),
+            0 0 15px rgba(0,255,255,.75),
+            0 0 30px rgba(0,255,255,.5);
+
+        transform:scale(1.02);
+    }
+
+}
