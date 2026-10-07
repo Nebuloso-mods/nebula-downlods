@@ -1,17 +1,55 @@
+/* ========================================
+   BOTÃO DE INSTALAÇÃO PWA
+======================================== */
+
 #installBtn{
     display:none;
+
     width:100%;
-    padding:8px;
-    border:none;
+
+    padding:9px 12px;
+
+    border:1px solid rgba(0,255,255,.35);
+
     border-radius:8px;
+
     background:#00ffff;
-    color:black;
+
+    color:#000;
+
     cursor:pointer;
+
     font-weight:bold;
-    transition:.3s;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
+
+
+/* ========================================
+   HOVER
+======================================== */
 
 #installBtn:hover{
     transform:scale(1.03);
-    box-shadow:0 0 10px #00ffff;
+
+    background:#00ffff;
+
+    box-shadow:
+        0 0 8px rgba(0,255,255,.65),
+        0 0 18px rgba(0,255,255,.3);
+}
+
+
+/* ========================================
+   CLIQUE
+======================================== */
+
+#installBtn:active{
+    transform:scale(.98);
+
+    box-shadow:
+        0 0 5px rgba(0,255,255,.5);
 }
