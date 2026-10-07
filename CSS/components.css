@@ -128,19 +128,3 @@
 
     cursor:pointer;
 }
-
-@media (min-width: 701px) {
-
-    .imagem-reflexo {
-        width: 70% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    .imagem-reflexo img {
-        width: 100% !important;
-        max-height: 220px !important;
-        object-fit: contain !important;
-    }
-
-}
