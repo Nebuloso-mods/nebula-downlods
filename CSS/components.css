@@ -2,37 +2,35 @@
     position:relative;
     z-index:1;
 
-    background:rgba(21,28,43,0.90);
+    background:rgba(21,28,43,0.9);
+    border:1px solid rgba(0,255,255,0.2);
 
-    border:1px solid rgba(0,255,255,0.20);
     padding:15px;
     border-radius:15px;
 
     text-align:center;
     overflow:hidden;
-
-    transition:
-        border-color .3s ease,
-        box-shadow .3s ease,
-        transform .3s ease;
-}
-
-.card:hover{
-    z-index:10;
-
-    border-color:rgba(0,255,255,.65);
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 0 8px rgba(0,255,255,.25),
-        0 0 18px rgba(0,255,255,.12);
 }
 
 
-/* IMAGEM / ÍCONE */
+/* ========================================
+   ÁREA DA IMAGEM
+======================================== */
 
-.card img{
+.imagem-reflexo{
+    position:relative;
+
+    width:100%;
+
+    overflow:hidden;
+
+    border-radius:10px;
+}
+
+
+/* IMAGEM */
+
+.imagem-reflexo img{
     width:100%;
     height:auto;
     max-height:300px;
@@ -48,11 +46,57 @@
         filter .3s ease;
 }
 
-.card:hover img{
+
+/* ========================================
+   REFLEXO
+======================================== */
+
+.imagem-reflexo::after{
+    content:"";
+
+    position:absolute;
+
+    top:-20%;
+    left:-80%;
+
+    width:35%;
+    height:140%;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.45),
+        transparent
+    );
+
+    transform:skewX(-20deg);
+
+    pointer-events:none;
+
+    opacity:0;
+}
+
+
+/* Reflexo somente dentro da imagem */
+
+.imagem-reflexo:hover::after{
+    left:140%;
+    opacity:1;
+
+    transition:
+        left .65s ease,
+        opacity .1s ease;
+}
+
+
+/* Zoom e brilho somente na imagem */
+
+.imagem-reflexo:hover img{
     transform:scale(1.025);
 
-    filter:
-        drop-shadow(0 0 5px rgba(0,255,255,.35));
+    filter:drop-shadow(
+        0 0 6px rgba(0,255,255,.45)
+    );
 }
 
 
@@ -60,14 +104,6 @@
 
 .card h3{
     color:#00ffff;
-
-    transition:
-        text-shadow .3s ease;
-}
-
-.card:hover h3{
-    text-shadow:
-        0 0 6px rgba(0,255,255,.5);
 }
 
 
@@ -91,16 +127,4 @@
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-}
-
-.card a:hover{
-    transform:translateY(-1px);
-
-    box-shadow:
-        0 0 8px rgba(0,255,255,.45),
-        0 0 16px rgba(0,255,255,.18);
 }
