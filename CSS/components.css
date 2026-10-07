@@ -175,8 +175,51 @@
 
 }
 
-@media screen and (min-width: 701px) {
-    .card {
-        background: red !important;
+/* ========================================
+   TAMANHO DAS IMAGENS — PC
+   CELULAR NÃO ALTERA
+======================================== */
+
+@media screen and (min-width: 701px){
+
+    /* Banner do início */
+    .portal-banner{
+        width:70% !important;
+        max-width:650px !important;
+        height:auto !important;
+        margin:0 auto !important;
+    }
+
+    /* Hall da Fama */
+    .hall-img{
+        width:70% !important;
+        max-width:550px !important;
+        height:auto !important;
+        margin:0 auto !important;
+    }
+
+    /* Tutorial */
+    .hacker-img{
+        width:70% !important;
+        max-width:550px !important;
+        height:auto !important;
+        margin:0 auto !important;
+    }
+
+    /* Discord */
+    .discord-banner{
+        width:70% !important;
+        max-width:600px !important;
+        height:auto !important;
+        margin:0 auto !important;
+    }
+
+    /* Mods + Galeria */
+    .imagem-reflexo img{
+        width:70% !important;
+        max-width:400px !important;
+        height:auto !important;
+        max-height:220px !important;
+        margin:0 auto !important;
     }
 }
