@@ -129,25 +129,54 @@
     cursor:pointer;
 }
 
-```css
-/* ========================================
-   AJUSTE DAS IMAGENS NO PC
-======================================== */
-
+```css id="q4lq0r"
 @media screen and (min-width: 701px) {
 
+    /* MODS + GALERIA */
     .imagem-reflexo {
-        width: 70%;
-        max-width: 500px;
-        margin: 0 auto;
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .imagem-reflexo img {
-        width: 100%;
-        height: 180px;
-        max-height: 180px;
+        max-height: 220px !important;
+        width: auto !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
+    }
+
+    /* HALL DA FAMA */
+    .hall-img {
+        max-width: 650px;
+        max-height: 400px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* TUTORIAL */
+    .hacker-img {
+        max-width: 650px;
+        max-height: 400px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* DISCORD */
+    .discord-banner {
+        max-width: 650px;
+        max-height: 300px;
+        width: auto;
+        height: auto;
         object-fit: contain;
     }
 
 }
-```
+
+@media screen and (min-width: 701px) {
+    .card {
+        background: red !important;
+    }
+}
