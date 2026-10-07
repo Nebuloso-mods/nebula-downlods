@@ -211,3 +211,82 @@
     }
 
 }
+
+/* ========================================
+   TÍTULOS ESPECIAIS — PORTAL NEBULOSO
+======================================== */
+
+.pagina .hero h1{
+    color:#00ffff;
+
+    text-shadow:
+        0 0 5px rgba(0,255,255,.8),
+        0 0 12px rgba(0,255,255,.6),
+        0 0 25px rgba(0,255,255,.4),
+        0 0 45px rgba(0,255,255,.2);
+
+    animation: tituloNebuloso 3s ease-in-out infinite;
+}
+
+/* Efeito de pulsação */
+@keyframes tituloNebuloso{
+
+    0%,100%{
+        text-shadow:
+            0 0 5px rgba(0,255,255,.7),
+            0 0 12px rgba(0,255,255,.5),
+            0 0 25px rgba(0,255,255,.3);
+    }
+
+    50%{
+        text-shadow:
+            0 0 7px rgba(0,255,255,1),
+            0 0 16px rgba(0,255,255,.8),
+            0 0 30px rgba(0,255,255,.6),
+            0 0 50px rgba(0,255,255,.3);
+    }
+}
+
+/* Títulos principais ainda mais destacados */
+.hero h1{
+    position:relative;
+}
+
+/* Brilho passando pelo título */
+.hero h1::after{
+    content:"";
+    position:absolute;
+    left:-10%;
+    top:0;
+    width:20%;
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.7),
+        transparent
+    );
+
+    transform:skewX(-20deg);
+    opacity:0;
+
+    pointer-events:none;
+}
+
+@media (hover:hover) and (pointer:fine){
+
+    .hero h1:hover{
+        transform:scale(1.025);
+        transition:transform .25s ease;
+    }
+
+    .hero h1:hover::after{
+        left:110%;
+        opacity:1;
+        transition:
+            left .7s ease,
+            opacity .1s ease;
+    }
+
+}
