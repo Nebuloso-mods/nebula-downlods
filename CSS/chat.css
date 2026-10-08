@@ -205,4 +205,55 @@
         height:44px;
     }
 }
-```
+
+/* ========================================
+   CORREÇÃO — MENSAGENS NÃO PASSAM DA CAIXA
+======================================== */
+
+.hall-card{
+    overflow:hidden;
+    box-sizing:border-box;
+}
+
+.chat-box{
+    box-sizing:border-box;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+
+    height:400px;
+    max-height:400px;
+
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+
+    position:relative;
+}
+
+/* Cada mensagem fica limitada à área do chat */
+.chat-box > div{
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+}
+
+/* Conteúdo interno das mensagens */
+.chat-box img{
+    flex-shrink:0;
+}
+
+.chat-box > div > div{
+    min-width:0;
+    max-width:75%;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+/* Barra de digitação fica separada */
+.chat-input{
+    position:relative;
+    z-index:20;
+    box-sizing:border-box;
+    width:100%;
+    max-width:100%;
+}
