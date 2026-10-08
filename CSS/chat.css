@@ -332,3 +332,20 @@
             0 0 20px rgba(0,255,255,.15);
     }
 }
+
+/* ========================================
+   NOME DO DONO — CHAT
+======================================== */
+
+.nome-dono{
+    color:#FFD700 !important;
+
+    font-weight:700 !important;
+    letter-spacing:.3px;
+
+    text-shadow:
+        0 0 4px rgba(255,215,0,.45),
+        0 0 8px rgba(255,215,0,.2);
+
+    position:relative;
+}
