@@ -127,23 +127,25 @@ font-weight:bold;
   
 <img src="Assets/imagens/Banner.png" class="login-banner">  
   
-<h1>PORTAL NEBULOSO</h1>  
+<h1 class="login-title">PORTAL NEBULOSO</h1> 
   
-<p class="login-desc">  
-Entre no universo Nebuloso e faça parte da comunidade.  
-</p>  
+<p class="login-desc texto-neon">
+    Entre no universo Nebuloso e faça parte da comunidade.
+</p> 
   
 <div class="status-online">  
 <span class="dot"></span>  
 Servidor Online  
 </div>  
   
-<button id="loginGoogle" onclick="window.loginGoogle()">  
-🔵 Entrar com Google  
-</button>  
-  
-<button class="visitante" onclick="window.loginAnonimo()">  
-👤 Entrar como Visitante  
+<button id="loginGoogle" class="login-btn login-google" onclick="window.loginGoogle()">
+    <span>🔵</span>
+    <span>Entrar com Google</span>
+</button>
+
+<button class="login-btn visitante" onclick="window.loginAnonimo()">
+    <span>👤</span>
+    <span>Entrar como Visitante</span>
 </button>  
   
 </div>  
@@ -839,13 +841,13 @@ onSnapshot(q, (snapshot) => {
   
           ${donoTag}  
   
-          <span style="  
-            font-size:11px;  
-            color:${isDono ? "#FFD700" : "#00ffff"};  
-            font-weight:${isDono ? "bold" : "normal"};  
-          ">  
-            ${msg.nome}  
-          </span>  
+          <span class="${isDono ? "nome-dono" : ""}" style="
+  font-size:11px;
+  color:${isDono ? "#FFD700" : "#00ffff"};
+  font-weight:${isDono ? "bold" : "normal"};
+">
+  ${msg.nome}
+</span>  
   
         </b>  
   
