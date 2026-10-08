@@ -177,9 +177,9 @@ alt="Banner Portal Nebuloso">
       
 <h1>🌌 Portal Nebuloso</h1>  
   
-<p style="font-size:18px;">  
-Bem-vindo ao universo dos mods, eventos e da comunidade Nebulosa.  
-</p>  
+<p class="texto-neon">
+    🌌 Bem-vindo ao universo dos mods, eventos e da comunidade Nebulosa.
+</p>
   
 </div>  
   
@@ -191,11 +191,10 @@ Bem-vindo ao universo dos mods, eventos e da comunidade Nebulosa.
 Bem-vindo ao Portal Nebuloso
 </h2> 
   
-<p>  
-Explore o universo Nebuloso, descubra novos mods,  
-acompanhe os destaques da comunidade e participe  
-dos nossos eventos exclusivos.  
-</p>  
+<p class="texto-neon">
+    🚀 Explore o universo Nebuloso, descubra novos mods, acompanhe os destaques
+    da comunidade e participe dos nossos eventos exclusivos.
+</p> 
   
 </div>  
   
@@ -221,7 +220,7 @@ dos nossos eventos exclusivos.
   
 <div class="hero">  
 <h1>💬 Chat Nebuloso</h1>  
-<p>Converse com a comunidade</p>  
+<p class="texto-neon">Converse com a comunidade</p>  
 </div>  
   
 <div class="hall-card">  
@@ -296,8 +295,8 @@ onkeyup="pesquisarMods()">
      alt="Tutorial Among Us Starlight">  
 </a>  
   
-<p class="hacker-text">  
-acesse a pagina🔥  
+<p class="hacker-text">
+Acesse a página 🔥
 </p>  
   
 </div>  
@@ -308,7 +307,7 @@ acesse a pagina🔥
   
 <div class="hero">  
 <h1>🏆 Hall da Fama</h1>  
-<p>A melhor dupla do dia</p>  
+<p class="texto-neon">A melhor dupla do dia</p>  
 </div>  
   
 <div class="hall-card">  
@@ -334,7 +333,7 @@ Foram os destaques do dia com jogadas incríveis.
   
 <div class="hero">  
 <h1>📸 Galeria 彡ΔŁĆΔŦ€ƗΔ ΔΜØŇǤッ</h1>  
-<p>Os melhores momentos da comunidade</p>  
+<p class="texto-neon">Os melhores momentos da comunidade</p>  
 </div>  
   
 <div class="grid">  
@@ -372,7 +371,7 @@ Foram os destaques do dia com jogadas incríveis.
   
 <div class="hero">  
 <h1>🎮 Discord Oficial</h1>  
-<p>Entre na comunidade do Portal Nebuloso</p>  
+<p class="texto-neon">Entre na comunidade do Portal Nebuloso</p>  
 </div>  
   
 <div class="hall-card">  
@@ -381,14 +380,14 @@ Foram os destaques do dia com jogadas incríveis.
 class="discord-banner"
 alt="Banner Discord Portal Nebuloso">  
   
-<h2>🚀 Comunidade Nebuloso</h2>  
+<h2 class="titulo-neon">🚀 Comunidade Nebuloso</h2>
   
-<p>  
-💬 Converse com outros jogadores<br>  
-🎮 Participe de partidas privadas<br>  
-🏆 Dispute eventos exclusivos<br>  
-📢 Receba novidades em primeira mão  
-</p>  
+<p class="lista-neon">
+💬 Converse com outros jogadores<br>
+🎮 Participe de partidas privadas<br>
+🏆 Dispute eventos exclusivos<br>
+📢 Receba novidades em primeira mão
+</p>
   
 <a href="https://discord.gg/S9ggHtngD6"  
 target="_blank"  
@@ -414,22 +413,22 @@ margin-top:10px;
   
 <div class="hero">  
 <h1>💬 Feedback</h1>  
-<p>Ajude a melhorar o Portal Nebuloso</p>  
+<p class="texto-neon">Ajude a melhorar o Portal Nebuloso</p>  
 </div>  
   
 <div class="hall-card">  
   
 <div style="font-size:60px;">💬</div>  
   
-<h2>⭐ Sua Opinião Importa</h2>  
+<h2 class="titulo-neon">⭐ Sua Opinião Importa</h2>
   
-<p>  
-💡 Sugira novas funcionalidades<br>  
-🐛 Reporte bugs encontrados<br>  
-🎮 Recomende novos mods<br>  
-⭐ Avalie sua experiência no site<br>  
-🚀 Ajude o Portal Nebuloso a evoluir  
-</p>  
+<p class="lista-neon">
+💡 Sugira novas funcionalidades<br>
+🐛 Reporte bugs encontrados<br>
+🎮 Recomende novos mods<br>
+⭐ Avalie sua experiência no site<br>
+🚀 Ajude o Portal Nebuloso a evoluir
+</p>
   
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWSvXoNvq54T-FRJXKh6CPW0cGh6_uOvE6PTpZ2XXiEthSBw/viewform"  
 target="_blank"  
@@ -863,15 +862,20 @@ onSnapshot(q, (snapshot) => {
 });  
 </script>  
   
-<script>  
-document.addEventListener("DOMContentLoaded", () => {  
-  const total = 2;  
-  
-  document.getElementById("contadorMods").textContent =  
-    `🚀 ${total} mods disponíveis para download`;  
-});  
-      
-</script>  
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const total = 2;
+
+    const contador = document.getElementById("contadorMods");
+
+    contador.textContent =
+        `🚀 ${total} mods disponíveis para download`;
+
+    contador.classList.add("texto-neon");
+
+});
+</script>
 <script>  
 let deferredPrompt;  
   
