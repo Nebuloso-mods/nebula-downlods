@@ -210,11 +210,6 @@
    CORREÇÃO — MENSAGENS NÃO PASSAM DA CAIXA
 ======================================== */
 
-.hall-card{
-    overflow:hidden;
-    box-sizing:border-box;
-}
-
 .chat-box{
     box-sizing:border-box;
     width:100%;
@@ -256,4 +251,55 @@
     box-sizing:border-box;
     width:100%;
     max-width:100%;
+}
+
+/* ========================================
+   CORREÇÃO DEFINITIVA DO CHAT
+======================================== */
+
+.chat-box{
+    width:100%;
+    height:400px;
+    max-height:400px;
+    min-height:0;
+
+    box-sizing:border-box;
+
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+
+    padding:15px;
+
+    position:relative;
+}
+
+.chat-box > div{
+    box-sizing:border-box;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+
+    position:relative;
+
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+.chat-box > div > div{
+    box-sizing:border-box;
+    max-width:75%;
+    min-width:0;
+
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+.chat-input{
+    width:100%;
+    box-sizing:border-box;
+
+    position:relative;
+    z-index:100;
+
+    margin-top:12px;
 }
