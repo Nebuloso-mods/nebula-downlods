@@ -376,3 +376,59 @@
             0 0 50px rgba(255,170,0,.4);
     }
 }
+
+/* ========================================
+   TÍTULO NEON — FEEDBACK
+======================================== */
+
+.titulo-neon{
+    color:#00ffff !important;
+
+    text-shadow:
+        0 0 5px rgba(0,255,255,.7),
+        0 0 12px rgba(0,255,255,.5),
+        0 0 24px rgba(0,255,255,.3);
+
+    animation: brilhoTituloNeon 2.5s ease-in-out infinite;
+}
+
+@keyframes brilhoTituloNeon{
+
+    0%,100%{
+        text-shadow:
+            0 0 5px rgba(0,255,255,.6),
+            0 0 12px rgba(0,255,255,.4),
+            0 0 20px rgba(0,255,255,.2);
+    }
+
+    50%{
+        text-shadow:
+            0 0 7px rgba(0,255,255,1),
+            0 0 16px rgba(0,255,255,.8),
+            0 0 30px rgba(0,255,255,.5);
+    }
+}
+
+.lista-neon{
+    color:#dffcff;
+    line-height:1.9;
+    text-shadow:
+        0 0 4px rgba(0,255,255,.35),
+        0 0 10px rgba(0,255,255,.18);
+
+    animation: brilhoLista 3s ease-in-out infinite;
+}
+
+@keyframes brilhoLista{
+    0%,100%{
+        text-shadow:
+            0 0 4px rgba(0,255,255,.3),
+            0 0 10px rgba(0,255,255,.15);
+    }
+
+    50%{
+        text-shadow:
+            0 0 5px rgba(0,255,255,.6),
+            0 0 13px rgba(0,255,255,.3);
+    }
+}
