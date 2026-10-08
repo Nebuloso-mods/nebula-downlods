@@ -303,3 +303,32 @@
 
     margin-top:12px;
 }
+
+/* ========================================
+   TEXTOS DE DESTAQUE — NEON
+======================================== */
+
+.texto-neon{
+    color:#dffcff;
+    text-shadow:
+        0 0 4px rgba(0,255,255,.35),
+        0 0 10px rgba(0,255,255,.2);
+
+    animation:brilhoTexto 3s ease-in-out infinite;
+}
+
+@keyframes brilhoTexto{
+
+    0%,100%{
+        text-shadow:
+            0 0 4px rgba(0,255,255,.3),
+            0 0 10px rgba(0,255,255,.15);
+    }
+
+    50%{
+        text-shadow:
+            0 0 5px rgba(0,255,255,.6),
+            0 0 12px rgba(0,255,255,.35),
+            0 0 20px rgba(0,255,255,.15);
+    }
+}
