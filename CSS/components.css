@@ -432,3 +432,62 @@
             0 0 13px rgba(0,255,255,.3);
     }
 }
+
+/* ========================================
+   BARRA DE PESQUISA — PORTAL NEBULOSO
+======================================== */
+
+#pesquisa{
+    display:block;
+
+    width:90%;
+    max-width:650px;
+
+    margin:20px auto;
+
+    padding:13px 18px;
+
+    box-sizing:border-box;
+
+    background:rgba(10,20,30,.75);
+
+    border:1px solid rgba(0,255,255,.35);
+    border-radius:14px;
+
+    color:#dffcff;
+
+    font-size:15px;
+    font-weight:500;
+
+    outline:none;
+
+    backdrop-filter:blur(6px);
+
+    box-shadow:
+        0 0 8px rgba(0,255,255,.08),
+        inset 0 0 10px rgba(0,255,255,.03);
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        transform .2s ease;
+}
+
+#pesquisa::placeholder{
+    color:rgba(210,250,255,.55);
+}
+
+#pesquisa:focus{
+    border-color:#00ffff;
+
+    box-shadow:
+        0 0 8px rgba(0,255,255,.35),
+        0 0 18px rgba(0,255,255,.15),
+        inset 0 0 8px rgba(0,255,255,.05);
+
+    transform:scale(1.01);
+}
+
+#pesquisa:hover{
+    border-color:rgba(0,255,255,.65);
+}
