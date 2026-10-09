@@ -1,5 +1,5 @@
 import { auth, db } from "./firebase-config.js";
-import { DONOS } from "./admin.js";
+import { DONOS } from "../admin.js";
 
 import {
   collection,
@@ -23,12 +23,12 @@ window.enviarMensagem = async function () {
   const user = auth.currentUser;
 
   if (!user) {
-    alert("Faça login primeiro.");
+    alert("Faï¿½a login primeiro.");
     return;
   }
 
   if (user.isAnonymous) {
-    alert("Visitantes não podem enviar mensagens.");
+    alert("Visitantes nï¿½o podem enviar mensagens.");
     return;
   }
 
