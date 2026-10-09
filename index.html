@@ -11,6 +11,7 @@
   <title>⚡ Portal Nebuloso ⚡</title>
 
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="./Assets/icons/icon-192.png">
 
   <meta name="theme-color" content="#00ffff">
 
@@ -469,512 +470,441 @@ Desenvolvido por 彡れモ乃Uㄥ口ち〄ッ
   
 </div>  
   
-<script>  
-function mostrar(event,id){  
-  
-const paginas =  
-document.querySelectorAll('.pagina');  
-  
-paginas.forEach(p=>{  
-  
-if(p.classList.contains('ativa')){  
-p.style.opacity="0";  
-p.style.transform="translateY(15px)";  
-  
-setTimeout(()=>{  
-p.classList.remove('ativa');  
-},200);  
-  
-}else{  
-p.classList.remove('ativa');  
-}  
-  
-});  
-  
-setTimeout(()=>{  
-  
-const pagina = document.getElementById(id);  
-  
-pagina.classList.add('ativa');  
-pagina.style.opacity="1";  
-pagina.style.transform="translateY(0)";  
-  
-if(id === "chat"){  
-  setTimeout(()=>{  
-    const chat = document.getElementById("mensagens");  
-    if(chat){  
-      chat.scrollTop = chat.scrollHeight;  
-    }  
-  },300);  
-}  
-  
-},200);  
-  
-document  
-.querySelectorAll('.tabs button')  
-.forEach(b=>b.classList.remove('ativo'));  
-  
-event.currentTarget.classList.add('ativo');  
-}  
-  
-function pesquisarMods() {  
-  const texto = document.getElementById("pesquisa").value.toLowerCase();  
-  const cards = document.querySelectorAll(".card");  
-  
-  cards.forEach(card => {  
-    const nome = card.querySelector("h3").innerText.toLowerCase();  
-  
-    card.style.display =  
-      texto === "" || nome.includes(texto) ? "block" : "none";  
-  });  
-}  
-</script>  
-  
-<script type="module">  
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";  
-import {  
-  getAuth,  
-  GoogleAuthProvider,  
-  signInWithPopup,  
-  signInAnonymously,  
-  onAuthStateChanged,  
-  signOut  
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";  
-  
-import {  
-  getFirestore,  
-  collection,  
-  addDoc,  
-  query,  
-  orderBy,  
-  onSnapshot,  
-  deleteDoc,  
-  doc,  
-  getDocs  
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";  
-  
-const firebaseConfig = {  
-  apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",  
-  authDomain: "portal-nebuloso.firebaseapp.com",  
-  projectId: "portal-nebuloso",  
-  storageBucket: "portal-nebuloso.firebasestorage.app",  
-  messagingSenderId: "755593713969",  
-  appId: "1:755593713969:web:0c3a45cb65061d1457f810",  
-};  
-  
-const app = initializeApp(firebaseConfig);  
-const auth = getAuth(app);  
-function mostrarSite() {  
-  
-  const login = document.getElementById("loginScreen");  
-  const site = document.getElementById("site");  
-  
-  // mostra o site atrás  
-  site.style.display = "block";  
-  
-  // pequena espera para iniciar animação  
-  setTimeout(() => {  
-    site.classList.remove("hidden");  
-    site.classList.add("visible");  
-  
-    login.style.opacity = "0";  
-    login.style.transform = "scale(1.08)";  
-    login.style.pointerEvents = "none";  
-  }, 80);  
-  
-  // remove o login após a animação  
-  setTimeout(() => {  
-    login.style.display = "none";  
-  }, 500);  
-  
-}  
-  
-function mostrarLogin() {  
-  
-  const login = document.getElementById("loginScreen");  
-  const site = document.getElementById("site");  
-  
-  if (site) {  
-    site.classList.remove("visible");  
-    site.classList.add("hidden");  
-    site.style.display = "none";  
-  }  
-  
-  if (login) {  
-    login.style.display = "flex";  
-    login.style.opacity = "1";  
-    login.style.transform = "scale(1)";  
-    login.style.pointerEvents = "auto";  
-  }  
-  
-}  
-const db = getFirestore(app);  
-const provider = new GoogleAuthProvider();  
-  
-/* 👑 DONOS */  
-const DONOS = [  
-  "bruninhoedits0@gmail.com",  
-  "grazielesantos643@gmail.com"  
-];  
-  
-/* ================= LOGIN ================= */  
-  
-window.loginGoogle = async function () {  
-  try {  
-    await signInWithPopup(auth, provider);  
-  } catch (e) {  
-    console.log("Erro login:", e);  
-  }  
-};  
-  
-window.loginAnonimo = async function () {  
-  try {  
-    await signInAnonymously(auth);  
-  } catch (e) {  
-    console.log("Erro:", e);  
-  }  
-};  
-  
-window.logout = async function () {  
-  try {  
-    await signOut(auth);  
-  } catch (e) {  
-    console.log("Erro logout:", e);  
-  }  
-};  
-  
-/* ================= APAGAR MENSAGENS ================= */  
-  
-window.apagarTodasMsg = async function () {  
-  const user = auth.currentUser;  
-  
-  if (!user || !DONOS.includes(user.email)) {  
-    alert("Apenas donos podem apagar mensagens 👑");  
-    return;  
-  }  
-  
-  if (!confirm("Apagar todas as mensagens?")) return;  
-  
-  const snapshot = await getDocs(collection(db, "mensagens"));  
-  
-  for (const docSnap of snapshot.docs) {  
-    await deleteDoc(doc(db, "mensagens", docSnap.id));  
-  }  
-  
-  alert("Mensagens apagadas!");  
-};  
-  
-/* ================= LOGIN STATE ================= */  
-  
-onAuthStateChanged(auth, (user) => {  
-  
-  const loader = document.getElementById("loader");  
-  const loading = document.getElementById("loading");  
-  const userInfo = document.getElementById("userInfo");  
-  const userName = document.getElementById("userName");  
-  const userPhoto = document.getElementById("userPhoto");  
-  
-  /* Esconde o loader somente após o Firebase terminar a verificação */  
-  if (loader) {  
-    loader.style.opacity = "0";  
-  
-    setTimeout(() => {  
-      loader.remove();  
-    }, 600);  
-  }  
-  
-  /* Caso ainda exista a tela "Verificando login..." */  
-  if (loading) {  
-    loading.style.opacity = "0";  
-  
-    setTimeout(() => {  
-      loading.style.display = "none";  
-    }, 300);  
-  }  
-  
-  if (user) {  
-  
-    mostrarSite();  
-  
-    if (userName) {  
-      userName.textContent = user.displayName || "Visitante";  
-    }  
-  
-    if (userInfo) {  
-      userInfo.style.display = "flex";  
-    }  
-  
-    const saudacao = document.getElementById("saudacao");  
-  
-    if (saudacao) {  
-      saudacao.textContent =  
-        `✨ Bem-vindo, ${user.displayName || "Usuário"}`;  
-    }  
-  
-    if (userPhoto) {  
-      userPhoto.src =  
-        user.photoURL ||  
-        "https://ui-avatars.com/api/?name=User";  
-    }  
-  
-  } else {  
-  
-    mostrarLogin();  
-  
-    if (userInfo) {  
-      userInfo.style.display = "none";  
-    }  
-  
-  }  
-  
-});  
-/* ================= CHAT ================= */  
-  
-window.enviarMensagem = async function () {  
-  
-  const input = document.getElementById("mensagemInput");  
-  if (!input) return;  
-  
-  const texto = input.value;  
-  if (!texto.trim()) return;  
-  
-  const user = auth.currentUser;  
-  
-  if (!user) {  
-    alert("Faça login primeiro.");  
-    return;  
-  }  
-  
-  if (user.isAnonymous) {  
-    alert("Visitantes não podem enviar mensagens.");  
-    return;  
-  }  
-  
-  await addDoc(collection(db, "mensagens"), {  
-    nome: user.displayName,  
-    email: user.email,  
-    foto: user.photoURL || "https://ui-avatars.com/api/?name=User",  
-    texto: texto,  
-    data: Date.now()  
-  });  
-  
-  input.value = "";  
-};  
-  
-/* ================= ONSNAPSHOT CHAT ================= */  
-  
-const q = query(  
-  collection(db, "mensagens"),  
-  orderBy("data", "asc")  
-);  
-  
-onSnapshot(q, (snapshot) => {  
-  
-  const chat = document.getElementById("mensagens");  
-  if (!chat) return;  
-  
-  chat.innerHTML = "";  
-  
-  const fragment = document.createDocumentFragment();  
-  
-  snapshot.forEach((docSnap) => {  
-  
-    const msg = docSnap.data();  
-    const minhaMsg = auth.currentUser?.email === msg.email;  
-  
-    const isDono = DONOS.includes(msg.email);  
-  
-    const div = document.createElement("div");  
-  
-    div.style.cssText = `  
-      display:flex;  
-      gap:10px;  
-      margin-bottom:12px;  
-      justify-content:${minhaMsg ? "flex-end" : "flex-start"};  
-      align-items:flex-start;  
-    `;  
-  
-    const donoTag = isDono  
-  ? `  
-    <span style="  
-      display:inline-block;  
-      align-self:flex-start;  
-      padding:1px 5px;  
-      border-radius:999px;  
-      background:rgba(255,215,0,.12);  
-      border:1px solid #FFD700;  
-      color:#FFD700;  
-      font-size:8px;  
-      font-weight:bold;  
-      line-height:1.1;  
-      white-space:nowrap;  
-      width:auto;  
-      animation:pulseDono 1.5s ease-in-out infinite;  
-      box-shadow:0 0 8px #FFD700;  
-    ">  
-      👑 DONO  
-    </span>  
-  `  
-  : "";  
-  
-    div.innerHTML = `  
-      ${!minhaMsg ? `  
-        <img src="${msg.foto}" style="  
-          width:35px;  
-          height:35px;  
-          border-radius:50%;  
-          border:2px solid #00ffff;  
-          object-fit:cover;  
-        ">  
-      ` : ""}  
-  
-      <div style="  
-        background:${minhaMsg ? "rgba(0,255,255,.18)" : "rgba(0,255,255,.08)"};  
-        padding:6px 10px;  
-        border-radius:18px;  
-        max-width:75%;  
-        word-break:break-word;  
-        backdrop-filter:blur(4px);  
-      ">  
-  
-        <b style="display:flex;flex-direction:column;gap:2px;">  
-  
-          ${donoTag}  
-  
-          <span class="${isDono ? "nome-dono" : ""}" style="
-  font-size:11px;
-  color:${isDono ? "#FFD700" : "#00ffff"};
-  font-weight:${isDono ? "bold" : "normal"};
-">
-  ${msg.nome}
-</span>  
-  
-        </b>  
-  
-        <br>  
-  
-        ${msg.texto}  
-      </div>  
-    `;  
-  
-    fragment.appendChild(div);  
-  });  
-  
-  chat.appendChild(fragment);  
-  chat.scrollTop = chat.scrollHeight;  
-});  
-</script>  
-  
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+function mostrar(event, id) {
+  const paginas = document.querySelectorAll('.pagina');
 
-    const total = 2;
+  paginas.forEach(p => {
+    if (p.classList.contains('ativa')) {
+      p.style.opacity = "0";
+      p.style.transform = "translateY(15px)";
 
-    const contador = document.getElementById("contadorMods");
-
-    contador.textContent =
-        `🚀 ${total} mods disponíveis para download`;
-
-    contador.classList.add("texto-neon");
-
-});
-</script>
-<script>  
-let deferredPrompt;  
-  
-
-const btn = document.getElementById("installBtn");
-
-if (btn) {
-    btn.style.display = "block";
-}
-
-window.addEventListener("beforeinstallprompt", (e) => {
-
-    e.preventDefault();
-
-    deferredPrompt = e;
-
-    if (btn) {
-        btn.style.display = "block";
+      setTimeout(() => {
+        p.classList.remove('ativa');
+      }, 200);
+    } else {
+      p.classList.remove('ativa');
     }
+  });
 
-});
+  setTimeout(() => {
+    const pagina = document.getElementById(id);
 
-if (btn) {
+    if (!pagina) return;
 
-    btn.addEventListener("click", async () => {
+    pagina.classList.add('ativa');
+    pagina.style.opacity = "1";
+    pagina.style.transform = "translateY(0)";
 
-        if (!deferredPrompt) {
-            alert("A instalação do app ainda não está disponível neste navegador.");
-            return;
+    if (id === "chat") {
+      setTimeout(() => {
+        const chat = document.getElementById("mensagens");
+
+        if (chat) {
+          chat.scrollTop = chat.scrollHeight;
         }
+      }, 300);
+    }
+  }, 200);
 
-        deferredPrompt.prompt();
+  document.querySelectorAll('.tabs button').forEach(b => {
+    b.classList.remove('ativo');
+  });
 
-        await deferredPrompt.userChoice;
-
-        deferredPrompt = null;
-
-        btn.style.display = "none";
-
-    });
-
-}
-      
-</script>  
-<script>
-const photo = document.getElementById("userPhoto");
-
-if (photo) {
-  photo.onclick = function () {
-    const menu = document.getElementById("profileMenu");
-
-    menu.style.display =
-      menu.style.display === "block" ? "none" : "block";
-  };
+  if (event?.currentTarget) {
+    event.currentTarget.classList.add('ativo');
+  }
 }
 
-document.addEventListener("click", function (e) {
-  const userInfo = document.getElementById("userInfo");
-  const menu = document.getElementById("profileMenu");
+function pesquisarMods() {
+  const pesquisa = document.getElementById("pesquisa");
 
-  if (
-    menu &&
-    userInfo &&
-    !userInfo.contains(e.target) &&
-    !menu.contains(e.target)
-  ) {
-    menu.style.display = "none";
+  if (!pesquisa) return;
+
+  const texto = pesquisa.value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const titulo = card.querySelector("h3");
+
+    if (!titulo) return;
+
+    const nome = titulo.textContent.toLowerCase();
+
+    card.style.display =
+      texto === "" || nome.includes(texto) ? "block" : "none";
+  });
+}
+</script>
+  
+<script type="module">
+import { configurarAdmin, DONOS } from "./admin.js";
+import { configurarAuth } from "./auth.js";
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  deleteDoc,
+  doc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* ================= FIREBASE ================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCEa3uN9x4hUMt02DkHIsnyPSmWO9caIzE",
+  authDomain: "portal-nebuloso.firebaseapp.com",
+  projectId: "portal-nebuloso",
+  storageBucket: "portal-nebuloso.firebasestorage.app",
+  messagingSenderId: "755593713969",
+  appId: "1:755593713969:web:0c3a45cb65061d1457f810"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* ================= TELAS ================= */
+
+function mostrarSite() {
+  const login = document.getElementById("loginScreen");
+  const site = document.getElementById("site");
+
+  if (site) {
+    site.style.display = "block";
+
+    setTimeout(() => {
+      site.classList.remove("hidden");
+      site.classList.add("visible");
+    }, 80);
+  }
+
+  if (login) {
+    login.style.opacity = "0";
+    login.style.transform = "scale(1.08)";
+    login.style.pointerEvents = "none";
+
+    setTimeout(() => {
+      login.style.display = "none";
+    }, 500);
+  }
+}
+
+function mostrarLogin() {
+  const login = document.getElementById("loginScreen");
+  const site = document.getElementById("site");
+
+  if (site) {
+    site.classList.remove("visible");
+    site.classList.add("hidden");
+    site.style.display = "none";
+  }
+
+  if (login) {
+    login.style.display = "flex";
+    login.style.opacity = "1";
+    login.style.transform = "scale(1)";
+    login.style.pointerEvents = "auto";
+  }
+}
+
+/* ================= ADMIN ================= */
+
+configurarAdmin({
+  auth,
+  db,
+  firestore: {
+    collection,
+    getDocs,
+    deleteDoc,
+    doc
   }
 });
 
-/* LOADER */
+/* ================= AUTENTICAÇÃO ================= */
 
-const textos = [
-  "Conectando ao universo...",
-  "Carregando mods...",
-  "Sincronizando dados...",
-  "Preparando Portal Nebuloso...",
-  "Quase pronto..."
-];
+configurarAuth({
+  auth,
+  mostrarSite,
+  mostrarLogin
+});
 
-let i = 0;
+/* ================= CHAT ================= */
 
-setInterval(() => {
-  const t = document.getElementById("loaderStatus");
-  if (!t) return;
+window.enviarMensagem = async function () {
+  const input = document.getElementById("mensagemInput");
 
-  i = (i + 1) % textos.length;
-  t.textContent = textos[i];
-}, 450);
+  if (!input) return;
 
-/* SERVICE WORKER */
+  const texto = input.value.trim();
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
+  if (!texto) return;
+
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Faça login primeiro.");
+    return;
+  }
+
+  if (user.isAnonymous) {
+    alert("Visitantes não podem enviar mensagens.");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "mensagens"), {
+      nome: user.displayName || "Usuário",
+      email: user.email,
+      foto: user.photoURL ||
+        "https://ui-avatars.com/api/?name=User",
+      texto,
+      data: Date.now()
+    });
+
+    input.value = "";
+  } catch (erro) {
+    console.error("Erro ao enviar mensagem:", erro);
+    alert("Não foi possível enviar a mensagem.");
+  }
+};
+
+/* ================= OUVIR MENSAGENS ================= */
+
+const mensagensQuery = query(
+  collection(db, "mensagens"),
+  orderBy("data", "asc")
+);
+
+onSnapshot(mensagensQuery, (snapshot) => {
+  const chat = document.getElementById("mensagens");
+
+  if (!chat) return;
+
+  chat.innerHTML = "";
+
+  const fragment = document.createDocumentFragment();
+
+  snapshot.forEach((docSnap) => {
+    const msg = docSnap.data();
+
+    const emailAtual = auth.currentUser?.email || "";
+
+    const minhaMsg =
+      emailAtual.toLowerCase() ===
+      String(msg.email || "").toLowerCase();
+
+    const isDono = DONOS.some(
+      email =>
+        email.trim().toLowerCase() ===
+        String(msg.email || "").trim().toLowerCase()
+    );
+
+    const div = document.createElement("div");
+
+    div.style.cssText = `
+      display:flex;
+      gap:10px;
+      margin-bottom:12px;
+      justify-content:${minhaMsg ? "flex-end" : "flex-start"};
+      align-items:flex-start;
+    `;
+
+    if (!minhaMsg) {
+      const foto = document.createElement("img");
+
+      foto.src = msg.foto ||
+        "https://ui-avatars.com/api/?name=User";
+
+      foto.alt = "Foto do usuário";
+
+      foto.style.cssText = `
+        width:35px;
+        height:35px;
+        border-radius:50%;
+        border:2px solid #00ffff;
+        object-fit:cover;
+      `;
+
+      div.appendChild(foto);
+    }
+
+    const bolha = document.createElement("div");
+
+    bolha.style.cssText = `
+      background:${minhaMsg
+        ? "rgba(0,255,255,.18)"
+        : "rgba(0,255,255,.08)"};
+      padding:6px 10px;
+      border-radius:18px;
+      max-width:75%;
+      word-break:break-word;
+      backdrop-filter:blur(4px);
+    `;
+
+    if (isDono) {
+      const donoTag = document.createElement("span");
+
+      donoTag.textContent = "👑 DONO";
+
+      donoTag.style.cssText = `
+        display:table;
+        padding:1px 5px;
+        margin-bottom:3px;
+        border-radius:999px;
+        background:rgba(255,215,0,.12);
+        border:1px solid #FFD700;
+        color:#FFD700;
+        font-size:8px;
+        font-weight:bold;
+        line-height:1.4;
+        white-space:nowrap;
+        animation:pulseDono 1.5s ease-in-out infinite;
+        box-shadow:0 0 8px #FFD700;
+      `;
+
+      bolha.appendChild(donoTag);
+    }
+
+    const nome = document.createElement("span");
+
+    nome.textContent = msg.nome || "Usuário";
+
+    nome.style.cssText = `
+      display:block;
+      font-size:11px;
+      color:${isDono ? "#FFD700" : "#00ffff"};
+      font-weight:${isDono ? "bold" : "normal"};
+    `;
+
+    if (isDono) {
+      nome.classList.add("nome-dono");
+    }
+
+    const texto = document.createElement("div");
+
+    texto.textContent = msg.texto || "";
+
+    texto.style.cssText = `
+      margin-top:6px;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+    `;
+
+    bolha.appendChild(nome);
+    bolha.appendChild(texto);
+    div.appendChild(bolha);
+    fragment.appendChild(div);
+  });
+
+  chat.appendChild(fragment);
+  chat.scrollTop = chat.scrollHeight;
+}, (erro) => {
+  console.error("Erro ao carregar mensagens:", erro);
+});
+</script>
+
+<script>
+/* ===== MENU DO PERFIL ===== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const perfil = document.getElementById("userInfo");
+  const menu = document.getElementById("profileMenu");
+  const instalar = document.getElementById("installBtn");
+
+  if (perfil && menu) {
+    perfil.addEventListener("click", (event) => {
+      if (event.target.closest("#profileMenu")) return;
+
+      const aberto = menu.style.display === "block";
+      menu.style.display = aberto ? "none" : "block";
+    });
+
+    menu.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!perfil.contains(event.target)) {
+        menu.style.display = "none";
+      }
+    });
+  }
+
+ 
+/* ===== INSTALAÇÃO DO APLICATIVO ===== */
+
+let eventoInstalacao = null;
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  eventoInstalacao = event;
+
+  if (instalar) {
+    instalar.style.display = "block";
+    instalar.textContent = "⬇ Instalar App";
+    instalar.disabled = false;
+  }
+});
+
+if (instalar) {
+  instalar.addEventListener("click", async () => {
+    if (!eventoInstalacao) {
+      alert(
+        "A instalação ainda não está disponível.\n\n" +
+        "Verifique se o Portal Nebuloso atende aos requisitos de instalação " +
+        "ou use a opção de instalar do navegador."
+      );
+      return;
+    }
+
+    const evento = eventoInstalacao;
+    eventoInstalacao = null;
+
+    await evento.prompt();
+
+    const escolha = await evento.userChoice;
+
+    instalar.textContent =
+      escolha.outcome === "accepted"
+        ? "✅ Aplicativo instalado"
+        : "⬇ Instalar App";
+  });
 }
 
+window.addEventListener("appinstalled", () => {
+  eventoInstalacao = null;
+
+  if (instalar) {
+    instalar.textContent = "✅ Aplicativo instalado";
+  }
+});
+});
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    try {
+      const registro = await navigator.serviceWorker.register("./sw.js");
+      console.log("Service Worker registrado:", registro.scope);
+    } catch (erro) {
+      console.error("Falha ao registrar Service Worker:", erro);
+    }
+  });
+}
 </script>
 </body>  
 </html>
