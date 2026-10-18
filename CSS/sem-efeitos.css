@@ -1,0 +1,78 @@
+/*
+ * PORTAL NEBULOSO — TEMA SEM EFEITOS
+ * Salve em CSS/sem-efeitos.css e carregue DEPOIS dos outros arquivos CSS.
+ * Remove brilhos, pulsação, animações, sombras exageradas e efeitos de hover.
+ * Preserva cores, imagens, dimensões, bordas e funcionalidades.
+ */
+
+*,
+*::before,
+*::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+}
+
+/* Remove efeitos luminosos decorativos sem alterar o fundo espacial. */
+*,
+*::before,
+*::after {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Desliga movimentos de hover nos cards, imagens, links e botões. */
+.card:hover,
+.card:hover img,
+.imagem-reflexo:hover,
+.imagem-reflexo:hover img,
+button:hover,
+a:hover,
+.btn:hover,
+.botao:hover,
+.card a:hover,
+.card button:hover {
+    transform: none !important;
+    scale: none !important;
+}
+
+/* Mantém foco visível para navegação por teclado, sem brilho neon. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid #00cfe8;
+    outline-offset: 2px;
+    box-shadow: none !important;
+}
+
+/* Mantém o contorno dos cards, mas remove o halo luminoso. */
+.card {
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+/* Remove animações/brilhos de classes usadas nos títulos e textos do projeto. */
+.texto-neon,
+.titulo-especial,
+.titulo-dourado,
+.titulo-neon,
+.lista-neon,
+.pulso,
+.pulsar,
+.brilho,
+.neon,
+.glow {
+    animation: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+/* Não altera display, position, z-index ou pointer-events:
+   esta folha não deve criar uma camada sobre os botões. */
